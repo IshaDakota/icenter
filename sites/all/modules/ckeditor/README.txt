@@ -143,24 +143,8 @@ The plugin is enabled automatically.
 Plugins: MediaEmbed
 -------------------
 MediaEmbed is a simple plugin that can be helpful when embedding YouTube movies and similar elements.
-To enable the MediaEmbed plugin, do the following:
-
-   1. Open the /drupal/modules/ckeditor/ckeditor.config.js file.
-
-   2. Uncomment the following lines (removing the "//" characters) in ckeditor.config.js:
-      // config.extraPlugins += (config.extraPlugins ? ',mediaembed' : 'mediaembed' );
-      // CKEDITOR.plugins.addExternal('mediaembed', Drupal.settings.ckeditor.module_path + '/plugins/mediaembed/');
-
-   3. Add the 'MediaEmbed' button to the editor toolbar. 
-      For example if you have a toolbar with an array of buttons defined as follows:
-
-      ['Link','Unlink','Anchor']
-
-      simply add the 'MediaEmbed' button at the end of the array (or somewhere in the middle):
-
-      ['Link','Unlink','MediaEmbed','Anchor']
-
-      (remember about single quotes).
+To enable the MediaEmbed plugin, adjust CKEditor profiles in the "Administration panel > Configuration > Content Authoring > CKEditor" section.
+For each profile you can enable the 'MediaEmbed' plugin in the "Editor apperance > Plugins" section.
 
 Plugins: IMCE
 -------------
@@ -170,13 +154,9 @@ Instead of that you can open IMCE with a single mouse click.
 
 To enable the IMCE plugin, do the following:
 
-   1. Open the /drupal/modules/ckeditor/ckeditor.config.js file.
-
-   2. Uncomment the following lines (removing the "//" characters) in ckeditor.config.js:
-      //config.extraPlugins += (config.extraPlugins ? ',imce' : 'imce' );
-      //CKEDITOR.plugins.addExternal('imce', Drupal.settings.ckeditor.module_path + '/plugins/imce/');
-
-   3. Add the 'IMCE' button to the editor toolbar. 
+   1. To enable plugin and add 'IMCE' buttons to the toolbar, adjust CKEditor profiles in the "Administration panel > Configuration > Content Authoring > CKEditor" section.
+      For each profile you can enable the 'IMCE' plugin in the "Editor apperance > Plugins" section.
+      After this add the 'IMCE' button in the "Editor apperance > Toolbar" section.
       For example if you have a toolbar with an array of buttons defined as follows:
 
       ['Link','Image']
@@ -189,7 +169,7 @@ To enable the IMCE plugin, do the following:
 
 Uploading Images and Files
 --------------------------
-There are three ways of uploading files: by using a commercial file browser like CKFinder (http://ckfinder.com), by using modules like IMCE, or by using the core upload module.
+There are two ways of uploading files: by using a commercial file browser like CKFinder (http://ckfinder.com) or by using modules like IMCE.
 
 To select a preferred file browser, adjust
 CKEditor profiles in the "Administration panel > Configuration > Content Authoring > CKEditor" section. 
@@ -273,7 +253,7 @@ To create such an input format, you will need an HTML filter.
 The most popular module that provide a HTML filter:
 
  - HTML Purifier - the most popular and powerful, although according to some claims it might be a bit slow
-   http://drupal.org/project/htmlpurifier (no Dupal 7 support yet)
+   http://drupal.org/project/htmlpurifier (no Drupal 7 support yet)
 
 It is up to you to decide which one to use. Just make sure that you will only allow to use proper 
 inline styles, tags, and attributes.

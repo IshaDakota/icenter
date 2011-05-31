@@ -42,9 +42,13 @@ function ckeditor_admin_main() {
     //check if CKEditor plugin is installed
     if (!_ckeditor_requirements_isinstalled()) {
         drupal_set_message(t('Checking for %filename or %file.', array('%filename' => $ckconfig_file, '%file' => 'sites/all/libraries/ckeditor/ckeditor.js')));
-        drupal_set_message(t('The CKEditor component is not installed correctly. Please go to the !ckeditorlink to download the latest version. After that you must extract the files to %ckeditorpath or %librarypath and make sure that the file %ckeditorfile or %ckeditorlibrary exist. Refer to the !readme for more information.', array('!ckeditorlink' => l(t('CKEditor homepage'), 'http://ckeditor.com/download'), '!readme' => l(t('README.txt'), $base_url . '/' . drupal_get_path('module', 'ckeditor') . '/README.txt', array('absolute' => TRUE)), '%ckeditorpath' => $editor_path, '%ckeditorsubdir' => $editor_path . '/editor', '%ckeditorfile' => $editor_path . '/ckeditor.js', '%ckeditorlibrary' => 'sites/all/libraries/ckeditor/ckeditor.js', '%librarypath' => 'sites/all/libraries/ckeditor')), 'error');
+        drupal_set_message(t('The CKEditor component is not installed correctly. Please go to the !ckeditorlink to download the latest version. After that you must extract the files to %ckeditorpath or %librarypath and make sure that the file %ckeditorfile or %ckeditorlibrary exist. Refer to the !readme for more information.', array('!ckeditorlink' => l(t('CKEditor homepage'), 'http://ckeditor.com/download'), '!readme' => l(t('README.txt'), $base_url . '/' . drupal_get_path('module', 'ckeditor') . '/README.txt', array('absolute' => TRUE)), '%ckeditorpath' => 'sites/all/modules/ckeditor/ckeditor', '%ckeditorsubdir' => $editor_path . '/editor', '%ckeditorfile' => 'sites/all/modules/ckeditor/ckeditor/ckeditor.js', '%ckeditorlibrary' => 'sites/all/libraries/ckeditor/ckeditor.js', '%librarypath' => 'sites/all/libraries/ckeditor')), 'error');
         drupal_set_message(t('If you have CKEditor already installed please edit !editg and update CKEditor path.', array('!editg' => l(t('CKEditor Global Profile'), 'admin/config/content/ckeditor/editg'))), 'warning');
         return '';
+    }
+
+    if (module_exists('wysiwyg')){
+        drupal_set_message(t('WYSIWYG module was detected. Using both modules at the same time may cause problems. It is recommended to turn the WYSIWYG module off (!wysiwygdisablelink).', array('!wysiwygdisablelink' => l(t('click here to disable'), 'ckeditor/disable/wysiwyg'))), 'warning');
     }
 
     //find profile other than Global
@@ -474,6 +478,7 @@ function ckeditor_admin_profile_form($form, $form_state, $profile = NULL) {
 
     $editor_path = ckeditor_path(FALSE);
     $module_drupal_path = drupal_get_path('module', 'ckeditor');
+    drupal_add_js('window.CKEDITOR_BASEPATH = "' . base_path() . $editor_path . '/"', array('type' => 'inline', 'weight' => -100));
     drupal_add_js($editor_path . '/ckeditor.js', array('type' => 'file', 'preprocess' => FALSE));
     drupal_add_js($module_drupal_path . '/includes/ckeditor.admin.js', 'file');
 
@@ -507,6 +512,31 @@ function ckeditor_admin_profile_form($form, $form_state, $profile = NULL) {
         '#description' => t('Set the toolbar definition. The instruction is available in the <a href="http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Toolbar" target="_blank">CKEditor documentation</a>.'),
         '#wysiwyg' => FALSE,
         '#rows' => 15
+    );
+    
+    $pluginList = ckeditor_load_plugins();
+    $plugins = array();
+    if (isset($profile->settings['loadPlugins'])){
+        foreach ($pluginList AS $key => $val) {
+            $plugins[$key] = $val['desc'];
+        }
+    }
+    else {
+        $defaultPlugins = array();
+        foreach ($pluginList AS $key => $val) {
+            $plugins[$key] = $val['desc'];
+            if ($val['default'] == 't'){
+                $defaultPlugins[] = $key;
+            }
+        }
+    }
+
+    $form['appearance']['loadPlugins'] = array(
+        '#type' => 'checkboxes',
+        '#title' => t('Plugins'),
+        '#default_value' => isset($profile->settings['loadPlugins']) ? array_keys((array) $profile->settings['loadPlugins']) : $defaultPlugins,
+        '#options' => $plugins,
+        '#description' => t('Choose the plugins which u want to load into CKEditor.')
     );
 
     $form['appearance']['expand'] = array(
@@ -869,6 +899,16 @@ function ckeditor_admin_profile_form($form, $form_state, $profile = NULL) {
         ),
         '#description' => t('If enabled, HTML content will be automatically changed to plain text when pasting.'),
     );
+    $form['advanced']['html_entities'] = array(
+        '#type' => 'radios',
+        '#title' => t('HTML Entities'),
+        '#default_value' => !empty($profile->settings['html_entities']) ? $profile->settings['html_entities'] : 't',
+        '#description' => t('Convert all applicable characters to HTML entities.'),
+        '#options' => array(
+            'f' => t('No'),
+            't' => t('Yes')
+        ),
+    );
     $form['advanced']['scayt_autoStartup'] = array(
         '#type' => 'radios',
         '#title' => t('Spell checker'),
@@ -1113,7 +1153,20 @@ function ckeditor_admin_profile_delete_form_submit($form, &$form_state) {
  * contain Drupal Form API values
  */
 function ckeditor_admin_values_to_settings($values) {
-    unset($values['name'], $values['input_formats'], $values['_profile'], $values['op'], $values['submit'], $values['form_build_id'], $values['form_token'], $values['form_id']);
+    $plugins = $values['loadPlugins'];
+    unset($values['name'], $values['input_formats'], $values['_profile'], $values['op'], $values['submit'], $values['form_build_id'], $values['form_token'], $values['form_id'], $values['loadPlugins']);
+    
+    module_load_include('inc', 'ckeditor', 'includes/ckeditor.lib');
+    $pluginList = ckeditor_load_plugins();
+    $values['loadPlugins'] = array();
+    if (!empty($plugins)) {
+        foreach (array_keys($plugins) as $plugin) {
+            if ($plugins[$plugin] != '0') {
+                $values['loadPlugins'][$plugin] = $pluginList[$plugin];
+            }
+        }
+    }
+
     return serialize($values);
 }
 
@@ -1142,4 +1195,14 @@ function _ckeditor_load_methods() {
         $result['ckeditor_source.js'] = 'ckeditor_source.js (' . t('for developers only') . ')';
     }
     return $result;
+}
+
+/*
+ * Disable WYSIWYG module
+ */
+function ckeditor_disable_wysiwyg(){
+    module_disable(array('wysiwyg'));
+    drupal_set_message(t('WYSIWYG module disabled.'));
+
+    drupal_goto('admin/config/content/ckeditor');
 }
