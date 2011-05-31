@@ -1,0 +1,577 @@
+/* $Id: blocks.css,v 1.10 2011/01/14 03:12:40 jmburnz Exp $ */
+
+/**********************************************************
+ *                       Blocks
+ **********************************************************/
+/**
+ * Styles set for .block, .block-inner, block-title and 
+ * .block-content will be inherited by all blocks.
+ */
+.block {
+  clear: both;
+  margin: 0 0 1.5em;
+}
+
+.block-inner    {} /* Block inner div */
+.block-title    {
+  color: #737373;
+} /* h2 block title */
+.block .content {} /* Block content wrapper */
+
+
+/**********************************************************
+ *                  Sidebar blocks
+ **********************************************************/
+/**
+ * You can target blocks in one or more regions and 
+ * style them differently. 
+ */
+/* Low specifity selector to style blocks in both sidebars. */
+.sidebar .block {}
+.sidebar .block-title {}
+.sidebar .block-inner {}
+.sidebar .block .content {}
+
+/* Low specifity selector to style blocks in one sidebar. */
+.region-sidebar-first .block {}
+.region-sidebar-first .block-title {}
+.region-sidebar-first .block-inner {}
+.region-sidebar-first .block .content {}
+
+.region-sidebar-second .block {}
+.region-sidebar-second .block-title {}
+.region-sidebar-second .block-inner {}
+.region-sidebar-second .block .content {}
+
+/* Very high specifity selectors to style blocks in one sidebar. */
+#sidebar-first .block {}
+#sidebar-first .block-title {}
+#sidebar-first .block-inner {}
+#sidebar-first .block .content {}
+
+#sidebar-second .block {}
+#sidebar-second .block-title {}
+#sidebar-second .block-inner {}
+#sidebar-second .block .content {}
+
+/* Sidebar Navigation Block */
+
+#block-menu_block-2 {
+    position: relative; /*These 2 settings fix PIE.htc */
+    z-index: 0;  /*These 2 settings fix PIE.htc */
+    padding: 10px;
+    background: none repeat scroll 0 0 #A1A0A5;
+    -webkit-border-radius: 10px 10px 40px 10px;
+    -moz-border-radius: 10px 10px 40px 10px;
+    border-radius: 10px 10px 40px 10px;
+    behavior: url(../connections/PIE.htc);
+}
+
+#block-menu_block-2 .block-title {
+  color: #FFF;
+}
+
+#block-menu_block-2 a {
+  font-size: 1.167em;
+  color: #FFF;
+}
+
+#block-menu_block-3 a {
+  font-size: 1.167em;
+ }
+
+/* Twitter Sidebar Block */
+#block-block-7 {
+  border: solid 1px #A7A7A7;
+  padding: 5px;
+}
+
+/* Voices Recent Posts, Voices Categories & Resource Categories Sidebar Block */
+#block-views-voices-voices_recent_posts, #block-views-4b9db04c53529d601dec7480c3c94102, #block-views-archive_by_category-block, #block-block-13 {
+  border: solid 1px #A7A7A7;
+  padding: 5px 10px;
+}
+
+#block-block-13 a,
+#block-block-13 a:hover,
+#block-block-13 a:visited {
+    color: #D06F1A;
+}
+
+#block-block-13 .content ul li {
+    font-weight: 800;
+    font-size: 1.167em;
+    list-style:none;
+}
+
+/**********************************************************
+ *                  Region blocks
+ **********************************************************/
+/* Low specifity selector to style blocks in all regions. */
+.region .block {}
+.region .block-title {}
+.region .block-inner {}
+.region .block .content {}
+
+/* Low specifity selector to style blocks in one region. */
+.region-leaderboard .block {}
+.region-leaderboard .block-title {}
+.region-leaderboard .block-inner {}
+.region-leaderboardt .block .content {}
+
+.region-header .block {}
+.region-header .block-title {}
+.region-header .block-inner {}
+.region-header .block .content {}
+
+.region-help .block {}
+.region-help .block-title {}
+.region-help .block-inner {}
+.region-help .block .content {}
+
+.region-highlight .block {}
+.region-highlight .block-title {}
+.region-highlight .block-inner {}
+.region-highlight .block .content {}
+
+.region-content .block {}
+.region-content .block-title {}
+.region-content .block-inner {}
+.region-content .block .content {}
+
+.region-secondary-content .block {}
+.region-secondary-content .block-title {}
+.region-secondary-content .block-inner {}
+.region-secondary-content .block .content {}
+
+.region-tertiary-content .block {}
+.region-tertiary-content .block-title {}
+.region-tertiary-content .block-inner {}
+.region-tertiary_content .block .content {}
+
+.region-footer .block {}
+.region-footer .block-title {}
+.region-footer .block-inner {}
+.region-footer .block .content {}
+
+
+/**********************************************************
+ *                   Module blocks
+ **********************************************************/
+/**
+ * Module Block ID's 
+ * For contributed module blocks the pattern is the same,
+ * i.e. #block-[module]-[delta]
+ */
+
+#block-system-main                 {} /* The Main Content block  */
+#block-book-navigation             {} /* Book navigation block   */
+#block-node-recent                 {} /* Recent posts            */
+#block-blog-recent                 {} /* Recent Blog posts       */
+#block-comment-recent              {} /* Recent Comments block   */
+#block-forum-active                {} /* Active Forum topics     */
+#block-forum-new                   {} /* New Forum topics        */
+#block-locale-language             {} /* Language Switcher block */
+#block-node-syndicate              {} /* Syndicate block         */
+#block-poll-recent                 {} /* Most recent poll        */
+#block-profile-author-information  {} /* Author information      */
+#block-statistics-popular          {} /* Popular content         */
+#block-system-help                 {} /* Help block        */
+#block-system-management           {} /* Management block        */
+#block-system-powered-by           {} /* Powered by Drupal       */
+#block-user-login                  {} /* Login block             */
+#block-system-navigation           {} /* Navigation Menu block   */
+#block-user-new                    {} /* Who's New block         */
+#block-user-online                 {} /* Who's Online block      */
+
+/* Primary and Secondary links blocks */
+#block-menu-main-menu-links   {}
+#block-menu-secondary-links {}
+
+/* The class selector applies to all blocks of these types. */
+.block-system     {}
+.block-user       {}
+.block-node       {}
+.block-blog       {}
+.block-poll       {}
+.block-book       {}
+.block-comment    {}
+.block-locale     {}
+.block-aggregator {}
+.block-devel      {}
+
+
+/**********************************************************
+ *                 Search block form
+ **********************************************************/
+#block-search-form {
+   display:inline;
+   clear:none;
+   float:right;
+   margin: 10px 0;
+}
+
+#block-block-1 {     /* The Social Media block  */
+    clear: none;
+    float: right;
+    height: 30px;
+    margin: 10px 10px 70px;
+    width: 195px;
+}
+
+#block-search-form .block-inner {}
+#block-search-form .block .content {}
+
+#search-block-form {
+	margin:0px;
+	width:200px;
+	}
+
+/* Wrapper divs. */
+#search-block-form > div {}
+#search-block-form .container-inline {}
+
+#search-block-form .form-item-search-block-form {}
+
+#search-block-form label {}
+#search-block-form input { 
+    float: left;
+    height: 20px;
+    margin: 0 -18px;
+}
+#search-block-form .form-item {}
+#search-block-form .form-submit {
+    border: none;
+	height:30px;
+	width: 80px;
+    background: url('../images/search-icon-2.png') no-repeat top left;
+	text-indent: -9999px;
+	float:right;
+}
+
+#search-block-form .form-submit:hover {
+	background:url("../images/search-icon-2.png") no-repeat 0 -30px ;
+}
+
+
+#search-block-form #edit-search-block-form-2 {}
+
+/* Override forms.css focus style */
+#edit-search-block-form-2:hover,
+#edit-search-block-form-2:focus {}
+
+
+/**********************************************************
+ *                   Block item-list
+ **********************************************************/
+.block .item-list ul {
+  margin: 0;
+}
+.block .item-list ul li {}
+
+
+/**********************************************************
+ *                  Gpanel blocks
+ **********************************************************/
+/* Debug Gpanel blocks */
+.gpanel .block {}
+.gpanel .block-inner {}
+
+
+/**********************************************************
+ *                  Top Menu block
+ **********************************************************/
+
+#block-menu-menu-top-menu  {
+	height:10px;
+	clear:both;
+}
+
+#block-menu-menu-top-menu .content {
+	float:right;
+}
+#block-menu-menu-top-menu  li {
+	display:inline;
+	border-right:solid 1px #0F6CB6;
+	line-height: 3px;
+	padding-right: 10px;
+}
+
+#block-menu-menu-top-menu  li.last {
+	border: none;
+	padding-right: 0;
+}
+
+#block-menu-menu-top-menu  a {
+	text-decoration:none;
+	color:#0F6CB6; 
+}
+
+
+/**********************************************************
+ *                  Hear - See - Do Block
+ **********************************************************/
+#block-block-3 {
+	margin: 0;
+	line-height:0.75;
+}
+
+
+/**********************************************************
+ *                  Homepage "Buckets"
+ **********************************************************/
+
+
+/*BUCKET STYLES - MASSIVELY REDONE BY AHS - each blurb its own border color and title color which is the same color */
+/* blurb borders */
+
+#block-views-voices-voices_block_homepage, #block-block-2, #block-views-d73bd47b7544c4ea290896013501277e {
+  position:relative;
+/*BUCKET STYLES - MASSIVELY REDONE BY AHS - each blurb its own border color and title color which is the same color */
+/*   background: transparent url('../images/block-gradient.png') no-repeat center bottom; */
+  display:block;
+  vertical-align: baseline;
+  height: 325px;
+  width: 325px;
+  border:1px solid #dddddd;
+  -webkit-border-radius: 10px 10px 40px 10px;
+  -moz-border-radius: 10px 10px 40px 10px;
+  border-radius: 10px 10px 40px 10px;
+  behavior: url(../connections/PIE.htc);
+}
+
+#block-views-d73bd47b7544c4ea290896013501277e .content, 
+#block-views-voices-voices_block_homepage .content, 
+#block-block-2 .block-inner{
+  padding: 5px;
+}
+
+
+/* Fetured Voices Post Block */
+
+#block-views-voices-voices_block_homepage {
+  float:left;
+  clear:left;
+  margin: 0 3px 30px 0;
+
+ }
+ 
+#block-views-voices-voices_block_homepage .content h2 {
+  position:relative;
+  background-color: #D5D10E;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  behavior: url(../connections/PIE.htc);
+ }
+
+#block-views-voices-voices_block_homepage .views-row-first {
+}
+
+#block-views-voices-voices_block_homepage .views-field-name {
+  display:inline;
+  line-height:2.2em;  
+}
+
+#block-views-voices-voices_block_homepage .views-field-created {
+  display:inline;
+  clear:right;
+  line-height:2.4em;
+}
+
+#block-views-voices-voices_block_homepage .views-field-picture {
+  display:inline;
+  float:left;
+}
+
+#block-views-voices-voices_block_homepage .views-field-picture img {
+margin: 5px 10px 10px 0;
+}
+
+#block-views-voices-voices_block_homepage .views-field-entity-id {
+  display:inline;
+}
+
+#block-views-voices-voices_block_homepage .views-field-view-node,
+#block-views-d73bd47b7544c4ea290896013501277e .views-field-view-node {
+    position: absolute;
+    top: 285px;
+    right: 25px;
+}
+
+#block-views-voices-voices_block_homepage .views-field-entity-id .field-content {
+  display:block;
+}
+
+#block-views-voices-voices_block_homepage .views-field-entity-id .field-name-body{
+  display:inline;
+}
+
+
+
+
+/* Fetured Video Block */
+#block-block-2 {
+  float:left;
+  clear:none;
+  margin: 0 3px 30px 3px;
+ }
+
+#block-block-2 h2 {
+  position:relative;
+  background-color: #D06F1A;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  behavior: url(../connections/PIE.htc);
+}
+
+
+/* Fetured Resource Block */
+#block-views-d73bd47b7544c4ea290896013501277e {
+  float:left;
+  clear:none;
+  margin: 0 0 10px 3px;
+ }
+
+
+#block-views-d73bd47b7544c4ea290896013501277e h2 {
+  position:relative;
+  background-color: #0F6CB6;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  behavior: url(../connections/PIE.htc);
+ 
+}
+
+#block-views-d73bd47b7544c4ea290896013501277e .content h2,
+#block-views-voices-voices_block_homepage .content h2,
+#block-block-2 .block-inner h2
+  {
+  padding: 8px 10px 7px;
+  margin-bottom: 5px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2em;
+  vertical-align: baseline;
+  text-align: left;
+  height: 2.4em;
+  }
+  
+#block-views-voices-voices_block_homepage h2 a:hover, #block-views-voices-voices_block_homepage h2 a:visited, #block-views-voices-voices_block_homepage h2 a,
+#block-block-2 h2 a:hover, #block-block-2 h2 a:visited, #block-block-2 h2 a,
+#block-views-d73bd47b7544c4ea290896013501277e h2 a:hover, #block-views-d73bd47b7544c4ea290896013501277e h2 a:visited, #block-views-d73bd47b7544c4ea290896013501277e h2 a {
+  text-decoration: none;
+  color: #FFF;
+}
+
+#block-views-voices-voices_block_homepage .views-content a:visited,
+#block-block-2 .content a:visited,
+#block-views-d73bd47b7544c4ea290896013501277e .content .view-footer a:visited {
+  text-decoration:none;
+  color:#737373;
+}
+
+#block-views-voices-voices_block_homepage .views-field-view-node .field-content,
+#block-views-voices-voices_block_homepage .views-field-entity-id .field-content,
+#block-block-2 .content p,
+#block-views-d73bd47b7544c4ea290896013501277e .content .view-footer p {
+  font-size: 1.1em;
+  line-height: 1.3em;
+}
+
+#block-views-d73bd47b7544c4ea290896013501277e .content .view-footer {  /*  evens out the "more" link at the bottom of the resources bucket */
+  bottom: -80px;
+  position: absolute;
+  right: 25px;
+}
+
+#block-block-4 .content {
+  padding-top: 20px;
+}
+
+/* ICAMP Blocks #8 and #9  */
+
+#node-30 .node-content h2 {
+    clear: both;
+    padding: 15px 0 10px;
+}
+
+#block-block-8, #block-block-9 {
+  display:block;
+  float: left;
+  width: 345px;
+  clear:none;
+}
+
+#block-block-9 {
+  margin: 0 0 0 14px;
+}
+
+#block-block-9 h2 {
+  padding: 10px;
+  height: 15px;
+  line-height:1.1em;
+  background-color: #0f6cb6;
+  color: #fff;
+  margin: 0 0 10px;
+  
+}
+
+#block-block-9 table {
+  border-spacing: 0;
+  margin: 0; 
+  padding: 0; 
+}
+
+#block-block-8 h2 {
+    padding: 10px;
+    height: 15px;
+    line-height:1.1em;
+    background-color: #D5D10E;
+    color: #fff;
+    margin: 0 0 10px;
+}
+
+#block-block-10 {
+  margin: 20px 0 0 50px;
+  float:left;
+  clear:none;
+  width: 385px;
+  color:#000;
+  display:inline;
+}
+
+#block-ddblock-3 {
+  float:left;
+  clear:none;
+  display:inline;
+}
+
+#block-block-10 p {
+    background-image: url("../images/right-arrow.png");
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    font-family: "Permanent Marker";
+    font-size: 2.5em;
+    padding: 0 20px;
+    text-indent: 65px;
+}
+
+#block-block-11 {
+    margin: 10px 0 0 0;
+    }
+
+#block-block-11 p {
+    font-family: "Permanent Marker", Verdana, Geneva, "DejaVu Sans", sans-serif;
+    font-size: 2.4em;
+    background-image: url("../images/left-down-arrow.png");
+    background-position: 0 20px;
+    background-repeat: no-repeat;
+    color: #000000;
+    height: 95px;
+    padding: 0 80px;
+    margin: 0;
+    }

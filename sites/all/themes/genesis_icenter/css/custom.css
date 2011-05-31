@@ -1,0 +1,252 @@
+/* $Id: custom.css,v 1.1 2010/06/24 23:08:18 jmburnz Exp $ */
+
+/**********************************************************
+ *                 Custom Styles
+ **********************************************************/
+/**
+ * Here you can add custom stles for your theme that do not fit
+ * into one if the modular stylesheets.
+ */
+
+/* Workaround for Admin menu bar shadow */
+html body.admin-menu {
+  margin-top:45px !important;
+}
+
+/**********************************************************
+ *                 Superfish Menus
+ **********************************************************/
+.sf-menu li:hover ul,
+.sf-menu li.sfHover ul {
+  left: 0;
+  top: 3.15em;
+}
+
+
+.sf-menu.sf-style-none {
+    float: left;
+    margin-bottom: 1em;
+    padding: 0;
+}
+
+.sf-menu li {
+    background: none repeat scroll 0 0 #A1A0A5;
+    border: 1px solid #FFF;
+}
+
+.sf-menu li li {
+    background: none repeat scroll 0 0 #A1A0A5;
+    border: 0 none;
+}
+
+.sf-menu li:hover, .sf-menu li.sfHover,
+.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active {
+  background: none repeat scroll 0 0 #666666;
+  outline: 0;
+}
+
+.sf-menu li a  {
+    font-size:1.35em;
+}
+
+.sf-menu li li a  {
+    font-size:1.1em;
+}
+
+
+.sf-menu a {
+   border: none;
+    color: #FFF !important;
+    padding: 0.75em 1em;
+    text-decoration: none;
+}
+
+.sf-menu li.first.menuparent {
+  background: none no-repeat 0 0 #A1A0A5;
+  -moz-border-radius: 10px 0 0 10px;
+  border-radius: 10px 0 0 10px;
+  behavior: url(../connections/PIE.htc);
+}
+
+.sf-menu li.last {
+  background: none no-repeat 0 0 #A1A0A5;
+  -moz-border-radius: 0 10px 10px 0;
+  border-radius: 0 10px 10px 0;
+  behavior: url(../connections/PIE.htc);
+}
+
+.sf-menu li.last:hover,
+.sf-menu li.sfHover.last,
+.sf-menu li.active a.last,
+.sf-menu .last a:focus,
+.sf-menu .last a:hover,
+.sf-menu .last a:active  {
+  background: none no-repeat 0 0 #666666;
+  -moz-border-radius: 0 10px 10px 0;
+  border-radius: 0 10px 10px 0;
+  behavior: url(../connections/PIE.htc);
+}
+
+.sf-menu li.last:hover .sf-depth-2,
+.sf-menu li.sfHover.last .sf-depth-2,
+.sf-menu li.active a.last .sf-depth-2,
+.sf-menu .last a:focus .sf-depth-2,
+.sf-menu .last a:hover .sf-depth-2,
+.sf-menu .last a:active .sf-depth-2 {
+  background: none no-repeat 0 0 #666666;
+  -moz-border-radius: 0 10px 10px 0;
+  border-radius: 0 0 10px 0;
+  behavior: url(../connections/PIE.htc);
+}
+
+
+
+.sf-menu li.active a.first,
+.sf-menu .first a:focus,
+.sf-menu .first a:hover,
+.sf-menu .first a:active {
+  background: none no-repeat 0 0 #666666;
+  -moz-border-radius: 10px 0 0 10px;
+  border-radius: 10px 0 0 10px;
+  behavior: url(../connections/PIE.htc);
+}
+
+.sf-menu li.active a.first .sf-depth-2,
+.sf-menu .first a:focus .sf-depth-2,
+.sf-menu .first a:hover .sf-depth-2,
+.sf-menu .first a:active .sf-depth-2 {
+  border-radius: 0;
+}
+
+
+.sf-menu li.last a.sf-depth-2 {
+  background: none no-repeat scroll 0 0 #A1A0A5;
+  -moz-border-radius: 0 0 10px 0;
+  border-radius: 0 0 10px 0;
+  behavior: url(../connections/PIE.htc);
+}
+
+.sf-menu a.active {
+  background: none no-repeat scroll 0 0 #666666;
+}
+
+.sf-menu li.first.sf-depth-1 a.active {
+  background: none no-repeat scroll 0 0 #666666;
+  -moz-border-radius: 10 0 0 10px;
+  border-radius: 10px 0 0 10px;
+  behavior: url(../connections/PIE.htc);
+}
+
+.sf-menu li.last.sf-depth-1 a.active {
+  background: none no-repeat scroll 0 0 #666666;
+  -moz-border-radius: 0 10px 10px 0;
+  border-radius: 0 10px 10px 0;
+  behavior: url(../connections/PIE.htc);
+}
+/**********************************************************
+ *                 Pullquote Module
+ **********************************************************/
+
+.pullquote-quote {
+    background: none repeat scroll 0 0 #E8E8E8;
+    border: 1px solid #AAAAAA;
+    color: #333333;
+    float: right;
+    font: italic 1.5em/1.6em Georgia,"Times New Roman",Times,serif;
+    margin: 0 0 0.4em 1em;
+    padding: 1em;
+    width: 30%;
+}
+
+/**********************************************************
+ *                 Twitter Pullquote Module
+ **********************************************************/
+div.tweets-pulled-listing a {
+    color: #0F6CB6;
+    text-decoration: none;
+}
+
+div.tweets-pulled-listing a:hover,
+div.tweets-pulled-listing a:focus,
+div.tweets-pulled-listing a:active {
+    color: #0F6CB6;
+    text-decoration: underline;
+}
+
+
+
+
+
+/**********************************************************
+ *                 User Profile
+ **********************************************************/
+.profile .user-picture {
+    float: none;
+    margin: 0 0 1em 0;
+}
+
+/**********************************************************
+ *                 Voices Article Node
+ **********************************************************/
+.node-voices-article .field-name-field-voices-categories li,
+.node-voices-article .field-name-field-voices-tags li,
+.node-educational-resource .field-name-field-educational-category li,
+.node-educational-resource .field-name-field-educational-tag li {
+    display: inline;
+    margin: 3px;
+    font-size: 1.167em;
+}
+
+.node-voices-article .field-name-field-voices-categories li a,
+.node-voices-article .field-name-field-voices-tags li a,
+.node-educational-resource .field-name-field-educational-category li a,
+.node-educational-resource .field-name-field-educational-tag li a {
+  padding: 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  behavior: url(../connections/PIE.htc);
+}
+
+.node-voices-article .field-name-field-voices-categories li a:link,
+.node-voices-article .field-name-field-voices-tags li a:link,
+.node-voices-article .field-name-field-voices-categories li a:visited,
+.node-voices-article .field-name-field-voices-tags li a:visited,
+.node-educational-resource .field-name-field-educational-category li a:link,
+.node-educational-resource .field-name-field-educational-tag li a:link,
+.node-educational-resource .field-name-field-educational-category li a:visited,
+.node-educational-resource .field-name-field-educational-tag li a:visited {
+  background-color:#999999;
+  color:#FFFFFF;
+}
+
+.node-voices-article .field-name-field-voices-categories li a:hover,
+.node-voices-article .field-name-field-voices-tags li a:hover,
+.node-voices-article .field-name-field-voices-categories li a:focus,
+.node-voices-article .field-name-field-voices-tags li a:focus
+.node-educational-resource .field-name-field-educational-category li a:hover,
+.node-educational-resource .field-name-field-educational-tag li a:focus,
+.node-educational-resource .field-name-field-educational-category li a:hover,
+.node-educational-resource .field-name-field-educational-tag li a:focus {
+
+  background-color:#666666;
+  color:#FFFFFF;
+  text-decoration:none;
+}
+
+
+
+
+.node-voices-article .field-name-field-voices-categories ul,
+.node-voices-article .field-name-field-voices-tags ul,
+.node-educational-resource .field-name-field-educational-category ul,
+.node-educational-resource .field-name-field-educational-tag ul {
+    margin: 0 0 1.5em 0.5em;
+}
+.node-voices-article .field-name-field-voices-categories h3,
+.node-voices-article .field-name-field-voices-tags h3 {
+    font-size: 1.167em;
+}
+
+.node-voices-article .user-bio {
+  font-style: italic;
+}
