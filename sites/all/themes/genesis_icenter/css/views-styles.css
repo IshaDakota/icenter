@@ -151,6 +151,50 @@ h2.views-field-title a:visited {
   margin: 0 30px;
 }
 
+
+
+.view-voices .views-field-tid-1 li,
+.view-voices .views-field-tid li {
+    display: inline;
+    margin: 3px;
+    font-size: 1.167em;
+}
+
+.view-voices .views-field-tid-1 ul,
+.view-voices .views-field-tid ul {
+    margin: 0 0 1.5em 0.5em;
+}
+
+.view-voices .views-field-tid-1 h3.views-label-tid-1,
+.view-voices .views-field-tid h3.views-label-tid {
+    font-size: 1.167em;
+    float: left;
+}
+
+.view-voices .views-field-tid-1 a,
+.view-voices .views-field-tid a {
+  padding: 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  behavior: url(../connections/PIE.htc);
+}
+
+.view-voices .views-field-tid-1 a:link,
+.view-voices .views-field-tid a:link,
+.view-voices .views-field-tid-1 a:visited,
+.view-voices .views-field-tid a:visited {
+  background-color:#999999;
+  color:#FFFFFF;
+}
+
+.view-voices .views-field-tid-1 a:hover,
+.view-voices .views-field-tid a:hover,
+.view-voices .views-field-tid-1 a:focus,
+.view-voices .views-field-tid a:focus {
+  background-color:#666666;
+  color:#FFFFFF;
+  text-decoration:none;
+}
 /**********************************************************
  *                 Educational Resources View
  ***********************************************************/
