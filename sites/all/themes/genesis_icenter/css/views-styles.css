@@ -227,3 +227,50 @@ h2.views-field-title a:visited {
     font-size: 1.167em;
     list-style:none;
 }
+
+/**********************************************************
+ *                 Alef-Bets Views
+ ***********************************************************/
+
+
+#alef-bet-responses {
+    display: inline-block;
+    position: relative; /*These 2 settings fix PIE.htc */
+    z-index: 0;  /*These 2 settings fix PIE.htc */
+    padding: 10px;
+    background: none repeat scroll 0 0 #A1A0A5;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    behavior: url(../connections/PIE.htc);
+    color:#FFF;
+}
+
+.view-alef-bet-comments .views-row {
+    font-size: 1em; 
+    width:345px;
+    float:left;
+}
+.view-alef-bet-comments .views-row p {
+    font-size: 1em; 
+
+}
+
+.view-alef-bet-comments .views-row-1 {
+    margin: 0 15px 0 0;
+}
+
+.pane-node-field-pamphlet {
+    clear:both;
+}
+
+.view-alef-bet-comments .views-field-subject a,
+.view-alef-bet-comments .views-field-name a,
+.view-alef-bet-comments .views-field-name span.views-label-name {
+    color: #000;
+}
+
+.view-alef-bet-comments .views-field-subject a {
+    font-size: 1.167em;
+    font-weight:600;
+}

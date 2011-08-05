@@ -575,3 +575,41 @@ margin: 5px 10px 10px 0;
     padding: 0 80px;
     margin: 0;
     }
+    
+
+/* Alef-Bet Page Blocks Block */    
+#block-block-18 .block-content, .pane-block-18 .pane-content {
+  font-size: 1.167em;
+  margin: 2px 0;
+}
+
+#block-block-18 .block-content p, .pane-block-18 .pane-content p {
+  font-size: 1em;
+  clear:both;
+}
+
+#block-block-18 img, .pane-block-18 img {
+    margin: -2px 5px 0px 0;
+    float: left; 
+}
+
+#alef-bet-quote {
+    position: relative; /*These 2 settings fix PIE.htc */
+    z-index: 0;  /*These 2 settings fix PIE.htc */
+    padding: 10px 15px;
+    background: none repeat scroll 0 0 #A1A0A5;
+    -webkit-border-radius: 10px 10px 40px 10px;
+    -moz-border-radius: 10px 10px 40px 10px;
+    border-radius: 10px 10px 40px 10px;
+    behavior: url(../connections/PIE.htc);
+}
+
+#alef-bet-quote .pane-title {
+
+  }
+
+#alef-bet-quote .pane-content {
+  font-family: "Droid Serif", monospace, serif;
+  font-size: 1.167em;
+  color: #FFF;
+}
