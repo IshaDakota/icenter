@@ -577,20 +577,40 @@ margin: 5px 10px 10px 0;
     }
     
 
-/* Alef-Bet Page Blocks Block */    
-#block-block-18 .block-content, .pane-block-18 .pane-content {
-  font-size: 1.167em;
-  margin: 2px 0;
-}
+/* Alef-Bet Page Blocks Block */
 
-#block-block-18 .block-content p, .pane-block-18 .pane-content p {
-  font-size: 1em;
+#alef-bet-menu .view-alef-bets .views-row,
+#block-views-alef_bets-alef_bet_menu_block .view-alef-bets .views-row {
   clear:both;
 }
 
-#block-block-18 img, .pane-block-18 img {
-    margin: -2px 5px 0px 0;
-    float: left; 
+#alef-bet-menu .view-alef-bets .views-field-field-icon,
+#block-views-alef_bets-alef_bet_menu_block .view-alef-bets .views-field-field-icon {
+  float:left;
+}
+
+
+#alef-bet-menu .view-alef-bets .views-field-field-corresponding-name,
+#block-views-alef_bets-alef_bet_menu_block .view-alef-bets .views-field-field-corresponding-name {
+  margin: 0 0 5px 30px;
+}
+
+#alef-bet-menu .view-alef-bets .views-field-field-corresponding-name a,
+#block-views-alef_bets-alef_bet_menu_block .view-alef-bets .views-field-field-corresponding-name a {
+  color: #737373;
+  font-size: 1.167em;
+  font-weight:200;
+}
+
+#alef-bet-menu .view-alef-bets .views-field-field-corresponding-name .field-content,
+#block-views-alef_bets-alef_bet_menu_block .view-alef-bets .views-field-field-corresponding-name .field-content {
+}
+
+#block-views-alef_bets-logo_block .view-alef-bets .views-field-field-corresponding-name .field-content,
+#alef-bet-logo .view-alef-bets .views-field-field-corresponding-name .field-content {
+  color: #737373;
+  font-size: 1.667em;
+  text-align: center;
 }
 
 #alef-bet-quote {
