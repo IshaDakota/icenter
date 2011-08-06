@@ -16,8 +16,9 @@ Make sure that Video Filter is processed before "Convert URLs to links".
 You can do this by dragging and dropping Video Filter to the top of the 
 processing order list. Do this even if it's allready on top, just to make sure!
 
-If you're using the "Limit allowed HTML tags" filter, make sure to add <object>
-to the list of allowed tags.
+If you're using the "Limit allowed HTML tags" filter, make sure Video Filter is processed after that filter.
+
+To enable WYSIWYG support, go to the WYSIWYG settings for each input format and enable the Video Filter button.
 
 ========= Usage =========
 
@@ -51,6 +52,10 @@ function MODULE_codec_info() {
 
     // The callback that will output the right embed code.
     'callback' => 'MODULE_youtube',
+
+    // HTML5 callback, for returning something that's device agnostic.
+    // @SEE video_filter_youtube_html5.
+    'html5_callback' => 'MODULE_service_html5',
 
     // Regexp can be an array. $video['codec']['delta'] will be set to the key.
     'regexp' => '/youtube\.com\/watch\?v=([a-z0-9]+)/i',
