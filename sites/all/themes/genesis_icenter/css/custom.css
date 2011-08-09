@@ -227,14 +227,10 @@ div.tweets-pulled-listing a:active {
 .node-educational-resource .field-name-field-educational-tag li a:focus,
 .node-educational-resource .field-name-field-educational-category li a:hover,
 .node-educational-resource .field-name-field-educational-tag li a:focus {
-
   background-color:#666666;
   color:#FFFFFF;
   text-decoration:none;
 }
-
-
-
 
 .node-voices-article .field-name-field-voices-categories ul,
 .node-voices-article .field-name-field-voices-tags ul,
@@ -249,4 +245,54 @@ div.tweets-pulled-listing a:active {
 
 .node-voices-article .user-bio {
   font-style: italic;
+}
+
+/**********************************************************
+ *                 Alef-Bet Styles
+ **********************************************************/
+
+span.megilah { 
+  display:block;
+  background: url('../images/israel-seal.png') 10px 10px no-repeat #224780;
+  margin:25px 70px;
+  padding: 15px 35px 20px 90px;
+  color: #fff;
+  min-height:85px;
+}
+
+span.megilah-mini {
+  background: url("../images/israel-seal-small.png") no-repeat scroll 10px 10px transparent;
+  color: #000;
+  display: block;
+  margin: 20px 95px;
+  padding: 10px 35px 10px 60px;
+  min-height:40px;
+}
+
+.node-alef-bet .user-bio {
+  margin: 20px 0 20px 0;
+  position: relative; /*These 2 settings fix PIE.htc */
+  z-index: 0;  /*These 2 settings fix PIE.htc */
+  padding: 10px 25px;
+  background: none repeat scroll 0 0 #A1A0A5;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  behavior: url(../connections/PIE.htc);
+  color:#FFF;
+}
+
+.node-alef-bet .node-content h3 {
+  font-family:"Nobile";
+  font-size: 1.67em;
+}
+
+.node-alef-bet .node-submitted {
+  font-family:"Nobile";
+  font-size: 1.67em;
+}
+
+.node-alef-bet .node-submitted a:link,
+.node-alef-bet .node-submitted a:visited {
+  color: #777777;
 }
