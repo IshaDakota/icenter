@@ -250,6 +250,24 @@ div.tweets-pulled-listing a:active {
 /**********************************************************
  *                 Alef-Bet Styles
  **********************************************************/
+.node-alef-bet .node-content h3 {
+  font-family:"Nobile";
+  font-size: 1.67em;
+  color: #00447B;
+}
+
+.node-alef-bet .node-content h4 {
+  margin-top:20px;
+}
+.node-alef-bet .node-submitted {
+  font-family:"Nobile";
+  font-size: 1.67em;
+}
+
+.node-alef-bet iframe {
+  float:left;
+  margin: 10px 20px 5px 0;
+}
 
 span.megilah { 
   display:block;
@@ -269,6 +287,93 @@ span.megilah-mini {
   min-height:40px;
 }
 
+.pulltable {
+  background: url("../images/a-b-g.png") no-repeat scroll center 10px transparent;
+  float: left;
+  border: 1px solid #00447B;
+  width: 150px;
+  margin: 0 15px 10px 0;
+  padding: 140px 10px 10px 15px;
+  width: 280px;
+  font-family:"Nobile";
+  font-size: 1.167em;
+  color: #D06F1A;
+  }
+
+.pulltable-list {
+  margin-left: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.pulltable-list li {
+  margin: 5px 0 0 0;
+  padding: 0 20px;
+  text-indent: 60px;
+  background: url(../images/arrow.png) 0 0 no-repeat;
+}
+
+.node-alef-bet .arrowed-list {
+  margin-left: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.node-alef-bet .arrowed-list li {
+  margin: 10px 35px 0;
+  padding: 0 20px;
+  text-indent: 50px;
+  background: url(../images/arrow-small.png) 0 0 no-repeat;
+}
+
+.node-alef-bet ol.big-numbers {
+  font: bold 3em "Nobile";
+  margin: 15px 60px;
+  color:#542B5F;
+}
+
+.node-alef-bet ol.big-numbers li {
+  margin-left: 10px;
+  padding-left: 0px;
+}
+
+.node-alef-bet ol.big-numbers p {
+    font-family: Helvetica,Geneva,"DejaVu Sans",sans-serif;
+    font-size: 0.34em;
+    font-weight: normal;
+    line-height: 1.5em;
+    color:#777777
+}
+
+.node-alef-bet ol.small-numbers {
+  font: bold 1.333em "Nobile";
+  margin-top: 15px;
+  color:#542B5F;
+}
+
+.node-alef-bet ol.small-numbers li {
+  margin-left: 10px;
+  padding-left: 0px;
+}
+
+.node-alef-bet ol.small-numbers p {
+    font-family: Helvetica,Geneva,"DejaVu Sans",sans-serif;
+    font-size: .75em;
+    font-weight: normal;
+    line-height: 1.5em;
+    color:#777777
+}
+
+.node-alef-bet ol.big-numbers p strong,
+.node-alef-bet ol.small-numbers p strong {
+  color: #D06F1A;
+}
+
+
+.node-alef-bet ol.lower-alpha {
+  list-style-type: lower-alpha;
+}
+  
 .node-alef-bet .user-bio {
   margin: 20px 0 20px 0;
   position: relative; /*These 2 settings fix PIE.htc */
@@ -282,17 +387,33 @@ span.megilah-mini {
   color:#FFF;
 }
 
-.node-alef-bet .node-content h3 {
-  font-family:"Nobile";
-  font-size: 1.67em;
-}
-
-.node-alef-bet .node-submitted {
-  font-family:"Nobile";
-  font-size: 1.67em;
-}
 
 .node-alef-bet .node-submitted a:link,
 .node-alef-bet .node-submitted a:visited {
   color: #777777;
+}
+
+.node-alef-bet .node-content .pullquote-quote {
+    background: none repeat scroll 0 0;
+    border-left: 3px dashed #00447B;
+    border-right: none;
+    border-bottom: none;
+    border-top: none;
+    color: #D06F1A;
+    float: right;
+    font: italic 1.5em/1.6em "Nobile","Times New Roman",Times,serif;
+    margin: 0 0 0.4em 1em;
+    padding: 1em;
+    width: 30%;
+}
+
+.node-alef-bet .poetry {
+  margin: 20px;
+}
+
+.node-alef-bet .poetry p {
+  font-family: "Nobile";
+  font-size: 1.167em;
+  font-weight: 500;
+  margin: .333em 0;
 }
