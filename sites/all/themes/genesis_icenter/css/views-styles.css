@@ -275,6 +275,54 @@ h2.views-field-title a:visited {
     height:125px;
 }
 
+
+#alef-bet-landing .views-row {
+    margin: 5px 0;
+    clear:both;
+}
+
+#alef-bet-landing .views-field-field-corresponding-name .field-content {
+    font-family: "Nobile", sans-serif;
+}
+
+#alef-bet-landing .views-field-field-icon img {
+    float: left;
+    margin: 0px 10px 2px 0;
+}
+
+#alef-bet-landing .views-field-field-tagline .field-content {
+    font-size:1.167em;
+    height:125px;
+}
+
+#alef-bet-landing .alef-bet-top-band .views-row,
+#alef-bet-landing .alef-bet-bottom-band .views-row {
+    float: left;
+    clear: none;
+    width: 233px;
+    padding: 5px;
+}
+
+#alef-bet-landing .views-field-field-corresponding-name h2 {
+    font-size: 1.1em;
+}
+
+
+#alef-bet-landing  .views-field-field-tagline .field-content {
+    font-size: 1em;
+}
+
+#alef-bet-bottom-band {
+    margin-left: 115px;
+}
+
+#alef-bet-intro {
+    border: 2px solid #D06F1A;
+    padding: 10px 20px;
+    font-family: "Nobile";
+    color: #00447B;
+}
+
 .view-alef-bet-comments .views-row {
     font-size: 1em; 
     width:345px;
