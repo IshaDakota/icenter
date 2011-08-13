@@ -587,12 +587,13 @@ margin: 5px 10px 10px 0;
 #alef-bet-menu .view-alef-bets .views-field-field-icon,
 #block-views-alef_bets-alef_bet_menu_block .view-alef-bets .views-field-field-icon {
   float:left;
+  margin: 2px 0 0;
 }
 
 
 #alef-bet-menu .view-alef-bets .views-field-field-corresponding-name,
 #block-views-alef_bets-alef_bet_menu_block .view-alef-bets .views-field-field-corresponding-name {
-  margin: 0 0 5px 30px;
+  margin: 0 0 5px 20px;
 }
 
 #alef-bet-menu .view-alef-bets .views-field-field-corresponding-name a,
@@ -616,8 +617,8 @@ margin: 5px 10px 10px 0;
 #alef-bet-quote {
     position: relative; /*These 2 settings fix PIE.htc */
     z-index: 0;  /*These 2 settings fix PIE.htc */
-    padding: 10px 15px;
-    background: none repeat scroll 0 0 #A1A0A5;
+    padding: 10px 15px 30px;
+    background: none repeat scroll 0 0 #00447B;
     -webkit-border-radius: 10px 10px 40px 10px;
     -moz-border-radius: 10px 10px 40px 10px;
     border-radius: 10px 10px 40px 10px;

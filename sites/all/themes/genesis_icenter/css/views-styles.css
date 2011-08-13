@@ -252,17 +252,23 @@ h2.views-field-title a:visited {
     font-size:1.67em;
 }
 
+#alef-bet-article .views-field-field-pamphlet,
+#alef-bet-article .read-full-article {
+    font-size:1.33em;
+}
+
 .pane-node-field-pamphlet .pane-content a {
     font-size:1.33em;
 }
 
 .view-display-id-aleph_bet_page .views-row {
-    margin: 5px 0;
+    margin: 20px 0;
     clear:both;
 }
 
-.view-display-id-aleph_bet_page .views-field-field-corresponding-name .field-content {
-    font-family: "Droid Serif", monospace, serif;
+.view-display-id-aleph_bet_page .views-field-field-corresponding-name h2 {
+    font-size: 1.33em;
+    font-family: "Nobile", sans-serif;
 }
 
 .view-display-id-aleph_bet_page .views-field-field-icon img {
@@ -271,13 +277,13 @@ h2.views-field-title a:visited {
 }
 
 .view-display-id-aleph_bet_page .views-field-field-tagline .field-content {
-    font-size:1.5em;
-    height:125px;
+    font-size:1.167em;
+    display:block;
 }
 
 
 #alef-bet-landing .views-row {
-    margin: 5px 0;
+    margin: 0;
     clear:both;
 }
 
@@ -292,7 +298,8 @@ h2.views-field-title a:visited {
 
 #alef-bet-landing .views-field-field-tagline .field-content {
     font-size:1.167em;
-    height:125px;
+    height:120px;
+    font-size: 1em;
 }
 
 #alef-bet-landing .alef-bet-top-band .views-row,
@@ -305,11 +312,6 @@ h2.views-field-title a:visited {
 
 #alef-bet-landing .views-field-field-corresponding-name h2 {
     font-size: 1.1em;
-}
-
-
-#alef-bet-landing  .views-field-field-tagline .field-content {
-    font-size: 1em;
 }
 
 #alef-bet-bottom-band {
@@ -352,3 +354,4 @@ h2.views-field-title a:visited {
     font-size: 1.167em;
     font-weight:600;
 }
+
