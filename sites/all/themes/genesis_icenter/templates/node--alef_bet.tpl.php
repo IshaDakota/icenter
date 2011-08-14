@@ -88,14 +88,12 @@
     <?php endif; ?>
     <?php print render($title_suffix); ?>
 
-    <?php print $user_picture; ?>
-
     <?php if ($display_submitted): ?>
       <div class="node-submitted">
         <p>by <?php print $name; ?></p>
       </div>
     <?php endif; ?>
-
+    
     <div class="node-content"<?php print $content_attributes; ?>>
       <?php
         // Hide comments and links and render them later.
@@ -104,24 +102,24 @@
         print render($content);
       ?>
     </div>
-  
-    <?php if (!$teaser): ?>
-      <div class="user-bio">
-        <p>
-        <?php
-          $user_fields = user_load($uid);
-          $bio = $user_fields->field_bio['und']['0']['value'];
-          print render($bio);
-        ?>
-        </p>
-      </div>
-    <?php endif; ?>
+   
+    <div class="user-bio">
+      <p>
+      <?php
+        $user_fields = user_load($uid);
+        $bio = $user_fields->field_bio['und']['0']['value'];
+        print render($bio);
+      ?>
+      </p>
+    </div>
 
     <?php if ($content['links']): ?>
       <div class="node-links">
-        <?php print str_replace('Read more', 'Read Full Article', render($content['links'])) ?>
+        <?php print render($content['links']); ?>
       </div>
     <?php endif; ?>
+  
+
     
     <?php print render($content['comments']); ?>
 

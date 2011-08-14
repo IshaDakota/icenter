@@ -250,25 +250,33 @@ div.tweets-pulled-listing a:active {
 /**********************************************************
  *                 Alef-Bet Styles
  **********************************************************/
+
+.node-alef-bet .node-content h3,
 #alef-bet-pamphlet .alef-bet-full-text h3 {
   font-family:"Nobile";
   font-size: 1.67em;
   color: #00447B;
 }
 
+.node-alef-bet .node-content h4,
 #alef-bet-pamphlet .alef-bet-full-text h4 {
   margin-top:20px;
 }
+
+.node-alef-bet .node-submitted,
 #alef-bet-pamphlet .alef-bet-full-text p.views-field-name {
   font-family:"Nobile";
-  font-size: 1.67em;
+  font-size: 1.33em;
 }
 
+.node-alef-bet .node-submitted a:link,
+.node-alef-bet .node-submitted a:visited,
 #alef-bet-pamphlet .alef-bet-full-text p.views-field-name a:link,
 #alef-bet-pamphlet .alef-bet-full-text p.views-field-name a:visited {
   color: #777777;
 }
 
+.node-alef-bet .node-content iframe,
 #alef-bet-pamphlet .alef-bet-full-text iframe {
   float:left;
   margin: 10px 20px 5px 0;
@@ -318,12 +326,14 @@ span.megilah-mini {
   background: url(../images/arrow.png) 0 0 no-repeat;
 }
 
+.node-alef-bet .node-content .arrowed-list,
 #alef-bet-pamphlet .alef-bet-full-text .arrowed-list {
   margin-left: 0;
   padding-left: 0;
   list-style: none;
 }
 
+.node-alef-bet .node-content .arrowed-list li,
 #alef-bet-pamphlet .alef-bet-full-text .arrowed-list li {
   margin: 10px 35px 0;
   padding: 0 20px;
@@ -331,17 +341,20 @@ span.megilah-mini {
   background: url(../images/arrow-small.png) 0 0 no-repeat;
 }
 
+.node-alef-bet .node-content ol.big-numbers,
 #alef-bet-pamphlet .alef-bet-full-text ol.big-numbers {
   font: bold 3em "Nobile";
   margin: 15px 60px;
   color:#542B5F;
 }
 
+.node-alef-bet .node-content ol.big-numbers li,
 #alef-bet-pamphlet .alef-bet-full-text ol.big-numbers li {
   margin-left: 10px;
   padding-left: 0px;
 }
 
+.node-alef-bet .node-content ol.big-numbers p,
 #alef-bet-pamphlet .alef-bet-full-text ol.big-numbers p {
     font-family: Helvetica,Geneva,"DejaVu Sans",sans-serif;
     font-size: 0.34em;
@@ -350,17 +363,26 @@ span.megilah-mini {
     color:#777777
 }
 
+.node-alef-bet .node-content ol.small-numbers, 
 #alef-bet-pamphlet .alef-bet-full-text ol.small-numbers {
   font: bold 1.333em "Nobile";
   margin-top: 15px;
   color:#542B5F;
+  display:inline-block;
 }
 
+.node-alef-bet .node-content ol.big-numbers ul.arrowed-list p {
+  font-size: 0.29em;
+  text-indent: 65px;
+    }
+
+.node-alef-bet .node-content ol.small-numbers li,
 #alef-bet-pamphlet .alef-bet-full-text ol.small-numbers li {
   margin-left: 10px;
   padding-left: 0px;
 }
 
+.node-alef-bet .node-content ol.small-numbers p,
 #alef-bet-pamphlet .alef-bet-full-text ol.small-numbers p {
     font-family: Helvetica,Geneva,"DejaVu Sans",sans-serif;
     font-size: .75em;
@@ -369,15 +391,19 @@ span.megilah-mini {
     color:#777777
 }
 
+.node-alef-bet .node-content ol.big-numbers p strong,
+.node-alef-bet .node-content ol.small-numbers p strong, 
 #alef-bet-pamphlet .alef-bet-full-text ol.big-numbers p strong,
 #alef-bet-pamphlet .alef-bet-full-text ol.small-numbers p strong {
   color: #D06F1A;
 }
 
+.node-alef-bet .node-content ol.lower-alpha, 
 #alef-bet-pamphlet .alef-bet-full-text ol.lower-alpha {
   list-style-type: lower-alpha;
 }
-  
+
+.node-alef-bet .user-bio, 
 #alef-bet-pamphlet .alef-bet-full-text .views-field-field-bio {
   margin: 20px 0 20px 0;
   position: relative; /*These 2 settings fix PIE.htc */
@@ -391,7 +417,7 @@ span.megilah-mini {
   color:#FFF;
 }
 
-
+.node-alef-bet .node-content .pullquote-quote,
 #alef-bet-pamphlet .alef-bet-full-text .pullquote-quote {
     background: none repeat scroll 0 0;
     border-left: 3px dashed #00447B;
@@ -406,17 +432,23 @@ span.megilah-mini {
     width: 30%;
 }
 
+.node-alef-bet .node-content .poetry, 
 #alef-bet-pamphlet .alef-bet-full-text .poetry {
   margin: 20px;
 }
 
+.node-alef-bet .node-content .poetry p,
 #alef-bet-pamphlet .alef-bet-full-text .poetry p {
   font-family: "Nobile";
   font-size: 1.167em;
   font-weight: 500;
   margin: .333em 0;
 }
+.node-alef-bet .node-content li li {
+  font-size: 1em;
+}
 
+.node-alef-bet .field-name-field-quote,
 #alef-bet-text {
   background: url("../images/alef-quote.png") #00447B no-repeat scroll 10px 10px;
   border: 1px solid #00447B;
@@ -424,11 +456,50 @@ span.megilah-mini {
   margin: 0 15px 10px 25px;
   padding: 10px 10px 10px 75px;
   font-family:"Nobile";
-  font-size: 1.167em;
+  font-size: 1.67em;
   color: #FFF;
   -webkit-border-radius: 10px 10px 10px 10px;
   -moz-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;
   behavior: url(../connections/PIE.htc);
-
   }
+  
+#alef-bet-author {
+display: block;
+position:relative;
+}
+  
+#alef-bet-author .views-row {
+float:left;
+margin:0 5px 0 0;
+}
+
+#alef-bet-author .view-content {
+display:inline-block;
+float:left;
+margin: 0 10px 10px 0;
+}
+
+#alef-bet-author .views-row .views-field-field-authors{
+  font-size: 1em;
+  font-weight: 600;
+}
+
+#alef-bet-author .views-row .views-field-field-authors a:link,
+#alef-bet-author .views-row .views-field-field-authors a:visited {
+  
+}
+
+#alef-bet-author .views-row .views-field-picture {
+  padding: 0 0 0 5px;
+  clear:both;
+  }
+  
+#alef-bet-author .views-row .views-field-field-authors {
+  clear: both;
+}
+
+#alef-bet-author .views-row .views-field-field-authors .field-content {
+  text-align: center;
+}  
+  

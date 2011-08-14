@@ -78,9 +78,13 @@ function genesis_icenter_preprocess_node(&$vars, $hook) {
         $vars['name'] = t('!username', array(
         '!username' => genesis_icenter_article_authors($vars['field_authors']['und'])));
 
+       $vars['bio'] = t('!bio', array(
+        '!bio' => genesis_icenter_article_bios($vars['field_authors']['und'])));
 
     } else {
         $vars['name'] = t('by !username', array(
+        '!username' => t('Anonymous')));
+        $vars['bio'] = t('by !username', array(
         '!username' => t('Anonymous')));
     }
 }
@@ -101,6 +105,25 @@ function genesis_icenter_article_authors($uids) {
     }
     if (count($authors == 1)) {
         return $authors[0];
+    }
+    return t('Anonymous');
+}
+
+function genesis_icenter_article_bios($uids) {
+    $authors = array();
+    if (count($uids)) {
+        foreach($uids as $author) {
+            $user = user_load($author['uid']);
+            if ($user->uid) {
+                $bios[] = t($user->field_bio);
+            }
+        }
+    }
+    if (count($bios) > 1) {
+         return implode(', ', $bios);
+    }
+    if (count($bios == 1)) {
+        return $bios[0];
     }
     return t('Anonymous');
 }
