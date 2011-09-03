@@ -1,5 +1,4 @@
 <?php
-// $Id: custom_search-sort-form.tpl.php,v 1.1.4.2 2010/11/09 20:14:33 jdanthinne Exp $
 
 /**
  * @file

@@ -1,4 +1,3 @@
-// $Id: custom_search.js,v 1.1.4.14 2010/12/22 13:49:59 jdanthinne Exp $
 
 (function($) {
   Drupal.behaviors.custom_search = {

@@ -1,5 +1,4 @@
 <?php
-// $Id: custom_search.pages.inc,v 1.1.4.8 2011/01/01 16:05:48 jdanthinne Exp $
 
 /**
  * @file

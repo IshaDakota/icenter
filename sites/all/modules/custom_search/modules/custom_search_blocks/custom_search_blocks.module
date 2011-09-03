@@ -1,5 +1,4 @@
 <?php
-// $Id: custom_search_blocks.module,v 1.1.4.19 2011/01/11 13:04:59 jdanthinne Exp $
 
 /**
  * @file
@@ -67,27 +66,8 @@ function custom_search_blocks_block_view($delta = '') {
  * Implements hook_block_configure().
  */
 function custom_search_blocks_block_configure($delta = '') {
-  $form['search_box'] = array(
-    '#type'   => 'fieldset',
-    '#title'  => t('Search box'),
-  );
-  $form['search_box']['custom_search_blocks_' . $delta . '_label_visibility'] = array(
-    '#type'           => 'checkbox',
-    '#title'          => t('Display label'),
-    '#default_value'  => variable_get('custom_search_blocks_' . $delta . '_label_visibility', FALSE),
-  );
-  $form['search_box']['custom_search_blocks_' . $delta . '_label'] = array(
-    '#type'           => 'textfield',
-    '#title'          => t('Label text'),
-    '#default_value'  => variable_get('custom_search_blocks_' . $delta . '_label', CUSTOM_SEARCH_LABEL_DEFAULT),
-    '#description'    => t('Enter the label text for the search box. The default value is "!default".', array('!default' => CUSTOM_SEARCH_LABEL_DEFAULT)),
-  );
-  $form['search_box']['custom_search_blocks_' . $delta . '_text'] = array(
-    '#type'           => 'textfield',
-    '#title'          => t('Search box default text'),
-    '#default_value'  => variable_get('custom_search_blocks_' . $delta . '_text', ''),
-    '#description'    => t('This will change the default text inside the search form. Leave blank for no text. This field is blank by default.'),
-  );
+  // Basic settings.
+  $form = _custom_search_default_admin_form($delta);
   // Content.
   $form['content'] = array(
     '#type'         => 'fieldset',
@@ -95,11 +75,11 @@ function custom_search_blocks_block_configure($delta = '') {
     '#collapsible'  => TRUE,
     '#collapsed'    => TRUE,
   );
-  $form['content'] = array_merge($form['content'], custom_search_content_admin_form($delta));
+  $form['content'] = array_merge($form['content'], _custom_search_content_admin_form($delta));
   // Custom search paths
-  $form = array_merge($form, custom_search_custom_paths_admin_form($delta));
+  $form = array_merge($form, _custom_search_custom_paths_admin_form($delta));
   // Ordering
-  $form = array_merge($form, custom_search_ordering_admin_form($delta));
+  $form = array_merge($form, _custom_search_ordering_admin_form($delta));
   $form['order']['#weight'] = 50;
 
   return $form;
@@ -115,6 +95,15 @@ function custom_search_blocks_block_save($delta = '', $edit = array()) {
   foreach ($edit['custom_search_blocks_' . $delta . '_order'] as $key => $data) {
     variable_set('custom_search_blocks_' . $delta . '_' . $key . '_weight', $data['sort']);
     variable_set('custom_search_blocks_' . $delta . '_' . $key . '_region', $data['region']);
+  }
+  // Submit image?
+  $directory_path = 'public://custom_search';
+  file_prepare_directory($directory_path, FILE_CREATE_DIRECTORY);
+  // Check for a new uploaded image.
+  if ($file = file_save_upload('custom_search_image', array('file_validate_is_image' => array()))) {
+    if ($filepath = file_unmanaged_copy($file->uri, $directory_path)) {
+      variable_set('custom_search_blocks_' . $delta . '_image_path', $filepath);
+    }
   }
 }
 
@@ -150,10 +139,10 @@ function custom_search_blocks_form($form, &$form_state, $delta) {
   if (function_exists('apachesolr_autocomplete_variable_get_widget')) {
     // support for apachesolr_autocomplete module
     if (apachesolr_autocomplete_variable_get_widget() == 'custom') {
-      $form['#attributes']['class'] = array('apachesolr-autocomplete', 'unprocessed');
+      $form['custom_search_blocks_form_' . $delta]['#attributes']['class'] = array('apachesolr-autocomplete', 'unprocessed');
     }
     else {
-      $form['#autocomplete_path'] = 'apachesolr_autocomplete';
+      $form['custom_search_blocks_form_' . $delta]['#autocomplete_path'] = 'apachesolr_autocomplete';
     }
   }
 

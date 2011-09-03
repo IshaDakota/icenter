@@ -1,5 +1,4 @@
 <?php
-// $Id: custom_search_taxonomy.admin.inc,v 1.1.4.3 2010/11/28 20:25:31 jdanthinne Exp $
 
 /**
  * @file

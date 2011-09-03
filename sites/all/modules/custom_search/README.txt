@@ -1,4 +1,3 @@
-$Id: README.txt,v 1.1.4.2 2010/03/26 16:04:29 jdanthinne Exp $
 
 Custom search 7.x-1.x
 --------------------------
@@ -36,7 +35,7 @@ Finally, there's some javascript to:
 - reselect options in the advanced search options (in results page).
 
 
-The module integrates well with Internationalization (i18nstrings).
+The module integrates well with Internationalization (i18n_string).
 
 This module is inspired by some modules that implements some of these options (search_config, search_type, custom_seach_box).
 

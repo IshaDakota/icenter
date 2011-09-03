@@ -1,3 +1,5 @@
+; $Id: search404.info,v 1.4.2.3 2010/12/19 20:17:30 zyxware Exp $
+
 name = "Search 404"
 description = "Automatically search for the keywords in URLs that result in 404 errors and show results instead of Page-Not-Found. "
 dependencies[] = 'search'
@@ -9,9 +11,9 @@ files[] = search404.install
 configure = admin/config/search/search404
 
 
-; Information added by drupal.org packaging script on 2011-04-15
-version = "7.x-1.x-dev"
+; Information added by drupal.org packaging script on 2010-12-19
+version = "7.x-1.0"
 core = "7.x"
 project = "search404"
-datestamp = "1302869659"
+datestamp = "1292793666"
 
