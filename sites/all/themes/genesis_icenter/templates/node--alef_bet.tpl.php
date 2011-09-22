@@ -103,15 +103,6 @@
       ?>
     </div>
    
-    <div class="user-bio">
-      <p>
-      <?php
-        $user_fields = user_load($uid);
-        $bio = $user_fields->field_bio['und']['0']['value'];
-        print render($bio);
-      ?>
-      </p>
-    </div>
 
     <?php if ($content['links']): ?>
       <div class="node-links">

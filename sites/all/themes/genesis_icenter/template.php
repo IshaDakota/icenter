@@ -70,10 +70,24 @@ function genesis_icenter_preprocess_block(&$vars) {
 }
 function genesis_icenter_process_block(&$vars) {
 }
+
 // */
+/**
+* Override or insert variables into the node templates.
+*
+* @param $vars
+*   An array of variables to pass to the theme template.
+* @param $hook
+*   The name of the template being rendered ("node" in this case.)
+*/
+function genesis_icenter_preprocess_node(&$variables, $hook) {
+  $function = __FUNCTION__ . '_' . $variables['node']->type;
+  if (function_exists($function)) {
+    $function($variables, $hook);
+  }
+}
 
-
-function genesis_icenter_preprocess_node(&$vars, $hook) {
+function genesis_icenter_preprocess_node_alef_bet(&$vars, $hook) {
     if (isset($vars['field_authors']['und']) && is_array($vars['field_authors']['und'])) {
         $vars['name'] = t('!username', array(
         '!username' => genesis_icenter_article_authors($vars['field_authors']['und'])));
