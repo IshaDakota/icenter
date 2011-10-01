@@ -64,7 +64,7 @@ function custom_search_taxonomy_form_alter(&$form, &$form_state, $form_id) {
             $vocabulary_depth = (!variable_get('custom_search_' . $delta . 'voc' . $voc->vid . '_selector_depth', 0)) ? NULL : variable_get('custom_search_' . $delta . 'voc' . $voc->vid . '_selector_depth', 0);
             $terms = taxonomy_get_tree($voc->vid, 0, $vocabulary_depth);
             foreach ($terms as $term) {
-              $options['c-' . $term->tid] = (drupal_substr(variable_get('custom_search_' . $delta . 'voc' . $voc->vid . '_selector', 'disabled'), 0, 6) == 'select') ? str_repeat('- ', $term->depth) . $term->name : $term->name ;
+              $options['c-' . $term->tid] = (drupal_substr(variable_get('custom_search_' . $delta . 'voc' . $voc->vid . '_selector', 'disabled'), 0, 6) == 'select') ? str_repeat('-', $term->depth) . ' ' . $term->name : $term->name ;
             }
             $selector_type = variable_get('custom_search_' . $delta . 'voc' . $voc->vid . '_selector', 'select');
             if ($selector_type == 'selectmultiple') {

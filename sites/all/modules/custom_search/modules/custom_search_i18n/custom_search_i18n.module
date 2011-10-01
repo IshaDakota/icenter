@@ -26,16 +26,16 @@ function custom_search_i18n_form_alter(&$form, &$form_state, $form_id) {
     case 'search_block_form':
     case 'custom_search_blocks_form':
 
-      if ($form_id_processed != 'custom_search_blocks_form') {
-        // Criteria
-        if (variable_get('custom_search_criteria_or_display', FALSE)) {
-          $form['custom_search_criteria_or']['#title'] = i18n_string_translate('custom_search:criterion:1:' . $delta . 'or_label', variable_get('custom_search_' . $delta . 'criteria_or_label', CUSTOM_SEARCH_CRITERIA_OR_LABEL_DEFAULT));
-        }
-        if (variable_get('custom_search_criteria_phrase_display', FALSE)) {
-          $form['custom_search_criteria_phrase']['#title'] = i18n_string_translate('custom_search:criterion:1:' . $delta . 'phrase_label', variable_get('custom_search_' . $delta . 'criteria_phrase_label', CUSTOM_SEARCH_CRITERIA_PHRASE_LABEL_DEFAULT));
-        }
-        if (variable_get('custom_search_criteria_negative_display', FALSE)) {
-          $form['custom_search_criteria_negative']['#title'] = i18n_string_translate('custom_search:criterion:1:' . $delta . 'negative_label', variable_get('custom_search_' . $delta . 'criteria_negative_label', CUSTOM_SEARCH_CRITERIA_NEGATIVE_LABEL_DEFAULT));
+      // Criteria
+      $criteria = array('or', 'phrase', 'negative');
+      foreach ($criteria as $c) {
+        if (variable_get('custom_search_' . $delta . 'criteria_' . $c . '_display', FALSE)) {
+          if (variable_get('custom_search_' . $delta . 'criteria_' . $c . '_region', 'block') == 'popup') {
+            $form['popup']['custom_search_criteria_' . $c]['#title'] = i18n_string_translate('custom_search:criterion:1:' . $delta . $c . '_label', variable_get('custom_search_' . $delta . 'criteria_' . $c . '_label', constant('CUSTOM_SEARCH_CRITERIA_' . strtoupper($c) . '_LABEL_DEFAULT')));
+          }
+          else {
+            $form['custom_search_criteria_' . $c]['#title'] = i18n_string_translate('custom_search:criterion:1:' . $delta . $c . '_label', variable_get('custom_search_' . $delta . 'criteria_' . $c . '_label', constant('CUSTOM_SEARCH_CRITERIA_' . strtoupper($c) . '_LABEL_DEFAULT')));
+          }
         }
       }
 
@@ -51,10 +51,18 @@ function custom_search_i18n_form_alter(&$form, &$form_state, $form_id) {
       if ($form['actions']['submit']['#value'] == '') $form['actions']['submit']['#attributes'] = array('style' => 'display:none;');
 
       // Type selector
-      if (!empty($form['custom_search_types']) && is_array($form['custom_search_types'])) {
-        $form['custom_search_types']['#title'] = i18n_string_translate('custom_search:content_types:1:' . $delta . 'selector_label', variable_get('custom_search_' . $delta . 'type_selector_label', CUSTOM_SEARCH_TYPE_SELECTOR_LABEL_DEFAULT));
-        if (array_key_exists('c-all', $form['custom_search_types']['#options'])) {
-          $form['custom_search_types']['#options']['c-all'] = i18n_string_translate('custom_search:content_types:1:' . $delta . 'selector_all', variable_get('custom_search_' . $delta . 'type_selector_all', CUSTOM_SEARCH_ALL_TEXT_DEFAULT));
+      if ((!empty($form['custom_search_types']) && is_array($form['custom_search_types'])) || (!empty($form['popup']['custom_search_types']) && is_array($form['popup']['custom_search_types']))) {
+        if (variable_get('custom_search_' . $delta . 'content_types_region', 'block') == 'popup') {
+          $form['popup']['custom_search_types']['#title'] = i18n_string_translate('custom_search:content_types:1:' . $delta . 'selector_label', variable_get('custom_search_' . $delta . 'type_selector_label', CUSTOM_SEARCH_TYPE_SELECTOR_LABEL_DEFAULT));
+          if (array_key_exists('c-all', $form['popup']['custom_search_types']['#options'])) {
+            $form['popup']['custom_search_types']['#options']['c-all'] = i18n_string_translate('custom_search:content_types:1:' . $delta . 'selector_all', variable_get('custom_search_' . $delta . 'type_selector_all', CUSTOM_SEARCH_ALL_TEXT_DEFAULT));
+          }
+        }
+        else {
+          $form['custom_search_types']['#title'] = i18n_string_translate('custom_search:content_types:1:' . $delta . 'selector_label', variable_get('custom_search_' . $delta . 'type_selector_label', CUSTOM_SEARCH_TYPE_SELECTOR_LABEL_DEFAULT));
+          if (array_key_exists('c-all', $form['custom_search_types']['#options'])) {
+            $form['custom_search_types']['#options']['c-all'] = i18n_string_translate('custom_search:content_types:1:' . $delta . 'selector_all', variable_get('custom_search_' . $delta . 'type_selector_all', CUSTOM_SEARCH_ALL_TEXT_DEFAULT));
+          }
         }
       }
 
@@ -63,20 +71,41 @@ function custom_search_i18n_form_alter(&$form, &$form_state, $form_id) {
         $vocabularies = taxonomy_get_vocabularies();
         // Translate label and -all-
         foreach ($vocabularies as $voc) {
-          if (!empty($form['custom_search_vocabulary_' . $voc->vid]) && is_array($form['custom_search_vocabulary_' . $voc->vid])) {
-            $form['custom_search_vocabulary_' . $voc->vid]['#title'] = i18n_string_translate('custom_search:vocabulary:' . $voc->vid . ':' . $delta . 'selector_label', variable_get('custom_search_' . $delta . 'voc' . $voc->vid . '_selector_label', $voc->name));
-            if (array_key_exists('c-all', $form['custom_search_vocabulary_' . $voc->vid]['#options'])) {
-              $form['custom_search_vocabulary_' . $voc->vid]['#options']['c-all'] = i18n_string_translate('custom_search:vocabulary:' . $voc->vid . ':' . $delta . 'selector_all', variable_get('custom_search_' . $delta . 'voc' . $voc->vid . '_selector_all', CUSTOM_SEARCH_ALL_TEXT_DEFAULT));
+          if ((!empty($form['custom_search_vocabulary_' . $voc->vid]) && is_array($form['custom_search_vocabulary_' . $voc->vid])) || (!empty($form['popup']['custom_search_vocabulary_' . $voc->vid]) && is_array($form['popup']['custom_search_vocabulary_' . $voc->vid]))) {
+            if (variable_get('custom_search_' . $delta . 'taxonomy' . $voc->vid . '_region', 'block') == 'popup') {
+              $form['popup']['custom_search_vocabulary_' . $voc->vid]['#title'] = i18n_string_translate('custom_search:vocabulary:' . $voc->vid . ':' . $delta . 'selector_label', variable_get('custom_search_' . $delta . 'voc' . $voc->vid . '_selector_label', $voc->name));
+              if (is_array($form['popup']['custom_search_vocabulary_' . $voc->vid]['#options']) && array_key_exists('c-all', $form['popup']['custom_search_vocabulary_' . $voc->vid]['#options'])) {
+                $form['popup']['custom_search_vocabulary_' . $voc->vid]['#options']['c-all'] = i18n_string_translate('custom_search:vocabulary:' . $voc->vid . ':' . $delta . 'selector_all', variable_get('custom_search_' . $delta . 'voc' . $voc->vid . '_selector_all', CUSTOM_SEARCH_ALL_TEXT_DEFAULT));
+              }
+            }
+            else {
+              $form['custom_search_vocabulary_' . $voc->vid]['#title'] = i18n_string_translate('custom_search:vocabulary:' . $voc->vid . ':' . $delta . 'selector_label', variable_get('custom_search_' . $delta . 'voc' . $voc->vid . '_selector_label', $voc->name));
+              if (is_array($form['custom_search_vocabulary_' . $voc->vid]['#options']) && array_key_exists('c-all', $form['custom_search_vocabulary_' . $voc->vid]['#options'])) {
+                $form['custom_search_vocabulary_' . $voc->vid]['#options']['c-all'] = i18n_string_translate('custom_search:vocabulary:' . $voc->vid . ':' . $delta . 'selector_all', variable_get('custom_search_' . $delta . 'voc' . $voc->vid . '_selector_all', CUSTOM_SEARCH_ALL_TEXT_DEFAULT));
+              }
             }
           }
         }
         // Translate terms
-        if (module_exists('i18ntaxonomy')) {
+        if (module_exists('i18n_taxonomy')) {
           foreach ($vocabularies as $voc) {
-            if (is_array($form['custom_search_vocabulary_' . $voc->vid])) {
-              foreach ($form['custom_search_vocabulary_' . $voc->vid]['#options'] as $tid => $name) {
-                if ($tid != 'c-all') {
-                  $form['custom_search_vocabulary_' . $voc->vid]['#options'][$tid] = i18n_string_translate('taxonomy:term:' . substr($tid, 2) . ':name', $name);
+            if ((!empty($form['custom_search_vocabulary_' . $voc->vid]) && is_array($form['custom_search_vocabulary_' . $voc->vid]['#options'])) || (!empty($form['popup']['custom_search_vocabulary_' . $voc->vid]) && is_array($form['popup']['custom_search_vocabulary_' . $voc->vid]['#options']))) {
+              if (variable_get('custom_search_' . $delta . 'taxonomy' . $voc->vid . '_region', 'block') == 'popup') {
+                foreach ($form['popup']['custom_search_vocabulary_' . $voc->vid]['#options'] as $tid => $name) {
+                  if ($tid != 'c-all') {
+                    $real_tid = substr($tid, 2);
+                    $translated_term = i18n_string_translate('taxonomy:term:' . $real_tid . ':name', $name);
+                    $form['popup']['custom_search_vocabulary_' . $voc->vid]['#options'][$tid] = ($translated_term[0] != '-') ? str_repeat('-', _custom_search_i18n_term_depth($real_tid)) . ' ' . $translated_term : $translated_term ;
+                  }
+                }
+              }
+              else {
+                foreach ($form['custom_search_vocabulary_' . $voc->vid]['#options'] as $tid => $name) {
+                  if ($tid != 'c-all') {
+                    $real_tid = substr($tid, 2);
+                    $translated_term = i18n_string_translate('taxonomy:term:' . $real_tid . ':name', $name);
+                    $form['custom_search_vocabulary_' . $voc->vid]['#options'][$tid] = ($translated_term[0] != '-') ? str_repeat('-', _custom_search_i18n_term_depth($real_tid)) . ' ' . $translated_term : $translated_term ;
+                  }
                 }
               }
             }
@@ -85,8 +114,13 @@ function custom_search_i18n_form_alter(&$form, &$form_state, $form_id) {
       }
 
       // Custom Paths
-      if (!empty($form['custom_search_paths']) && is_array($form['custom_search_paths'])) {
-        $form['custom_search_paths']['#title'] = i18n_string_translate('custom_search:paths:1:' . $delta . 'selector_label', variable_get('custom_search_' . $delta . 'paths_selector_label', CUSTOM_SEARCH_PATHS_SELECTOR_LABEL_DEFAULT));
+      if ((!empty($form['custom_search_paths']) && is_array($form['custom_search_paths'])) || (!empty($form['popup']['custom_search_paths']) && is_array($form['popup']['custom_search_paths']))) {
+        if (variable_get('custom_search_' . $delta . 'custom_paths_region', 'block') == 'popup') {
+          $form['popup']['custom_search_paths']['#title'] = i18n_string_translate('custom_search:paths:1:' . $delta . 'selector_label', variable_get('custom_search_' . $delta . 'paths_selector_label', CUSTOM_SEARCH_PATHS_SELECTOR_LABEL_DEFAULT));
+        }
+        else {
+          $form['custom_search_paths']['#title'] = i18n_string_translate('custom_search:paths:1:' . $delta . 'selector_label', variable_get('custom_search_' . $delta . 'paths_selector_label', CUSTOM_SEARCH_PATHS_SELECTOR_LABEL_DEFAULT));
+        }
       }
 
     break;
@@ -95,7 +129,7 @@ function custom_search_i18n_form_alter(&$form, &$form_state, $form_id) {
     case 'custom_search_content_admin': $form['#submit'][] = 'custom_search_i18n_content_admin_submit'; break;
     case 'custom_search_taxonomy_admin': $form['#submit'][] = 'custom_search_i18n_taxonomy_admin_submit'; break;
     case 'custom_search_results_admin': $form['#submit'][] = 'custom_search_i18n_results_admin_submit'; break;
-    case 'block_admin_configure': 
+    case 'block_admin_configure':
       // Custom Search Blocks
       if ($form['module']['#value'] == 'custom_search_blocks') {
         $form['#submit'][] = 'custom_search_i18n_block_admin_configure_submit';
@@ -214,4 +248,15 @@ function custom_search_i18n_locale_refresh() {
     }
   }
   return TRUE;
+}
+
+function _custom_search_i18n_term_depth($tid) {
+  $limit = 99;
+  $depth = -1;
+  while ($parent = db_query_range('SELECT parent FROM {taxonomy_term_hierarchy} WHERE tid = :tid', 0, 1, array(':tid' => $tid))->fetchObject()) {
+    $tid = $parent->parent;
+    $depth++;
+    if ($depth > $limit) break;
+  }
+  return $depth;
 }

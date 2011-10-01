@@ -156,32 +156,17 @@ function custom_search_form_alter(&$form, &$form_state, $form_id) {
         drupal_add_css(drupal_get_path('module', 'custom_search') . '/custom_search.css');
 
         // Criteria
-        if (variable_get('custom_search_' . $delta . 'criteria_or_display', FALSE)) {
-          $form['custom_search_criteria_or'] = array(
-            '#type'       => 'textfield',
-            '#title'      => variable_get('custom_search_' . $delta . 'criteria_or_label', CUSTOM_SEARCH_CRITERIA_OR_LABEL_DEFAULT),
-            '#size'       => 15,
-            '#maxlength'  => 255,
-            '#weight'     => variable_get('custom_search_' . $delta . 'criteria_or_weight', 6),
-          );
-        }
-        if (variable_get('custom_search_' . $delta . 'criteria_phrase_display', FALSE)) {
-          $form['custom_search_criteria_phrase'] = array(
-            '#type'       => 'textfield',
-            '#title'      => variable_get('custom_search_' . $delta . 'criteria_phrase_label', CUSTOM_SEARCH_CRITERIA_PHRASE_LABEL_DEFAULT),
-            '#size'       => 15,
-            '#maxlength'  => 255,
-            '#weight'     => variable_get('custom_search_' . $delta . 'criteria_phrase_weight', 7),
-          );
-        }
-        if (variable_get('custom_search_' . $delta . 'criteria_negative_display', FALSE)) {
-          $form['custom_search_criteria_negative'] = array(
-            '#type'       => 'textfield',
-            '#title'      => variable_get('custom_search_' . $delta . 'criteria_negative_label', CUSTOM_SEARCH_CRITERIA_NEGATIVE_LABEL_DEFAULT),
-            '#size'       => 15,
-            '#maxlength'  => 255,
-            '#weight'     => variable_get('custom_search_' . $delta . 'criteria_negative_weight', 8),
-          );
+        $criteria = array('or' => 6, 'phrase' => 7, 'negative' => 8);
+        foreach ($criteria as $c => $w) {
+          if (variable_get('custom_search_' . $delta . 'criteria_' . $c . '_display', FALSE)) {
+            $form['custom_search_criteria_' . $c] = array(
+              '#type'       => 'textfield',
+              '#title'      => variable_get('custom_search_' . $delta . 'criteria_' . $c . '_label', constant('CUSTOM_SEARCH_CRITERIA_' . strtoupper($c) . '_LABEL_DEFAULT')),
+              '#size'       => 15,
+              '#maxlength'  => 255,
+              '#weight'     => variable_get('custom_search_' . $delta . 'criteria_' . $c . '_weight', $w),
+            );
+          }
         }
 
         // Content type & other searches.
@@ -283,13 +268,19 @@ function custom_search_form_alter(&$form, &$form_state, $form_id) {
           '#weight'     => 1 + variable_get('custom_search_' . $delta . 'search_box_weight', 0),
           '#attributes' => array('class' => array('custom_search-popup')),
         );
-        if (isset($form['custom_search_types']) && variable_get('custom_search_' . $delta . 'content_types_region', 'block') == 'popup') {
+        if (!empty($form['custom_search_types']) && variable_get('custom_search_' . $delta . 'content_types_region', 'block') == 'popup') {
           $form['popup']['custom_search_types'] = $form['custom_search_types'];
           unset($form['custom_search_types']);
         }
-        if (isset($form['custom_search_paths']) && variable_get('custom_search_' . $delta . 'custom_paths_region', 'block') == 'popup') {
+        if (!empty($form['custom_search_paths']) && variable_get('custom_search_' . $delta . 'custom_paths_region', 'block') == 'popup') {
           $form['popup']['custom_search_paths'] = $form['custom_search_paths'];
           unset($form['custom_search_paths']);
+        }
+        foreach ($criteria as $c => $w) {
+          if (variable_get('custom_search_' . $delta . 'criteria_' . $c . '_display', FALSE) && variable_get('custom_search_' . $delta . 'criteria_' . $c . '_region', 'block') == 'popup') {
+            $form['popup']['custom_search_criteria_' . $c] = $form['custom_search_criteria_' . $c];
+            unset($form['custom_search_criteria_' . $c]);
+          }
         }
 
         // Form attributes
@@ -467,8 +458,8 @@ function custom_search_theme() {
   );
 
   // Panels integration
-  $search_results_page_callback = menu_get_item('search/node/%menu_tail');
-  if ($search_results_page_callback['page_callback'] == 'page_manager_search_page') {
+  $router_item = db_query_range('SELECT page_callback FROM {menu_router} WHERE path = :path', 0, 1, array(':path' => 'search/node/%'))->fetchAssoc();
+  if ($router_item['page_callback'] == 'page_manager_search_page') {
     unset($custom_search_theme_array['search_results'], $custom_search_theme_array['search_result']);
   }
 
