@@ -59,7 +59,7 @@
 #block-menu_block-2 {
     position: relative; /*These 2 settings fix PIE.htc */
     z-index: 0;  /*These 2 settings fix PIE.htc */
-    padding: 10px;
+    padding: 10px 10px 30px;
     background: none repeat scroll 0 0 #A1A0A5;
     -webkit-border-radius: 10px 10px 40px 10px;
     -moz-border-radius: 10px 10px 40px 10px;

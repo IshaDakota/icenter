@@ -501,5 +501,63 @@ margin: 0 10px 10px 0;
 
 #alef-bet-author .views-row .views-field-field-authors .field-content {
   text-align: center;
-}  
-  
+}
+
+/**********************************************************
+ *                 Networking Hub Styles
+ **********************************************************/
+
+ .node-type-hubs .pane-node-body {  /*Define box around Hub Mission */
+  margin: 20px 0 20px 0;
+  position: relative; /*These 2 settings fix PIE.htc */
+  z-index: 0;  /*These 2 settings fix PIE.htc */
+  padding: 10px 25px;
+  background: none repeat scroll 0 0 #A1A0A5;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  behavior: url(../connections/PIE.htc);
+  color:#FFF;
+ }
+ 
+.view-networking-hub-list .view-header {  /* Networking Hubs List view */
+  background: url("../images/network.jpg") no-repeat top right;
+  min-height: 220px;
+}
+
+.view-networking-hub-list .view-header p {
+  margin-right: 320px;
+}
+
+#og-members-pane .view-og-members .views-field-picture {
+  float:left;
+  margin: 2px 0 0;
+  width: 35px;
+}
+
+#og-members-pane .view-og-members .views-row {
+  clear:both;
+}
+
+#og-members-pane .view-og-members .views-field-name {
+  margin: 3px 0 0 5px;
+  float:left;
+}
+
+#og-members-pane .view-og-members .views-field-name a {
+  color: #737373;
+  font-size: 1.167em;
+  font-weight:200;
+}
+
+div#og-members-pane, div#user-groups-pane {
+  border: 1px solid #A7A7A7;
+  margin: 15px 0;
+  padding: 5px 10px;
+  float:left;
+  width:90%;
+}
+
+#og-subscription-pane .field-name-group-group {
+  font-size: 1.2em;
+}
