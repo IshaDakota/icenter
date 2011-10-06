@@ -63,14 +63,14 @@ h5, h6 {
 
 
 h1#page-title {
-    font-family: "Permanent Marker", Verdana, Geneva, "DejaVu Sans", sans-serif;
-    font-size: 2.4em;
-    background-image: url("../images/left-down-arrow.png");
-    background-position: 0 20px;
-    background-repeat: no-repeat;
-    color: #000000;
-    height: 95px;
-    padding: 0 80px;
+  font-family: "Permanent Marker", Verdana, Geneva, "DejaVu Sans", sans-serif;
+  font-size: 2.4em;    
+  color:#000000;
+  background-image: url("../images/left-down-arrow.png");
+  background-position: 0 20px;
+  background-repeat: no-repeat; 
+  height: 95px;
+  padding: 0 80px;
     } 
 
 

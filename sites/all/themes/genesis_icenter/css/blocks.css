@@ -76,9 +76,37 @@
   color: #FFF;
 }
 
+
+/*Third Level Menu */
+
 #block-menu_block-3 a {
   font-size: 1.167em;
+	color:#d5d10e;
  }
+ 
+#block-menu_block-3 .content li {
+	display:inline;
+}
+
+#block-menu_block-3 .content li a {
+  padding: 0.5em 0.75em;
+	line-height: 1.5;
+}
+
+#block-menu_block-3 .content li a {
+  background-color: #d5d10e;
+  border-radius: 5px 5px 5px 5px;
+  color: #FFFFFF;
+	text-decoration:none;
+}
+
+#block-menu_block-3 .content li a.active,
+#block-menu_block-3 .content li a:hover {
+  background-color: #A5A20A;
+  border-radius: 5px 5px 5px 5px;
+  color: #FFFFFF;
+	text-decoration:none;
+}
 
 /* Twitter Sidebar Block */
 #block-block-7 {
