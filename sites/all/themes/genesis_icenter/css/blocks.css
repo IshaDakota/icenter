@@ -83,8 +83,13 @@
   font-size: 1.167em;
 	color:#d5d10e;
  }
- 
+
+#block-menu_block-3 .content ul {
+  margin: 1.5em 0;
+	}
+
 #block-menu_block-3 .content li {
+	margin: 5px 0;
 	display:inline;
 }
 
