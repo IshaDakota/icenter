@@ -529,22 +529,22 @@ margin: 0 10px 10px 0;
   margin-right: 320px;
 }
 
-#og-members-pane .view-og-members .views-field-picture {
+#og-members-pane .view-networking-hub-members .views-field-picture {
   float:left;
   margin: 2px 0 0;
   width: 35px;
 }
 
-#og-members-pane .view-og-members .views-row {
+#og-members-pane .view-networking-hub-members .views-row {
   clear:both;
 }
 
-#og-members-pane .view-og-members .views-field-name {
+#og-members-pane .view-networking-hub-members .views-field-name {
   margin: 3px 0 0 5px;
   float:left;
 }
 
-#og-members-pane .view-og-members .views-field-name a {
+#og-members-pane .view-networking-hub-members .views-field-name a {
   color: #737373;
   font-size: 1.167em;
   font-weight:200;
