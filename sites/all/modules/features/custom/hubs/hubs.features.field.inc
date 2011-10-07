@@ -284,6 +284,83 @@ function hubs_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-hubs-group_access'
+  $fields['node-hubs-group_access'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'group_access',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'module' => 'list',
+      'no_ui' => TRUE,
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'Public - accessible to all site users',
+          1 => 'Private - accessible only to group members',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_boolean',
+    ),
+    'field_instance' => array(
+      'bundle' => 'hubs',
+      'default_value' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 3,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'group_access',
+      'label' => 'Group visibility',
+      'required' => TRUE,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'view modes' => array(
+        'full' => array(
+          'label' => 'above',
+          'type' => 'options_onoff',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'type' => 'options_onoff',
+        ),
+      ),
+      'widget' => array(
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_buttons',
+        'weight' => '6',
+      ),
+      'widget_type' => 'options_select',
+    ),
+  );
+
   // Exported field: 'node-hubs-group_content_access'
   $fields['node-hubs-group_content_access'] = array(
     'field_config' => array(
@@ -380,20 +457,16 @@ function hubs_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'hubs',
-      'default_value' => array(
-        0 => array(
-          'value' => 1,
-        ),
-      ),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'og_ui',
+          'module' => 'list',
           'settings' => array(),
-          'type' => 'og_group_subscribe',
-          'weight' => '0',
+          'type' => 'list_default',
+          'weight' => 4,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -404,37 +477,26 @@ function hubs_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'group_group',
-      'label' => 'Group type',
-      'required' => TRUE,
+      'label' => 'Group Type',
+      'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
-      'view modes' => array(
-        'full' => array(
-          'custom settings' => FALSE,
-          'label' => 'Full',
-          'type' => 'og_group_subscribe',
-        ),
-        'teaser' => array(
-          'custom settings' => FALSE,
-          'label' => 'Teaser',
-          'type' => 'og_group_subscribe',
-        ),
-      ),
       'widget' => array(
+        'active' => 1,
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
         'weight' => '1',
       ),
-      'widget_type' => 'options_select',
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
   t('Body');
-  t('Group type');
+  t('Group Type');
+  t('Group visibility');
   t('If you would like to make this post private only to group members, please indicate that here - otherwise it will default to the setting used for the hub (usually public). Our aim is to have open conversations that bring people in (rather than exclude); therefore, please use this option sparingly.');
   t('Make this Post Private');
   t('Mission');
