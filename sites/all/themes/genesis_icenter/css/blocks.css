@@ -241,24 +241,20 @@
    display:inline;
    clear:none;
    float:right;
-   margin: 10px 0;
+   margin: 12px 0;
 }
 
 #block-block-1 {     /* The Social Media block  */
-    clear: none;
-    float: right;
-    height: 30px;
-    margin: 10px 10px 70px;
-    width: 195px;
+  clear: none;
+  float: right;
+  height: 32px;
+  margin: 10px 10px 50px;
 }
 
 #block-search-form .block-inner {}
 #block-search-form .block .content {}
 
-#search-block-form {
-	margin:0px;
-	width:200px;
-	}
+#search-block-form {}
 
 /* Wrapper divs. */
 #search-block-form > div {}
@@ -267,19 +263,16 @@
 #search-block-form .form-item-search-block-form {}
 
 #search-block-form label {}
-#search-block-form input { 
-    float: left;
-    height: 20px;
-    margin: 0 -18px;
+#search-block-form input {
+	width: 170px;
 }
 #search-block-form .form-item {}
 #search-block-form .form-submit {
-    border: none;
+  border: none;
 	height:30px;
-	width: 80px;
-    background: url('../images/search-icon-2.png') no-repeat top left;
+	width: 73px;
+  background: url('../images/search-icon-2.png') no-repeat top left;
 	text-indent: -9999px;
-	float:right;
 }
 
 #search-block-form .form-submit:hover {
