@@ -504,8 +504,8 @@ margin: 5px 10px 10px 0;
 #block-views-voices-voices_block_homepage .views-field-entity-id .field-content,
 #block-block-2 .content p,
 #block-views-d73bd47b7544c4ea290896013501277e .content .view-footer p {
-  font-size: 1.1em;
-  line-height: 1.3em;
+  font-size: 1.167em;
+  line-height: 1.5em;
 }
 
 #block-views-d73bd47b7544c4ea290896013501277e .content .view-footer {  /*  evens out the "more" link at the bottom of the resources bucket */
