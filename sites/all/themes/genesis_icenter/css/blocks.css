@@ -423,6 +423,7 @@ margin: 5px 10px 10px 0;
     position: absolute;
     top: 285px;
     right: 25px;
+		margin: 0;
 }
 
 #block-views-voices-voices_block_homepage .views-field-entity-id .field-content {
