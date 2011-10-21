@@ -84,7 +84,7 @@ function incubator_blog_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'incubator-blog';
+  $handler->display->display_options['path'] = 'ichallenge-blog';
 
   /* Display: Content pane */
   $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
