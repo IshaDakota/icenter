@@ -186,12 +186,25 @@ div.tweets-pulled-listing a:active {
 }
 
 /**********************************************************
- *                 Voices Article Node
+ *                 Category and Tag Syles
  **********************************************************/
+.node-voices-article .field-name-field-voices-categories ul,
+.node-voices-article .field-name-field-voices-tags ul,
+.node-educational-resource .field-name-field-educational-category ul,
+.node-educational-resource .field-name-field-educational-tag ul,
+.view-display-id-panel_pane_2  .fviews-field-field-tags ul,
+.view-voices .views-field-field-voices-categories ul,
+.view-voices .views-field-field-voices-tags ul {
+    margin: 0 0 1.5em 0.5em;
+}
+
 .node-voices-article .field-name-field-voices-categories li,
 .node-voices-article .field-name-field-voices-tags li,
 .node-educational-resource .field-name-field-educational-category li,
-.node-educational-resource .field-name-field-educational-tag li {
+.node-educational-resource .field-name-field-educational-tag li,
+.view-display-id-panel_pane_2  .views-field-field-tags li,
+.view-voices .views-field-field-voices-categories li,
+.view-voices .views-field-field-voices-tags li {
     display: inline;
     margin: 3px;
     font-size: 1.167em;
@@ -200,7 +213,10 @@ div.tweets-pulled-listing a:active {
 .node-voices-article .field-name-field-voices-categories li a,
 .node-voices-article .field-name-field-voices-tags li a,
 .node-educational-resource .field-name-field-educational-category li a,
-.node-educational-resource .field-name-field-educational-tag li a {
+.node-educational-resource .field-name-field-educational-tag li a,
+.view-display-id-panel_pane_2  .views-field-field-tags li a,
+.view-voices .views-field-field-voices-categories a,
+.view-voices .views-field-field-voices-tags a {
   padding: 5px;
   -moz-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
@@ -214,7 +230,13 @@ div.tweets-pulled-listing a:active {
 .node-educational-resource .field-name-field-educational-category li a:link,
 .node-educational-resource .field-name-field-educational-tag li a:link,
 .node-educational-resource .field-name-field-educational-category li a:visited,
-.node-educational-resource .field-name-field-educational-tag li a:visited {
+.node-educational-resource .field-name-field-educational-tag li a:visited, 
+.view-display-id-panel_pane_2  .views-field-field-tags li a:link,
+.view-display-id-panel_pane_2  .views-field-field-tags li a:visited,
+.view-voices .views-field-field-voices-categories a:link,
+.view-voices .views-field-field-voices-tags a:link,
+.view-voices .views-field-field-voices-categories a:visited,
+.view-voices .views-field-field-voices-tags a:visited {
   background-color:#999999;
   color:#FFFFFF;
 }
@@ -226,21 +248,30 @@ div.tweets-pulled-listing a:active {
 .node-educational-resource .field-name-field-educational-category li a:hover,
 .node-educational-resource .field-name-field-educational-tag li a:focus,
 .node-educational-resource .field-name-field-educational-category li a:hover,
-.node-educational-resource .field-name-field-educational-tag li a:focus {
+.node-educational-resource .field-name-field-educational-tag li a:focus,
+.view-display-id-panel_pane_2  .views-field-field-tags li a:hover,
+.view-display-id-panel_pane_2  .views-field-field-tags li a:focus,
+.view-voices .views-field-field-voices-categories a:hover,
+.view-voices .views-field-field-voices-tags a:hover,
+.view-voices .views-field-field-voices-categories a:focus,
+.view-voices .views-field-field-voices-tags a:focus {
   background-color:#666666;
   color:#FFFFFF;
   text-decoration:none;
 }
 
-.node-voices-article .field-name-field-voices-categories ul,
-.node-voices-article .field-name-field-voices-tags ul,
-.node-educational-resource .field-name-field-educational-category ul,
-.node-educational-resource .field-name-field-educational-tag ul {
-    margin: 0 0 1.5em 0.5em;
-}
 .node-voices-article .field-name-field-voices-categories h3,
-.node-voices-article .field-name-field-voices-tags h3 {
+.node-voices-article .field-name-field-voices-tags h3,
+.view-display-id-panel_pane_2  .views-field-field-tags h3,
+.view-voices .views-field-field-voices-categories h3,
+.view-voices .views-field-field-voices-tags h3 {
     font-size: 1.167em;
+    float: left
+}
+
+.view-display-id-panel_pane_2 .views-field-field-tags .field-content,
+.view-display-id-panel_pane_2 .views-field-field-tags h3 {
+  display: inline-block;
 }
 
 .node-voices-article .user-bio, .node-user-blog-post .user-bio {
