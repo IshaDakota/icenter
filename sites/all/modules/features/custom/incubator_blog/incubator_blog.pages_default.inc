@@ -69,16 +69,16 @@ function incubator_blog_default_page_manager_handlers() {
         'contains' => 'column',
         'children' => array(
           0 => 'main',
-          1 => 1,
         ),
         'parent' => NULL,
       ),
       'main' => array(
         'type' => 'column',
-        'width' => '75.49805092370075',
+        'width' => 100,
         'width_type' => '%',
         'children' => array(
-          0 => 'main-row',
+          0 => 3,
+          1 => 'main-row',
         ),
         'parent' => 'canvas',
       ),
@@ -87,41 +87,41 @@ function incubator_blog_default_page_manager_handlers() {
         'contains' => 'region',
         'children' => array(
           0 => 'center',
+          1 => 'sidebar__',
         ),
         'parent' => 'main',
       ),
       'center' => array(
         'type' => 'region',
-        'title' => 'Center',
-        'width' => 100,
+        'title' => 'Content',
+        'width' => '75.51015202530354',
         'width_type' => '%',
         'parent' => 'main-row',
-      ),
-      1 => array(
-        'type' => 'column',
-        'width' => '24.50194907629926',
-        'width_type' => '%',
-        'parent' => 'canvas',
-        'children' => array(
-          0 => 2,
-        ),
         'class' => '',
       ),
-      2 => array(
+      3 => array(
         'type' => 'row',
         'contains' => 'region',
         'children' => array(
-          0 => 'sidebar',
+          0 => 'secondary_header',
         ),
-        'parent' => '1',
-        'class' => '',
+        'parent' => 'main',
+        'class' => 'Secondary Header',
       ),
-      'sidebar' => array(
+      'secondary_header' => array(
         'type' => 'region',
-        'title' => 'Sidebar',
+        'title' => 'Secondary Header',
         'width' => 100,
         'width_type' => '%',
-        'parent' => '2',
+        'parent' => '3',
+        'class' => '',
+      ),
+      'sidebar__' => array(
+        'type' => 'region',
+        'title' => 'Sidebar',
+        'width' => '24.48984797469646',
+        'width_type' => '%',
+        'parent' => 'main-row',
         'class' => '',
       ),
     ),
@@ -131,6 +131,9 @@ function incubator_blog_default_page_manager_handlers() {
       'default' => NULL,
       'center' => NULL,
       'sidebar' => NULL,
+      'sidebar_' => NULL,
+      'secondary_header' => NULL,
+      'sidebar__' => NULL,
     ),
   );
   $display->cache = array();
@@ -156,13 +159,13 @@ function incubator_blog_default_page_manager_handlers() {
     $display->panels['center'][0] = 'new-1';
     $pane = new stdClass;
     $pane->pid = 'new-2';
-    $pane->panel = 'sidebar';
+    $pane->panel = 'secondary_header';
     $pane->type = 'block';
-    $pane->subtype = 'block-20';
+    $pane->subtype = 'block-22';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'override_title' => 0,
+      'override_title' => 1,
       'override_title_text' => '',
     );
     $pane->cache = array();
@@ -173,9 +176,49 @@ function incubator_blog_default_page_manager_handlers() {
     $pane->extras = array();
     $pane->position = 0;
     $display->content['new-2'] = $pane;
-    $display->panels['sidebar'][0] = 'new-2';
-  $display->hide_title = PANELS_TITLE_FIXED;
-  $display->title_pane = 'new-2';
+    $display->panels['secondary_header'][0] = 'new-2';
+    $pane = new stdClass;
+    $pane->pid = 'new-3';
+    $pane->panel = 'secondary_header';
+    $pane->type = 'block';
+    $pane->subtype = 'menu_block-2';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'override_title' => 1,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 1;
+    $display->content['new-3'] = $pane;
+    $display->panels['secondary_header'][1] = 'new-3';
+    $pane = new stdClass;
+    $pane->pid = 'new-4';
+    $pane->panel = 'sidebar__';
+    $pane->type = 'block';
+    $pane->subtype = 'block-20';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'override_title' => 1,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $display->content['new-4'] = $pane;
+    $display->panels['sidebar__'][0] = 'new-4';
+  $display->hide_title = PANELS_TITLE_NONE;
+  $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $export['node_view_panel_context_2'] = $handler;
 
