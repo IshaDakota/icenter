@@ -2562,7 +2562,16 @@ function ddblock_add_instance_form($form, $form_state) {
 
       //$option[0]  contains module name, $option[1]  contains delta, $option[2]  contains block title,
       $option = explode(':', $value);
-      $options[$option[0] . ':' . $option[1]] = $option[0] . ' - ' . $option[2];
+
+      //If the block title contains colons, the value in $option[2] would 
+      //be incorrect. Any array elements > 3 also belong in the title, so if 
+      //they exist, loop through them and add them to the block title.
+      $block_title = $option[2];
+      for($i = 3; $i < count($option); $i++) {
+        $block_title .= ":".$option[$i];
+      }
+
+      $options[$option[0] . ':' . $option[1]] = $option[0] . ' - ' . $block_title;
     }
   }
 

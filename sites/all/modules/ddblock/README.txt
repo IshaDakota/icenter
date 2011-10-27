@@ -1,9 +1,3 @@
-
-Note: This is dev verison of the module. Please test and review the module and post
-your issues on the project page http://drupal.org/project/ddblock to help improve
-the module.
-
-
 SUMMARY
 -------
 The Dynamic display block module enables you to create blocks to present content
@@ -20,14 +14,9 @@ Several effects and other setting can be set in the configuration settings of th
 Dynamic display block module.
 
 
-MORE INFORMATION
-----------------
-Documentation in progress
-
-
 REQUIREMENTS
 ------------
-None
+Libraries module
 
 
 INSTALLATION
@@ -35,56 +24,21 @@ INSTALLATION
 See INSTALL.txt
 
 
-COLLABORATION WITH OTHER MODULES
---------------------------------
-The dynamic display block module can work together with all modules that provide
-blocks. The content of the block can be displayed dynamically (one by one width
-transition effects) if the content consist of e.g. Images, A list of listitems,
-A table with tablerows, etc.
-
-Example modules and blocks you can use
-
-Module       - blocks
----------------------
-Headerimage  - blocks with images
-Comments     - Recent comments
-Forum        - Active forum topics
-Forum        - New forum topics
-Views        - blocks with images, lists, tables
-Worldclock   - World clock
-etc.
-
-* Set the blocks you want to use with the dynamic display block module in
-  Administer >> Site configuration >> Dynamic display block - Settings tab.
-
-* Make an instance of the block you want to use in Administer >> Site
-  configuration >> Dynamic display block - Instance tab.
-
-* Configure the block in Administer >> Site configuration >> Dynamic display
-  block - List tab.
-
-  Dont forget to set the Container value to the tag you want to show
-
-* Add the block to a region in in Administer >> Site Building >> Blocks.
-
 CONFIGURATION
 -------------
-* Configure user permissions in the modules page: Modules
+Step by step tutorials at:
+http://ddblock.myalbums.biz/node/1974 (Drupal 7 - Basic slideshow tutorial) 	
+http://ddblock.myalbums.biz/node/1971 (Drupal 7 - Advanced slideshow tutorial)
+
+
+PERMISSIONS
+-----------
+* Configure user permissions at: admin > people > permissions
 
   - administer dynamic display blocks:
 
   - view dynamic display blocks:
 
-* Manage module settings in Structure >> Dynamic display block.
-
-
-ADVANCED SLIDESHOWS
--------------------
-Documentation in progress
-
-FAQ
----
-For Frequently Asked Questions - http://ddblock.myalbums.biz/faq
 
 CONTACT
 -------

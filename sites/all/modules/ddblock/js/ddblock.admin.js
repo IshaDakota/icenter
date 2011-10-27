@@ -340,6 +340,9 @@ Drupal.behaviors.ddblockShowHideCustomTemplateOptions = {
           $("#ddblock-pager-scrollable-loop-wrapper").hide();
         break;
         case "60" :
+        case "70" :
+        case "80" :
+        case "90" :
           regexEnabled = /^s/; // start with s (scrollable pager)
           pager = 'scrollable-pager';
           $('#edit-pager-container').val('.scrollable-pager-item');

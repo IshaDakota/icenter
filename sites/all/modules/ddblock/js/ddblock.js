@@ -266,20 +266,21 @@ Drupal.behaviors.ddblockCycle = {
         //options.slideExpr = contentContainer;
 
         //set speed of the transition (any valid fx speed value)
-        options.speed = ddblockSettings.speed;
+        options.speed = parseInt(ddblockSettings.speed);
         if (options.speed == 0) {
           options.speed = 1;
         };
 
         //set timeout in milliseconds between slide transitions (0 to disable auto advance)
-        options.timeout = ddblockSettings.timeOut;
+        options.timeout = parseInt(ddblockSettings.timeOut);
 
         //set pause, true to enable "pause on hover"
         options.pause = (ddblockSettings.pause == 1) ? 1 : 0;
 
         //set custom options, custom need to start with the character {,
         //to prevent errors from a wywsiwyg editor which adds e.g. <br /> to the custom field.
-        if (custom && custom[0] == '{') {
+        // use custom.substr(0,1) instead of custom[0] to prevent error with IE7
+        if (custom && custom.substr(0,1) == '{') {
           // get the \r\n from the string
           var custom1 = custom.replace(/\r\n/gi,"");
 
@@ -370,35 +371,37 @@ Drupal.behaviors.ddblockCycle = {
               scrollableVertical = false;
             }
             // create one scrollable element and return the API by enabling the "api" property
-            var myScrollable = $('#ddblock-scrollable-pager-' + block).scrollable({
+            if ($('#ddblock-scrollable-pager-' + block).length > 0){
+              var myScrollable = $('#ddblock-scrollable-pager-' + block).scrollable({
 
-              // number of items vissible in scrollable pager
-              size: ddblockSettings.nrOfPagerItems,
+                // number of items vissible in scrollable pager
+                size: ddblockSettings.nrOfPagerItems,
 
-              //vertical slideshow
-              vertical: scrollableVertical,
+                //vertical slideshow
+                vertical: scrollableVertical,
 
-              circular: true,
+                circular: true,
 
-              //nextitem navigation, default used
-              next: '.next',
+                //nextitem navigation, default used
+                next: '.next',
 
-              //previtem navigation, default used
-              prev: '.prev',
+                //previtem navigation, default used
+                prev: '.prev',
 
-              //enable api property
-              api: true
+                //enable api property
+                api: true
 
-            });
-            if (myScrollable) {
-              //set first slide as activate slide in scrollable pager
-              myScrollable.click(0);
+              });
+              if (myScrollable) {
+                //set first slide as activate slide in scrollable pager
+                myScrollable.click(0);
 
-              //set myScrollable cycle option to scrollable API to use in onafter
-              options.myScrollable = myScrollable;
+                //set myScrollable cycle option to scrollable API to use in onafter
+                options.myScrollable = myScrollable;
 
-              //set total nr of pager items
-              options.nrOfPagerItems = ddblockSettings.nrOfPagerItems;
+                //set total nr of pager items
+                options.nrOfPagerItems = ddblockSettings.nrOfPagerItems;
+              }
             }
           }
 
