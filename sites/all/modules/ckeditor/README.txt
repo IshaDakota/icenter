@@ -166,6 +166,12 @@ function MODULENAME_ckeditor_plugin() {
             'desc' => t('Description of plugin'),
             // The full path to the CKEditor plugin directory, trailing slash included.
             'path' => drupal_get_path('module', 'my_module') . '/plugin_dir/',
+            // Plugin buttons definition [optional]
+            'buttons' => array(
+              'button_name' => array('label' => 'Button label', 'icon' => '/path/to/icon/image'),
+              'button_name' => array('label' => 'Button label', 'icon' => '/path/to/icon/image'),
+              ...
+            )
         )
     );
 }
