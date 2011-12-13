@@ -29,6 +29,25 @@ function incubator_blog_menu_default_menu_links() {
     'weight' => '0',
     'parent_path' => 'node/37',
   );
+  // Exported menu link: main-menu:mzteen-blog
+  $menu_links['main-menu:mzteen-blog'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => 'mzteen-blog',
+    'router_path' => 'mzteen-blog',
+    'link_title' => 'Blog',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '0',
+    'parent_path' => 'node/97',
+  );
   // Translatables
   // Included for use with string extractors like potx.
   t('Blog');
