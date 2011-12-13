@@ -334,11 +334,11 @@ h2.views-field-title a:visited {
     font-size: 1.167em;
 }
 
-.view-display-id-panel_pane_2 .views-field-body {
+.view-user-blog-by-role .views-field-body {
     margin-top: 20px;
 }
 
-.view-display-id-panel_pane_2 .views-field-field-bio {
+.view-user-blog-by-role .views-field-field-bio {
   margin: 20px 0 20px 0;
   position: relative; /*These 2 settings fix PIE.htc */
   z-index: 0;  /*These 2 settings fix PIE.htc */
@@ -351,6 +351,6 @@ h2.views-field-title a:visited {
   color:#FFF;
 }
 
-.view-display-id-panel_pane_2 .views-field-nothing {
+.view-display-id-panel_pane_3 .views-field-nothing {
   font-style:italic;
 }
