@@ -119,4 +119,5 @@ function genesis_icenter_article_authors($uids) {
     return t('Anonymous');
 }
 
+
 ?>

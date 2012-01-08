@@ -308,27 +308,27 @@
  *                  Top Menu block
  **********************************************************/
 
-#block-menu-menu-top-menu  {
+#block-menu-menu-top-menu, #block-menu-menu-top-menu-logged-in  {
 	height:10px;
 	clear:both;
 }
 
-#block-menu-menu-top-menu .content {
+#block-menu-menu-top-menu .content, #block-menu-menu-top-menu-logged-in .content {
 	float:right;
 }
-#block-menu-menu-top-menu  li {
+#block-menu-menu-top-menu  li, #block-menu-menu-top-menu-logged-in li {
 	display:inline;
 	border-right:solid 1px #0F6CB6;
 	line-height: 3px;
 	padding-right: 10px;
 }
 
-#block-menu-menu-top-menu  li.last {
+#block-menu-menu-top-menu li.last, #block-menu-menu-top-menu-logged-in li.last {
 	border: none;
 	padding-right: 0;
 }
 
-#block-menu-menu-top-menu  a {
+#block-menu-menu-top-menu a, #block-menu-menu-top-menu-logged-in a {
 	text-decoration:none;
 	color:#0F6CB6; 
 }

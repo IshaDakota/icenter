@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Incubator Blog feature.
- */
-
-include_once('incubator_blog.features.inc');
