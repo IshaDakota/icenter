@@ -182,7 +182,42 @@ div.tweets-pulled-listing a:active {
  **********************************************************/
 .profile .user-picture {
     float: none;
-    margin: 0 0 1em 0;
+    margin: 0.67em 0 1em 0;
+    clear: both;
+}
+
+.profile .field-name-field-first-name, .profile .field-name-field-last-name {
+  font-size: 1.67em;
+  display: inline;
+  float: left;
+}
+
+.profile .field-name-field-last-name {
+  margin: 0 0 0 .25em;
+}
+
+.profile .field-name-field-bio, .profile .field-name-field-position, .profile .field-name-field-position {
+  clear: both;
+}
+
+.profile .field-item {
+  font-size: 1.167em;
+}
+
+.profile .location {
+  font-size: 1.167em;
+}
+
+.profile .map-link {
+  font-size: 1em;
+}
+
+.profile .field-item p {
+  font-size: 1em;
+}
+
+.profile h3.field-label {
+  margin: 0.667em 0 0 0;
 }
 
 /**********************************************************
