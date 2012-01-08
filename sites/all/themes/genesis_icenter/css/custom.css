@@ -236,12 +236,17 @@ form#user-profile-form textarea {
 }
 
 form#user-profile-form select {
- font-size: 1.167em;
+  font-size: 1.167em;
+  position: relative; /*These 2 settings fix PIE.htc */
+  z-index: 0;  /*These 2 settings fix PIE.htc */
+  border: 1px solid #999999;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
 }
 
 form#user-profile-form option {
-  padding: 3em;
-  line-height: 3em;
+  padding: .667em;
 }
 
 form#user-profile-form .password-strength {
