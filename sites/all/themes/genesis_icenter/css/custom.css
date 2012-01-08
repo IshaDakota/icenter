@@ -186,7 +186,8 @@ div.tweets-pulled-listing a:active {
     clear: both;
 }
 
-.profile .field-name-field-first-name, .profile .field-name-field-last-name {
+.profile .field-name-field-first-name,
+.profile .field-name-field-last-name {
   font-size: 1.67em;
   display: inline;
   float: left;
@@ -196,7 +197,8 @@ div.tweets-pulled-listing a:active {
   margin: 0 0 0 .25em;
 }
 
-.profile .field-name-field-bio, .profile .field-name-field-position, .profile .field-name-field-position {
+.profile .field-name-field-bio, .profile .field-name-field-position,
+.profile .field-name-field-position {
   clear: both;
 }
 
@@ -218,6 +220,38 @@ div.tweets-pulled-listing a:active {
 
 .profile h3.field-label {
   margin: 0.667em 0 0 0;
+}
+
+form#user-profile-form input.form-text, 
+form#user-profile-form textarea {
+    position: relative; /*These 2 settings fix PIE.htc */
+    z-index: 0;  /*These 2 settings fix PIE.htc */
+    border: 1px solid #999999;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    behavior: url(../connections/PIE.htc);
+    font-size: 1.167em;
+    padding: 10px;
+}
+
+form#user-profile-form select {
+ font-size: 1.167em;
+}
+
+form#user-profile-form option {
+  padding: 3em;
+  line-height: 3em;
+}
+
+form#user-profile-form .password-strength {
+width: 15em;
+float: right;
+margin-top: 1.67em;
+}
+
+html.js form#user-profile-form input.form-autocomplete {
+background: none;
 }
 
 /**********************************************************
