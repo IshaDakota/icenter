@@ -119,5 +119,10 @@ function genesis_icenter_article_authors($uids) {
     return t('Anonymous');
 }
 
+function genesis_icenter_user_login_form($form) {
+    $form['submit']['#value'] = t('Sign in');
+    //dsm($form);
+    return drupal_render($form);
+}
 
 ?>
