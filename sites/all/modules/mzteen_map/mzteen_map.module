@@ -1,0 +1,163 @@
+<?php
+
+/**
+ * Implementation of hook_theme().
+ */
+function mzteen_map_theme() {
+  return array(
+    'mzteen_map_user_page' => array('variables' => array('header' => '', 'map' => '', 'footer' => '')),
+    'mzteen_map_infowindow_user' => array('variables' => array('account' => NULL)),
+  );
+}
+
+
+/**
+ * Get the user map variable defaults.
+ */
+function _mzteen_map_user_map_defaults() {
+  return array(
+    'macro' => '[gmap |id=mzteenmap|center=39,-93|zoom=4|width=100%|height=500px]',
+    'header' => 'This map illustrates the location MZ Teens across the country. Each marker indicates a different MZ Teen and their profile.',
+    'footer' => '',
+    'markermode' => 1,
+  );
+}
+
+function mzteen_map_menu() {
+  $items['mz-teens-map/user'] = array(
+    'type' => MENU_NORMAL_ITEM,
+    'title' => 'MZ Teens on the Map',
+    'access arguments' => array('view user map'),
+    'page callback' => 'mzteen_map_user_page',
+  );
+  $items['mz-teens-map/user/load'] = array(
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('view user map'),
+    'page callback' => 'mzteen_map_user_point',
+  );
+  
+  return $items;
+}
+
+
+/**
+ * Draws a page with a google map that has all of the MZ Teens.
+ */
+function mzteen_map_user_page() {
+  $markertypes = variable_get('gmap_role_markers', array(DRUPAL_AUTHENTICATED_RID => 'drupal'));
+  $mzteenmap = variable_get('gmap_user_map', _mzteen_map_user_map_defaults());
+  $map = array_merge(gmap_defaults(), gmap_parse_macro($mzteenmap['macro']));
+  $mode = $mzteenmap['markermode'];
+  $map['rmtcallback'] = url('mz-teens-map/user/load');
+  $map['markermode'] = $mzteenmap['markermode'];
+
+  // Find the highest rid, if available, for each user with a location.
+
+  $result = db_query("
+    SELECT
+      u.name, MAX(r.rid) as role, i.uid, i.lid, l.latitude, l.longitude
+    FROM
+      {users} u
+    INNER JOIN
+      {location_instance} i
+      ON
+        u.uid = i.uid
+    INNER JOIN
+      {location} l
+      ON
+        i.lid = l.lid
+    LEFT JOIN
+      {users_roles} r
+      ON
+        i.uid = r.uid
+    WHERE
+        u.status = 1
+    AND
+        (l.latitude != 0 OR l.longitude != 0)
+    AND
+      r.rid = 7
+    GROUP BY
+      i.uid, i.lid, u.name, l.latitude, l.longitude");
+  // The u.name, l.latitude, and l.longitude in the GROUP BY are needed for
+  // PostgreSQL.
+
+  foreach ($result as $row) {
+    // Determine marker type to show.
+    $marker = $markertypes[DRUPAL_AUTHENTICATED_RID];
+    if ($row->role && isset($markertypes[$row->role])) {
+      $marker = $markertypes[$row->role];
+    }
+
+    // Users with the 'view user location details' permission are allowed to see who
+    // each marker represents.
+    if (user_access('view user location details')) {
+      if ($mode == 1) {
+        $newmarker['rmt'] = $row->uid;
+      }
+      elseif ($mode == 2) {
+        $newmarker['link'] = url('user/' . $row->uid);
+      }
+      $newmarker['latitude'] = $row->latitude;
+      $newmarker['longitude'] = $row->longitude;
+      $newmarker['markername'] = $marker;
+      $newmarker['opts']['title'] = check_plain($row->name);
+    }
+    else {
+      $newmarker['latitude'] = $row->latitude;
+      $newmarker['longitude'] = $row->longitude;
+      $newmarker['markername'] = $marker;
+    }
+    $map['markers'][] = $newmarker;
+  }
+
+  $element = array(
+    '#type' => 'gmap',
+    '#gmap_settings' => $map,
+  );
+
+  return theme('mzteen_map_user_page', array(
+    'header' => $mzteenmap['header'],
+    'map' => drupal_render($element),
+    'footer' => $mzteenmap['footer'])
+  );
+}
+
+/**
+ * AHAH callback for getting the contents of a user point popup.
+ */
+function mzteen_map_user_point() {
+  $uid = arg(3);
+  if (is_numeric($uid) && $account = user_load($uid)) {
+    echo theme('mzteen_map_infowindow_user', array('account' => $account));
+    exit();
+  }
+}
+
+/**
+ * Theme function for displaying the user page.
+ */
+function theme_mzteen_map_user_page(&$vars) {
+  $header = $vars['header'];
+  $map = $vars['map'];
+  $footer = $vars['footer'];
+
+  global $user;
+
+  $output = "<p>$header</p>\n<p>$map</p>\n<p>$footer</p>";
+
+  if ($user->uid > 0) {
+    $output .= '<p>' . t('Return to the <a href="@url">MZ Teen Homepage</a>.', array('@url' => url('mzteens'))) . '</p>';
+  }
+
+  return $output;
+}
+
+/**
+ * Default theme for user infowindows.
+ */
+function theme_mzteen_map_infowindow_user(&$vars) {
+  $account = $vars['account'];
+  $returntxt = theme('user_picture', array('account' => $account));
+  $returntxt .= theme('username', array('account' => $account));
+  return $returntxt;
+}

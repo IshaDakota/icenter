@@ -1,0 +1,8 @@
+name = MZ Teen Map
+description = Display MZ Teens information on Google Maps
+package = Location
+core = 7.x
+version = 7.x-1.0
+files[] = mzteens_map.module
+dependencies[] = gmap
+dependencies[] = location
