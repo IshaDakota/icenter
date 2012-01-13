@@ -184,6 +184,7 @@ function video_filter_youtube($video) {
   $attributes = array(
     'rel' => $video['related'] ? 'rel=1' : 'rel=0',
     'autoplay' => $video['autoplay'] ? 'autoplay=1' : 'autoplay=0',
+    'fs' => 'fs=1',
   );
 
   $video['source'] = 'http://www.youtube.com/v/' . $video['codec']['matches'][1] . '?' . implode('&amp;', $attributes);
@@ -196,7 +197,7 @@ function video_filter_youtube_html5($video) {
     'rel' => $video['related'] ? 'rel=1' : 'rel=0',
     'autoplay' => $video['autoplay'] ? 'autoplay=1' : 'autoplay=0',
   );
-  $url = $video['codec']['matches'][1] . '?' . implode('&amp;', $attributes);
+  $url = $video['codec']['matches'][1] . '?' . "wmode=transparent&amp;" . implode('&amp;', $attributes);
   $html = '<iframe src="http://www.youtube.com/embed/'.$url.'" width="'.$video['width'].'" height="'.$video['height'].'" frameborder="0"></iframe>';
 
   return $html;
@@ -321,7 +322,7 @@ function video_filter_capped($video) {
 
 function video_filter_bliptv($video) {
   $id = $video['codec']['matches'][1];
-  
+
   // Since video ID in URL is different than in embed code, use API
   // to lookup the embed code video ID. Adapted from emfield.module.
   $result = drupal_http_request('http://blip.tv/file/' . $id . '?skin=api');
@@ -358,6 +359,11 @@ function video_filter_bliptv($video) {
       }
     }
     $id = $response['EMBEDLOOKUP'][0];
+    // Protect from XSS.
+    if (preg_match("/[^A-Za-z0-9]/", $id, $matches)) {
+      watchdog('Video Filter', t('A faulty Blip.tv ID has been detected.'));
+      $id = 0;
+    }
   }
   
   $video['source'] = 'http://blip.tv/play/' . $id;
