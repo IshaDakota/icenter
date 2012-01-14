@@ -17,7 +17,7 @@ function hubs_views_default_views() {
   $view->base_table = 'node';
   $view->human_name = 'Networking Hub List';
   $view->core = 0;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Defaults */
@@ -157,7 +157,7 @@ Hubs can be built around iCenter projects, particular areas of interest in the f
   $view->base_table = 'users';
   $view->human_name = 'Networking Hub members';
   $view->core = 0;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Defaults */
@@ -237,6 +237,14 @@ Hubs can be built around iCenter projects, particular areas of interest in the f
 
   /* Display: Content pane */
   $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
+  $handler->display->display_options['use_ajax'] = TRUE;
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'mini';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '1';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: User: Picture */
   $handler->display->display_options['fields']['picture']['id'] = 'picture';
@@ -257,9 +265,12 @@ Hubs can be built around iCenter projects, particular areas of interest in the f
   $handler->display->display_options['fields']['picture']['alter']['html'] = 0;
   $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['picture']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['picture']['empty'] = '/sites/theicenter.org/files/styles/icon-15/public/pictures/';
   $handler->display->display_options['fields']['picture']['hide_empty'] = 0;
   $handler->display->display_options['fields']['picture']['empty_zero'] = 0;
   $handler->display->display_options['fields']['picture']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['picture']['link_photo_to_profile'] = 1;
+  $handler->display->display_options['fields']['picture']['image_style'] = 'icon-30';
   $handler->display->display_options['fields']['picture']['imagecache_preset'] = 'icon-30';
   /* Field: User: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
@@ -306,11 +317,12 @@ Hubs can be built around iCenter projects, particular areas of interest in the f
   $view->base_table = 'node';
   $view->human_name = 'Networking Hub User groups';
   $view->core = 7;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'My Networks';
   $handler->display->display_options['access']['type'] = 'role';
   $handler->display->display_options['access']['role'] = array(
     3 => '3',
@@ -451,8 +463,6 @@ Hubs can be built around iCenter projects, particular areas of interest in the f
 
   /* Display: Content pane */
   $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'My Networks';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: We pass to the &quot;Entity ID&quot; the User ID. */
   $handler->display->display_options['arguments']['etid']['id'] = 'etid';
@@ -461,6 +471,7 @@ Hubs can be built around iCenter projects, particular areas of interest in the f
   $handler->display->display_options['arguments']['etid']['relationship'] = 'og_membership';
   $handler->display->display_options['arguments']['etid']['ui_name'] = 'We pass to the "Entity ID" the User ID.';
   $handler->display->display_options['arguments']['etid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['etid']['title_enable'] = 1;
   $handler->display->display_options['arguments']['etid']['title'] = '%1 groups';
   $handler->display->display_options['arguments']['etid']['default_argument_type'] = 'current_user';
   $handler->display->display_options['arguments']['etid']['default_argument_skip_url'] = 0;

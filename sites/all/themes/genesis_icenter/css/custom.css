@@ -198,7 +198,7 @@ div.tweets-pulled-listing a:active {
 }
 
 .profile .field-name-field-bio, .profile .field-name-field-position,
-.profile .field-name-field-position {
+.profile .field-name-field-position, .profile .field-name-field-organization {
   clear: both;
 }
 
@@ -645,7 +645,7 @@ margin: 0 10px 10px 0;
 }
 
 #og-members-pane .view-networking-hub-members .views-field-name {
-  margin: 3px 0 0 5px;
+  margin: 8px 0 0 5px;
   float:left;
 }
 
