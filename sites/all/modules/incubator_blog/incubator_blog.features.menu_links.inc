@@ -29,9 +29,29 @@ function incubator_blog_menu_default_menu_links() {
     'weight' => '0',
     'parent_path' => 'node/37',
   );
+  // Exported menu link: main-menu:mzteens
+  $menu_links['main-menu:mzteens'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => 'mzteens',
+    'router_path' => 'mzteens',
+    'link_title' => 'MZ Teen Program',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '1',
+    'expanded' => '0',
+    'weight' => '-48',
+    'parent_path' => 'node/1',
+  );
   // Translatables
   // Included for use with string extractors like potx.
   t('Blog');
+  t('MZ Teen Program');
 
 
   return $menu_links;

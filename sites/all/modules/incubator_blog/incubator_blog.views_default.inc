@@ -931,7 +931,7 @@ function incubator_blog_views_default_views() {
   $handler->display->display_options['filters']['status_1']['field'] = 'status';
   $handler->display->display_options['filters']['status_1']['value'] = '1';
   $handler->display->display_options['filters']['status_1']['group'] = 1;
-  $handler->display->display_options['path'] = 'mz-teens-blog';
+  $handler->display->display_options['path'] = 'mzteens';
   $export['user_blog_by_role'] = $view;
 
   return $export;
