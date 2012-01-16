@@ -34,7 +34,7 @@ function incubator_blog_menu_default_menu_links() {
     'menu_name' => 'main-menu',
     'link_path' => 'mzteens',
     'router_path' => 'mzteens',
-    'link_title' => 'MZ Teen Program',
+    'link_title' => 'MZ Teen Israel Internship',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -51,7 +51,7 @@ function incubator_blog_menu_default_menu_links() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Blog');
-  t('MZ Teen Program');
+  t('MZ Teen Israel Internship');
 
 
   return $menu_links;

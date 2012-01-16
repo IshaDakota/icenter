@@ -338,7 +338,8 @@ h2.views-field-title a:visited {
     margin-top: 20px;
 }
 
-.view-user-blog-by-role .views-field-field-bio {
+.view-user-blog-by-role .views-field-field-bio,
+.view-user-blog-by-role .view-header {
   margin: 20px 0 20px 0;
   position: relative; /*These 2 settings fix PIE.htc */
   z-index: 0;  /*These 2 settings fix PIE.htc */
@@ -353,4 +354,14 @@ h2.views-field-title a:visited {
 
 .view-display-id-panel_pane_3 .views-field-nothing {
   font-style:italic;
+}
+
+.view-user-blog-by-role .views-field-name,
+.view-user-blog-by-role .views-field-created {
+    font-size: 1em;
+    float: left;
+}
+
+.view-user-blog-by-role .views-field-created {
+    margin: 0 0 0 .333em;
 }
