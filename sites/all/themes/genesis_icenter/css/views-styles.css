@@ -356,8 +356,8 @@ h2.views-field-title a:visited {
   font-style:italic;
 }
 
-.view-user-blog-by-role .views-field-name,
-.view-user-blog-by-role .views-field-created {
+.view-user-blog-listing .views-field-name,
+.view-user-blog-listing .views-field-created {
     font-size: 1em;
     float: left;
 }
