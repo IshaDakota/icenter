@@ -17,7 +17,9 @@ function mzteen_map_theme() {
 function _mzteen_map_user_map_defaults() {
   return array(
     'macro' => '[gmap |id=mzteenmap|center=39,-93|zoom=4|width=100%|height=500px]',
-    'header' => 'This map illustrates the location MZ Teens across the country. Each marker indicates a different MZ Teen and their profile.',
+    'header' => 'MZ Teens are engaging their friends and communities with Israel
+    all across the country. Check out the map below to see if there are any MZ
+    Teens in your community.',
     'footer' => '',
     'markermode' => 1,
   );
@@ -45,7 +47,7 @@ function mzteen_map_menu() {
  */
 function mzteen_map_user_page() {
   $markertypes = variable_get('gmap_role_markers', array(DRUPAL_AUTHENTICATED_RID => 'drupal'));
-  $mzteenmap = variable_get('gmap_user_map', _mzteen_map_user_map_defaults());
+  $mzteenmap = variable_get('mzteen_user_map', _mzteen_map_user_map_defaults());
   $map = array_merge(gmap_defaults(), gmap_parse_macro($mzteenmap['macro']));
   $mode = $mzteenmap['markermode'];
   $map['rmtcallback'] = url('mz-teens-map/user/load');
