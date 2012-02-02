@@ -122,7 +122,7 @@ function hubs_field_default_fields() {
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_default',
-          'weight' => 4,
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -181,7 +181,7 @@ function hubs_field_default_fields() {
       'description' => 'You may choose the groups to which you would like to post. Cross-posting to multiple hubs (max 5) is allowed, but please do so responsibly. Do not post hubs to which you are not an active member or to which the material is not appropriate (that is spamming).',
       'display' => array(
         'default' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'og',
           'settings' => array(),
           'type' => 'og_list_default',

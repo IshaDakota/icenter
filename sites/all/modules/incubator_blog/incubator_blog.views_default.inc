@@ -69,6 +69,10 @@ function incubator_blog_views_default_views() {
   $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['filter_groups']['operator'] = 'OR';
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'AND',
+  );
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -953,7 +957,7 @@ function incubator_blog_views_default_views() {
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = '1';
-  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -962,7 +966,7 @@ function incubator_blog_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'user_blog_post' => 'user_blog_post',
   );
-  $handler->display->display_options['filters']['type']['group'] = 0;
+  $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: User: Roles */
   $handler->display->display_options['filters']['rid']['id'] = 'rid';
   $handler->display->display_options['filters']['rid']['table'] = 'users_roles';
@@ -971,8 +975,22 @@ function incubator_blog_views_default_views() {
   $handler->display->display_options['filters']['rid']['value'] = array(
     7 => '7',
   );
-  $handler->display->display_options['filters']['rid']['group'] = 0;
-  $handler->display->display_options['filters']['rid']['reduce_duplicates'] = 1;
+  $handler->display->display_options['filters']['rid']['group'] = 1;
+  $handler->display->display_options['filters']['rid']['reduce_duplicates'] = 0;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status_2']['id'] = 'status_2';
+  $handler->display->display_options['filters']['status_2']['table'] = 'node';
+  $handler->display->display_options['filters']['status_2']['field'] = 'status';
+  $handler->display->display_options['filters']['status_2']['value'] = '1';
+  $handler->display->display_options['filters']['status_2']['group'] = 2;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
+  $handler->display->display_options['filters']['type_1']['table'] = 'node';
+  $handler->display->display_options['filters']['type_1']['field'] = 'type';
+  $handler->display->display_options['filters']['type_1']['value'] = array(
+    'user_blog_post' => 'user_blog_post',
+  );
+  $handler->display->display_options['filters']['type_1']['group'] = 2;
   /* Filter criterion: Content: Tags (field_tags) */
   $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
@@ -980,15 +998,9 @@ function incubator_blog_views_default_views() {
   $handler->display->display_options['filters']['field_tags_tid']['value'] = array(
     0 => '159',
   );
-  $handler->display->display_options['filters']['field_tags_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_tags_tid']['group'] = 2;
   $handler->display->display_options['filters']['field_tags_tid']['reduce_duplicates'] = 1;
   $handler->display->display_options['filters']['field_tags_tid']['vocabulary'] = 'resource_tags';
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status_1']['id'] = 'status_1';
-  $handler->display->display_options['filters']['status_1']['table'] = 'node';
-  $handler->display->display_options['filters']['status_1']['field'] = 'status';
-  $handler->display->display_options['filters']['status_1']['value'] = '1';
-  $handler->display->display_options['filters']['status_1']['group'] = 1;
   $handler->display->display_options['path'] = 'mzteens';
 
   /* Display: Content pane MZ Educators */
@@ -1238,7 +1250,7 @@ function incubator_blog_views_default_views() {
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -1247,7 +1259,7 @@ function incubator_blog_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'user_blog_post' => 'user_blog_post',
   );
-  $handler->display->display_options['filters']['type']['group'] = 0;
+  $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Tags (field_tags) */
   $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
@@ -1255,6 +1267,7 @@ function incubator_blog_views_default_views() {
   $handler->display->display_options['filters']['field_tags_tid']['value'] = array(
     0 => '159',
   );
+  $handler->display->display_options['filters']['field_tags_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_tags_tid']['reduce_duplicates'] = 0;
   $handler->display->display_options['filters']['field_tags_tid']['vocabulary'] = 'resource_tags';
   $handler->display->display_options['argument_input'] = array(

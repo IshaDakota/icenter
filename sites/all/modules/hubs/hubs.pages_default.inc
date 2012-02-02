@@ -205,6 +205,7 @@ function hubs_default_page_manager_handlers() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
+    $pane->locks = '';
     $display->content['new-1'] = $pane;
     $display->panels['content'][0] = 'new-1';
     $pane = new stdClass;
@@ -229,6 +230,7 @@ function hubs_default_page_manager_handlers() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
+    $pane->locks = '';
     $display->content['new-2'] = $pane;
     $display->panels['header'][0] = 'new-2';
     $pane = new stdClass;
@@ -256,6 +258,7 @@ function hubs_default_page_manager_handlers() {
     );
     $pane->extras = array();
     $pane->position = 0;
+    $pane->locks = '';
     $display->content['new-3'] = $pane;
     $display->panels['sidebar'][0] = 'new-3';
     $pane = new stdClass;
@@ -280,6 +283,7 @@ function hubs_default_page_manager_handlers() {
     );
     $pane->extras = array();
     $pane->position = 1;
+    $pane->locks = '';
     $display->content['new-4'] = $pane;
     $display->panels['sidebar'][1] = 'new-4';
     $pane = new stdClass;
@@ -306,6 +310,7 @@ function hubs_default_page_manager_handlers() {
     );
     $pane->extras = array();
     $pane->position = 2;
+    $pane->locks = '';
     $display->content['new-5'] = $pane;
     $display->panels['sidebar'][2] = 'new-5';
     $pane = new stdClass;
@@ -326,6 +331,7 @@ function hubs_default_page_manager_handlers() {
     );
     $pane->extras = array();
     $pane->position = 3;
+    $pane->locks = '';
     $display->content['new-6'] = $pane;
     $display->panels['sidebar'][3] = 'new-6';
   $display->hide_title = PANELS_TITLE_FIXED;
@@ -414,7 +420,7 @@ function hubs_default_page_manager_pages() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
-    $pane->pid = 'new-1';
+    $pane->pid = 'new-7';
     $pane->panel = 'left';
     $pane->type = 'views_panes';
     $pane->subtype = 'og_nodes-panel_pane_1';
@@ -434,10 +440,11 @@ function hubs_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-1'] = $pane;
-    $display->panels['left'][0] = 'new-1';
+    $pane->locks = '';
+    $display->content['new-7'] = $pane;
+    $display->panels['left'][0] = 'new-7';
     $pane = new stdClass;
-    $pane->pid = 'new-2';
+    $pane->pid = 'new-8';
     $pane->panel = 'right';
     $pane->type = 'node_create_links';
     $pane->subtype = 'node_create_links';
@@ -455,10 +462,11 @@ function hubs_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-2'] = $pane;
-    $display->panels['right'][0] = 'new-2';
+    $pane->locks = '';
+    $display->content['new-8'] = $pane;
+    $display->panels['right'][0] = 'new-8';
     $pane = new stdClass;
-    $pane->pid = 'new-3';
+    $pane->pid = 'new-9';
     $pane->panel = 'right';
     $pane->type = 'views_panes';
     $pane->subtype = 'og_members-panel_pane_1';
@@ -478,10 +486,11 @@ function hubs_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 1;
-    $display->content['new-3'] = $pane;
-    $display->panels['right'][1] = 'new-3';
+    $pane->locks = '';
+    $display->content['new-9'] = $pane;
+    $display->panels['right'][1] = 'new-9';
     $pane = new stdClass;
-    $pane->pid = 'new-4';
+    $pane->pid = 'new-10';
     $pane->panel = 'top';
     $pane->type = 'entity_field';
     $pane->subtype = 'node:body';
@@ -502,10 +511,11 @@ function hubs_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-4'] = $pane;
-    $display->panels['top'][0] = 'new-4';
+    $pane->locks = '';
+    $display->content['new-10'] = $pane;
+    $display->panels['top'][0] = 'new-10';
     $pane = new stdClass;
-    $pane->pid = 'new-5';
+    $pane->pid = 'new-11';
     $pane->panel = 'top';
     $pane->type = 'entity_field';
     $pane->subtype = 'node:group_group';
@@ -526,8 +536,9 @@ function hubs_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 1;
-    $display->content['new-5'] = $pane;
-    $display->panels['top'][1] = 'new-5';
+    $pane->locks = '';
+    $display->content['new-11'] = $pane;
+    $display->panels['top'][1] = 'new-11';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
