@@ -13,6 +13,7 @@ function views_content_views_panes_ctools_content_types() {
   return array(
     'title' => t('View panes'),
     'admin settings' => 'views_content_admin_form',
+    'all contexts' => TRUE,
   );
 }
 
@@ -86,10 +87,7 @@ function _views_content_panes_content_type($view, $display) {
     return;
   }
 
-  $title = $display->handler->get_option('pane_title');
-  if (!$title) {
-    $title = t('@view: @display', array('@view' => $view->name, '@display' => $display->display_title));
-  }
+  $title = views_content_get_display_title($view, $display->id);
 
   $description = $display->handler->get_option('pane_description');
   if (!$description) {
@@ -150,7 +148,7 @@ function views_content_views_panes_content_type_render($subtype, $conf, $panel_a
   $args = array();
   $arguments = $view->display_handler->get_option('arguments');
 
-  $context_keys = array_keys($contexts);
+  $context_keys = isset($conf['context']) ? $conf['context'] : array();
   foreach ($view->display_handler->get_argument_input() as $id => $argument) {
     switch ($argument['type']) {
       case 'context':
@@ -171,11 +169,11 @@ function views_content_views_panes_content_type_render($subtype, $conf, $panel_a
         break;
 
       case 'panel':
-        $args[] = $panel_args[$argument['panel']];
+        $args[] = isset($panel_args[$argument['panel']]) ? $panel_args[$argument['panel']] : NULL;
         break;
 
       case 'user':
-        $args[] = (isset($conf['arguments'][$id])  && $conf['arguments'][$id] !== '') ? $conf['arguments'][$id] : NULL;
+        $args[] = (isset($conf['arguments'][$id])  && $conf['arguments'][$id] !== '') ? ctools_context_keyword_substitute($conf['arguments'][$id], array(), $contexts) : NULL;
         break;
 
      case 'wildcard':
@@ -213,7 +211,7 @@ function views_content_views_panes_content_type_render($subtype, $conf, $panel_a
 
   $block = new stdClass();
   $block->module = 'views';
-  $block->delta  = $view->name . $display;
+  $block->delta  = $view->name . '-' . $display;
 
   if (($allow['link_to_view'] && !empty($conf['link_to_view'])) ||
       (!$allow['link_to_view'] && $view->display_handler->get_option('link_to_view'))) {
@@ -258,7 +256,7 @@ function views_content_views_panes_content_type_render($subtype, $conf, $panel_a
       }
 
       if ($conf['use_pager']) {
-        if (!isset($pager['options']['id']) || $pager['options']['id'] != $conf['pager_id']) {
+        if (!isset($pager['options']['id']) || (isset($conf['pager_id']) && $pager['options']['id'] != $conf['pager_id'])) {
           $pager['options']['id'] = $conf['pager_id'];
         }
       }
@@ -277,7 +275,7 @@ function views_content_views_panes_content_type_render($subtype, $conf, $panel_a
   if ($allow['fields_override']) {
     if ($conf['fields_override']) {
       $fields = $view->get_items('field');
-      foreach ($conf['fields_override'] as $field => $display) {
+      foreach ($fields as $field => $display) {
         $fields[$field]['exclude'] = empty($conf['fields_override'][$field]);
       }
       $view->display_handler->set_option('fields', $fields);
@@ -347,11 +345,18 @@ function views_content_views_panes_content_type_edit_form($form, &$form_state) {
   $view = views_get_view($name);
 
   if (empty($view)) {
-    $form['markup'] = array('#value' => t('Broken/missing/deleted view.'));
-    return;
+    $form['markup'] = array('#markup' => t('Broken/missing/deleted view.'));
+    return $form;
   }
 
   $view->set_display($display_id);
+
+  // If it couldn't set the display and we got the default display instead,
+  // fail.
+  if ($view->current_display == 'default') {
+    $form['markup'] = array('#markup' => t('Broken/missing/deleted view display.'));
+    return $form;
+  }
 
   $allow = $view->display_handler->get_option('allow');
 
@@ -365,6 +370,7 @@ function views_content_views_panes_content_type_edit_form($form, &$form_state) {
       $form['arguments'][$id] = array(
         '#type' => 'textfield',
         '#default_value' => isset($conf['arguments'][$id]) ? $conf['arguments'][$id] : '',
+        '#description' => t('You may use keywords for substitutions.'),
         '#title' => check_plain($argument['label']),
       );
     }
@@ -531,6 +537,9 @@ function views_content_views_panes_content_type_edit_form($form, &$form_state) {
     }
   }
 
+  // Add the view object to the form to allow additional customization
+  $form_state['view'] = $view;
+
   return $form;
 }
 
@@ -563,8 +572,9 @@ function views_content_views_panes_content_type_admin_title($subtype, $conf, $co
   $view->set_display($display);
   views_content_views_panes_add_defaults($conf, $view);
 
-  $title = $view->display_handler->get_option('pane_title');
-  return check_plain($title ? $title : $view->name);
+  $title = views_content_get_display_title($view, $display);
+
+  return check_plain($title);
 }
 
 /**
@@ -590,8 +600,10 @@ function views_content_views_panes_content_type_admin_info($subtype, $conf, $con
     $argument_input = $view->display_handler->get_option('argument_input');
 
     foreach ($conf['arguments'] as $key => $value) {
-      $label = $argument_input[$key]['label'];
-      $info[] = $label . ': ' . $value;
+      if(!empty($value)){
+        $label = $argument_input[$key]['label'];
+        $info[] = $label . ': ' . $value;
+      }
     }
   }
 
@@ -600,7 +612,7 @@ function views_content_views_panes_content_type_admin_info($subtype, $conf, $con
     $block->title = array_shift($info);
 
     $info[] = $view->display_handler->get_option('pane_description');
-    $block->content = theme('item_list', $info);
+    $block->content = theme('item_list', array('items' => $info));
   }
   else {
     $block->title = $view->display_handler->get_option('pane_description');
