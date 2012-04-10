@@ -9,7 +9,7 @@
  * @see http://www.janrain.com/products/engage
  */
 
-define('RPX_MODULE_VERSION', '7.x-2.1');
+define('RPX_MODULE_VERSION', '7.x-2.2');
 
 /*
  * Engage data update options.
@@ -28,6 +28,11 @@ define('RPX_UPDATE_ALWAYS', 2);
 define('RPX_UPDATE_MAYBE', 3);
 // Update the data field as an additional value (for multi-value fields).
 define('RPX_UPDATE_ADD', 4);
+
+// Minimum number of seconds the Engage data is kept around for uncompleted
+// Engage signups (actual time in store depends on how often cron.php is run for
+// the site).
+define('RPX_SESSION_LIFETIME', 86400);
 
 // The Engage web API library
 require_once('rpx_core.webapi.inc');
@@ -80,14 +85,12 @@ function rpx_core_module_implements_alter(&$implementations, $hook) {
  * Prefills the registration form with values acquired via Engage.
  */
 function rpx_core_form_user_register_form_alter(&$form, &$form_state) {
-  // Only alter if the user is signing in using Engage (the rpx session may
-  // still be set if admin has signed in using Engage and is adding a user, so
-  // check that this is not the case).
-  if (!isset($_SESSION) || !isset($_SESSION['rpx']) || $_SESSION['rpx']['stat'] != 'ok' || user_access('administer users')) {
+  // Only alter if the user is signing in using Engage.
+  if (!$rpx_data = rpx_core_get_rpx_session()) {
     return;
   }
 
-  $profile = $_SESSION['rpx']['profile'];
+  $profile = $rpx_data['profile'];
 
   // Use the nickname returned by Engage.
   $form['account']['name']['#default_value'] = $profile['preferredUsername'];
@@ -141,9 +144,6 @@ function rpx_core_form_user_register_form_alter(&$form, &$form_state) {
     unset($form['#submit'][$k]);
     $form_state['rpx_flag_call_profile2_submit_handler'] = TRUE;
   }
-
-  // Save the Engage data in case we have to unset the session variable.
-  $rpx_data = $_SESSION['rpx'];
 
   // Disable captcha (Captcha and Mollom modules), unless we are presenting the
   // form to user after an error occurred during an attempt to sign him up
@@ -274,12 +274,16 @@ function rpx_user_register_submit($form, &$form_state) {
   $edit = array_intersect_key((array) $account, $form_state['values']);
   $account = user_save($account_unchanged, $edit, $category);
 
-  // Add the Engage data to the account.
-  $account = _rpx_populate_user_record($account, $_SESSION['rpx']);
+  // Add the Engage user profile data to the account.
+  $rpx_data = rpx_core_get_rpx_session();
+  $edit['data']['rpx_data']['profile'] = $rpx_data['profile'];
+  $account = user_save($account, $edit);
+
   // Terminate if an error occurred during user_save().
   if (!$account) {
     drupal_set_message(t("Error saving user account."), 'error');
     $form_state['redirect'] = '';
+    rpx_core_delete_rpx_session();
     return;
   }
   // Add the 3rd party profile picture to the account.
@@ -299,6 +303,7 @@ function rpx_user_register_submit($form, &$form_state) {
   }
 
   _rpx_import_user_data($account);
+  rpx_core_delete_rpx_session();
 
   // Add plain text password into user account to generate mail tokens.
   $account->password = $pass;
@@ -306,8 +311,8 @@ function rpx_user_register_submit($form, &$form_state) {
   // If no email verification required, log the user in immediately.
   if ((!variable_get('user_email_verification', TRUE) ||
        variable_get('rpx_bypass_email_verification', FALSE) ||
-       !empty($_SESSION['rpx']['profile']['verifiedEmail']) &&
-       strtolower($account->mail) == strtolower($_SESSION['rpx']['profile']['verifiedEmail'])) &&
+       !empty($rpx_data['profile']['verifiedEmail']) &&
+       strtolower($account->mail) == strtolower($rpx_data['profile']['verifiedEmail'])) &&
       $account->status) {
 
     _user_mail_notify('register_no_approval_required', $account);
@@ -325,14 +330,6 @@ function rpx_user_register_submit($form, &$form_state) {
     drupal_set_message(t('Thank you for applying for an account. Your account is currently pending approval by the site administrator.<br />In the meantime, a welcome message with further instructions has been sent to your e-mail address.'));
   }
   $form_state['redirect'] = '';
-}
-
-/**
- * Populates a given account's data with $profile from Engage
- */
-function _rpx_populate_user_record(&$account, $payload) {
-  $edit['data'] = array('rpx_data' => $payload);
-  return user_save($account, $edit);
 }
 
 /**
@@ -502,11 +499,11 @@ After confirming your email address, you will be able to log in to [site:name] u
  */
 function rpx_core_user_insert(&$edit, $account, $category) {
   // Make sure user has registered via Engage.
-  if (!isset($_SESSION['rpx'])) {
+  if (!$rpx_data = rpx_core_get_rpx_session()) {
     return;
   }
 
-  $profile = $_SESSION['rpx']['profile'];
+  $profile = $rpx_data['profile'];
 
   // Since we are inserting in two tables (authmap and rpx_linked_account),
   // use a transaction.
@@ -659,6 +656,7 @@ function _rpx_report_missing_field($entity_type, $field_name, $user_name) {
 function _rpx_import_user_data($account) {
   $map = variable_get('rpx_profile_fields_map', array());
   $provider = $_SESSION['rpx_last_provider_info']['name'];
+  $rpx_data = rpx_core_get_rpx_session();
 
   if (module_exists('profile')) {
     // Collect profile fields list and load them together.
@@ -679,7 +677,7 @@ function _rpx_import_user_data($account) {
       continue;
     }
 
-    $new_data = _rpx_data_map($_SESSION['rpx'], $mapping['fid']);
+    $new_data = _rpx_data_map($rpx_data, $mapping['fid']);
 
     // Only update if provider returned data for the field.
     if($new_data === '') {
@@ -955,8 +953,9 @@ function _rpx_update_engage_mapping($uid) {
     return;
   }
 
-  $primary_key = isset($_SESSION['rpx']['profile']['primaryKey']) ? $_SESSION['rpx']['profile']['primaryKey'] : -1;
-  $rpx_id = $_SESSION['rpx']['profile']['identifier'];
+  $rpx_data = rpx_core_get_rpx_session();
+  $primary_key = isset($rpx_data['profile']['primaryKey']) ? $rpx_data['profile']['primaryKey'] : -1;
+  $rpx_id = $rpx_data['profile']['identifier'];
 
   if ($primary_key != $uid) {
     $result = RPX::map(variable_get('rpx_apikey', ''), $rpx_id, $uid);
@@ -994,4 +993,88 @@ function _rpx_delete_engage_mapping($authname, $uid, $all = FALSE) {
   if ($result['stat'] != 'ok') {
     watchdog('rpx_core', 'Call to Engage unmap failed for user ID %uid and Engage ID %rpx_id; unmap() returned error: %err', array('%uid' => $uid, '%rpx_id' => $authname, '%err' => $result['err']['msg']), WATCHDOG_WARNING);
   }
+}
+
+/**
+ * Save data returned by auth_info call in a custom table.
+ *
+ * We don't store it in the session variable as it may contain sensitive fields
+ * (e.g. oauth tokens). We store it in a custom table instead, which we clean out
+ * periodically using cron.
+ *
+ * @see rpx_core_cron()
+ * @rpx_core_get_rpx_session()
+ */
+function rpx_core_save_rpx_session($rpx_data) {
+  db_merge ('rpx_sessions')
+    ->key(array(
+      'sid' => session_id(),
+    ))
+    ->fields(array(
+      'timestamp' => time(),
+      'rpx_data' => serialize($rpx_data),
+    ))
+    ->execute();
+
+  // Initialize the rpx_core_get_rpx_session()'s static variable to avoid
+  // unnecessary DB requests when it's called in the same page request.
+  $get_result = &drupal_static('rpx_core_get_rpx_session');
+  $get_result = $rpx_data;
+}
+
+/**
+ * Return auth_info data for the session if Engage signin is in progress.
+ *
+ * @return
+ *  Array of Engage signin (auth_info) data for the user if an Engage signin
+ *  transaction is in progress, or NULL otherwise.
+ *
+ * @see rpx_core_save_rpx_session()
+ */
+function rpx_core_get_rpx_session() {
+  $result = &drupal_static(__FUNCTION__);
+
+  if (!isset($result)) {
+    $result = db_select('rpx_sessions')
+      ->fields('rpx_sessions', array('timestamp', 'rpx_data'))
+      ->condition('sid', session_id())
+      ->execute()
+      ->fetchObject();
+
+    if ($result) {
+      // Make sure the session is not expired.
+      if (time() - $result->timestamp > RPX_SESSION_LIFETIME) {
+        rpx_core_delete_rpx_session();
+        $result = NULL;
+      }
+      else {
+        $result = unserialize($result->rpx_data);
+      }
+    }
+  }
+
+  return $result;
+}
+
+/**
+ * Delete Engage auth_info data for the session.
+ *
+ * @see rpx_core_save_rpx_session()
+ * @see rpx_core_get_rpx_session()
+ */
+function rpx_core_delete_rpx_session() {
+  db_delete('rpx_sessions')
+    ->condition('sid', session_id())
+    ->execute();
+}
+
+/**
+ * Implements hook_cron().
+ *
+ * Delete RPX sessions that are older than RPX_SESSION_LIFETIME.
+ */
+function rpx_core_cron() {
+  db_delete('rpx_sessions')
+    ->condition('timestamp', time() - RPX_SESSION_LIFETIME, '<=')
+    ->execute();
 }
