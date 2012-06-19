@@ -22,7 +22,7 @@
 ?>
 <?php if ($search_results) : ?>
   <h2><?php print t('Search results');?></h2>
-  <?php if ($filter_position == 'above' && isset($filter) && $filter != '') { ?>
+  <?php if (isset($filter) && $filter != '' && $filter_position == 'above') { ?>
     <div class="custom-search-filter">
       <?php print $filter; ?>
     </div>
@@ -30,7 +30,7 @@
   <ol class="search-results <?php print $module; ?>-results">
     <?php print $search_results; ?>
   </ol>
-  <?php if ($filter_position == 'below' && isset($filter) && $filter != '') { ?>
+  <?php if (isset($filter) && $filter != '' && $filter_position == 'below') { ?>
     <div class="custom-search-filter">
       <?php print $filter; ?>
     </div>

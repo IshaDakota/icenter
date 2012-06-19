@@ -76,6 +76,7 @@ function custom_search_uninstall() {
   if (module_exists('upload')) variable_del('custom_search_results_info_upload');
   variable_del('custom_search_filter');
   variable_del('custom_search_filter_label');
+  variable_del('custom_search_search_api_page');
 }
 
 /**

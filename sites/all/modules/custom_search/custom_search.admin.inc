@@ -128,6 +128,24 @@ function custom_search_results_admin() {
     );
   }
 
+  if (module_exists('taxonomy')) {
+    $form['search_form']['advanced']['taxonomy'] = array(
+      '#type'         => 'fieldset',
+      '#title'        => t('Taxonomy'),
+      '#description'  => t('Select the vocabularies to display on the advanced search form.'),
+      '#collapsible'  => TRUE,
+      '#collapsed'    => TRUE,
+    );
+    $vocabularies = taxonomy_get_vocabularies();
+    foreach ($vocabularies as $voc) {
+      $form['search_form']['advanced']['taxonomy']['custom_search_advanced_voc' . $voc->vid . '_display'] = array(
+        '#type'           => 'checkbox',
+        '#title'          => $voc->name,
+        '#default_value'  => variable_get('custom_search_advanced_voc' . $voc->vid . '_display', TRUE),
+      );
+    }
+  }
+
   $form['results'] = array(
     '#type'         => 'fieldset',
     '#title'        => t('Results'),

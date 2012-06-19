@@ -82,7 +82,7 @@
           if (pos2==-1) pos2 = edit_keys.length;
           var types = edit_keys.substring(pos+5,pos2);
           types = types.split(',');
-          for (var i in types) {
+          for (var i=0; i<types.length; i++) {
             $('.search-form input:checkbox[value='+types[i]+']').attr('checked', true);
           }
         }
@@ -93,7 +93,7 @@
           if (pos2==-1) pos2 = edit_keys.length;
           var terms = edit_keys.substring(pos+5,pos2);
           terms = terms.split(',');
-          for (var i in terms) {
+          for (var i=0; i<terms.length; i++) {
             $('#edit-term option[value='+terms[i]+']').attr('selected', true);
           }
         }

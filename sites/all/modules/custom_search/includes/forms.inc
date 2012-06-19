@@ -124,6 +124,26 @@ function _custom_search_default_admin_form($delta = '') {
     '#description'    => t('Enter the label text for this field. The default value is "!default".', array('!default' => CUSTOM_SEARCH_CRITERIA_NEGATIVE_LABEL_DEFAULT)),
   );
 
+  if (module_exists('search_api_page')) {
+    $search_api_pages = search_api_page_load_multiple();
+    $options[0] = t('None');
+    foreach($search_api_pages as $page) {
+      $options[$page->id] = $page->name;
+    }
+    $form['searchapi'] = array(
+      '#type'         => 'fieldset',
+      '#title'        => t('Search API'),
+      '#collapsible'  => TRUE,
+      '#collapsed'    => TRUE,
+    );
+    $form['searchapi']['custom_search_' . $delta . 'search_api_page'] = array(
+      '#type'           => 'select',
+      '#title'          => t('Search API Page to use'),
+      '#options'        => $options,
+      '#default_value'  => variable_get('custom_search_' . $delta . 'search_api_page', 0),
+    );
+  }
+
   return $form;
 }
 
