@@ -61,7 +61,7 @@ function twitter_pull_theme() {
 function twitter_pull_preprocess(&$variables, $hook) {
   switch($hook) {
     case 'twitter_pull_listing':
-    if (!empty($variables['tweets'])) {
+    if (!empty($variables['tweets']) && is_array($variables['tweets'])) {
       foreach ($variables['tweets'] as $key => $tweet) {
         $tweet->time_ago = t('!time ago.', array('!time' => format_interval(time() - $tweet->timestamp)));
         $variables['tweets'][$key] = $tweet;
@@ -98,7 +98,7 @@ function twitter_pull_render($twitkey, $title = NULL, $num_items = NULL, $themek
   $lazy_id = rtrim(base64_encode($twitkey) .'-'. base64_encode($title) .'-'. (int)$num_items . '-' . $themekey, '-');
 
   //-- Set defaults if empty arguments were passed
-  $title = (empty($title) && $title != FALSE ) ? t('Related Tweets') : $title;
+  $title = (empty($title) && $title != FALSE ) ? t('Related Tweets') : filter_xss($title);
   $themekey = empty($themekey) ? 'twitter_pull_listing' : $themekey;
   $num_items = empty($num_items) ? twitter_pull_num_items() : $num_items;
 

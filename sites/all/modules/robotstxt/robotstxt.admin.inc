@@ -1,5 +1,4 @@
 <?php
-// $Id: robotstxt.admin.inc,v 1.3.2.2 2011/01/05 23:24:10 hass Exp $
 
 /**
  * @file
