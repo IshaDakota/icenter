@@ -28,7 +28,7 @@ class rpx_ui_handler_field_provider_icon extends views_handler_field {
       return '';
     }
 
-    return theme('rpx_icon', array('provider' => $name, 'style' => 'rpx-icon-inline'));
+    return theme('rpx_share_icon', array('provider' => $name, 'style' => 'rpx-icon-inline'));
   }
 
   /**

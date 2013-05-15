@@ -70,7 +70,7 @@ function rpx_user_identities($account) {
     'title' => t('Add linked account'),
     'href' => $sign_in_url,
     'query' => array('token_url' => $token_url),
-    'attributes' => array('class' => 'rpxnow', 'onclick' => 'return false;'),
+    'attributes' => array('class' => 'janrainEngage', 'onclick' => 'return false;'),
   );
 
   $build['add_link'] = array(

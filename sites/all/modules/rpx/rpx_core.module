@@ -9,7 +9,7 @@
  * @see http://www.janrain.com/products/engage
  */
 
-define('RPX_MODULE_VERSION', '7.x-2.2');
+define('RPX_MODULE_VERSION', '7.x-2.3-beta4');
 
 /*
  * Engage data update options.

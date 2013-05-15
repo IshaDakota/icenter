@@ -9,10 +9,11 @@
  */
 
 class RPX {
-  const lookup_api = 'https://rpxnow.com/plugin/lookup_rp';
-  const auth_api = 'https://rpxnow.com/api/v2/auth_info';
-  const map_api = 'https://rpxnow.com/api/v2/map';
-  const unmap_api = 'https://rpxnow.com/api/v2/unmap';
+  const lookup_api = '/plugin/lookup_rp';
+  const auth_api = '/api/v2/auth_info';
+  const map_api = '/api/v2/map';
+  const unmap_api = '/api/v2/unmap';
+  const providers_api = '/openid/ui_config';
 
   /**
    * Performs a lookup_rp request.
@@ -20,13 +21,18 @@ class RPX {
    * @param string $api_key
    *   The API key for the Engage App we are looking up.
    *
+   * @param string $server
+   *   The domain of the Engage server to use. We pass this in, because the
+   *   first time this method is called from the settings validation function,
+   *   that data hasn't been saved to the Drupal DB yet.
+   *
    * @return
    *   An array of (lookup_rp) data about the app. FALSE if unexpected
    *   error occured.
    *
    * @see http://rpxnow.com/docs
    */
-  static function lookup($api_key) {
+  static function lookup($api_key, $server = 'rpxnow.com') {
     global $base_url;
 
     $post_data = 'apiKey=' . $api_key . '&format=json&pluginName=Drupal&pluginVersion=' . RPX_MODULE_VERSION;
@@ -42,14 +48,15 @@ class RPX {
       'max_redirects' => 5,
     );
 
-    $result = drupal_http_request(RPX::lookup_api, $options);
+    $url = 'https://' . $server . RPX::lookup_api;
+    $result = drupal_http_request($url, $options);
 
     // Fail on all errors except 400 Bad Request 'No RP found'.
     if (isset($result->data) && $result->data == 'No RP found') {
       return $result->data;
     }
     if (isset($result->error)) {
-      RPX::report_http_error($result);
+      RPX::report_http_error($result, $url);
       return FALSE;
     }
 
@@ -88,10 +95,13 @@ class RPX {
     $options['data'] = $post_data;
     $options['method'] = 'POST';
 
-    $result = drupal_http_request(RPX::auth_api, $options);
+    $server = variable_get('rpx_server', 'rpxnow.com');
+    $url = 'https://' . $server . RPX::auth_api;
+
+    $result = drupal_http_request($url, $options);
 
     if(isset($result->error)) {
-      RPX::report_http_error($result);
+      RPX::report_http_error($result, $url);
       return FALSE;
     }
 
@@ -118,10 +128,13 @@ class RPX {
     $options['data'] = $post_data;
     $options['method'] = 'POST';
 
-    $result = drupal_http_request(RPX::map_api, $options);
+    $server = variable_get('rpx_server', 'rpxnow.com');
+    $url = 'https://' . $server . RPX::map_api;
+
+    $result = drupal_http_request($url, $options);
 
     if(isset($result->error)) {
-      RPX::report_http_error($result);
+      RPX::report_http_error($result, $url);
     }
 
     return json_decode($result->data, TRUE);
@@ -158,10 +171,13 @@ class RPX {
     $options['data'] = $post_data;
     $options['method'] = 'POST';
 
-    $result = drupal_http_request(RPX::unmap_api, $options);
+    $server = variable_get('rpx_server', 'rpxnow.com');
+    $url = 'https://' . $server . RPX::unmap_api;
+
+    $result = drupal_http_request($url, $options);
 
     if(isset($result->error)) {
-      RPX::report_http_error($result);
+      RPX::report_http_error($result, $url);
     }
 
     return json_decode($result->data, TRUE);
@@ -170,25 +186,31 @@ class RPX {
   /**
    * Fetches Engage identity provider list (and their order in the widget).
    *
-   * @param string $realm
-   *   Engage relying party instance name.
    * @param string $realm_scheme
-   *   RP instance access protocal (http or https).
+   *   RP instance access protocol (http or https).
+   *
+   * @param string $realm
+   *   Engage relying party realm (as reported by the lookup_rp API).
    *
    * @return
-   *   An array of enabled identity providers occured.
+   *   An array of enabled identity providers.
    */
   static function get_enabled_providers($realm, $realm_scheme = 'http') {
+    // $realm and $realm_scheme are passed in because this method is called from
+    // the admin form submit handler and that data may not be available in the
+    // stored variables yet.
+
+    // We're using the realm scheme returned by Engage (lookup_rp) because we
+    // are using $realm as the server domain, and custom domains may not
+    // have a valid SSL cert - we don't want to fail in those cases.
     if (!in_array($realm_scheme, array('http', 'https'))) {
       $realm_scheme = 'http';
     }
-
-    $url = $realm_scheme."://" . $realm . "/openid/ui_config";
-
+    $url = $realm_scheme . '://' . $realm . RPX::providers_api;
     $result = drupal_http_request($url);
 
     if(isset($result->error)) {
-      RPX::report_http_error($result);
+      RPX::report_http_error($result, $url);
       return '';
     }
 
@@ -197,14 +219,14 @@ class RPX {
   }
 
   static function locales() {
-    return array('pt-BR', 'vi', 'zh', 'nl', 'sr', 'ko', 'ru', 'sv-SE', 'ro', 'pt', 'it', 'hu', 'fr', 'ja', 'en', 'bg', 'es', 'el', 'pl', 'de', 'cs', 'da');
+    return array('pt-BR', 'pt-PT', 'nl-BE', 'nb-NO', 'nl-NL', 'zh-CHT', 'ko-KR', 'ar', 'he', 'hr', 'th', 'sk', 'no', 'fi', 'lt', 'sl', 'uk', 'vi', 'zh', 'nl', 'sr', 'ko', 'ru', 'sv', 'sv-SE', 'ro', 'pt', 'it', 'hu', 'fr', 'ja', 'en', 'bg', 'es', 'el', 'pl', 'de', 'cs', 'da');
   }
 
   /**
    * Helper function for the Engage web API wrappers.
    */
-  static function report_http_error($result) {
-    watchdog('rpx_core', 'Engage web API seems to be inaccessible due to "%error".', array('%error' => $result->code . ' ' . $result->error), WATCHDOG_WARNING);
+  static function report_http_error($result, $url) {
+    watchdog('rpx_core', 'Engage web API at "%url" seems to be inaccessible due to "%error".', array('%url' => $url, '%error' => $result->code . ' ' . $result->error), WATCHDOG_WARNING);
     drupal_set_message(t('Engage web API seems to be inaccessible because of error "%error".', array('%error' => $result->code . ' ' . $result->error)), 'error');
   }
 }

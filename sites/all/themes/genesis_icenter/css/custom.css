@@ -29,6 +29,11 @@ html body.admin-menu {
     padding: 0;
 }
 
+ul.sf-menu li {
+  margin: 0;
+  padding: 0;
+}
+
 .sf-menu li {
     background: none repeat scroll 0 0 #A1A0A5;
     border: 1px solid #FFF;

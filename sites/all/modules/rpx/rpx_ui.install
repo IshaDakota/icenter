@@ -446,6 +446,7 @@ function rpx_ui_update_7011() {
 function rpx_ui_uninstall() {
   variable_del('rpx_admin_url');
   variable_del('rpx_apikey');
+  variable_del('rpx_server');
   variable_del('rpx_app_id');
   variable_del('rpx_attach_login_form');
   variable_del('rpx_bypass_email_verification');

@@ -13,6 +13,9 @@
  * @see rpx_admin_settings_submit()
  */
 function rpx_admin_settings($form, &$form_state) {
+  // The Engage server to use.
+  $rpx_server = variable_get('rpx_server', 'rpxnow.com');
+
   $form['settings'] = array(
     '#type' => 'vertical_tabs',
   );
@@ -25,7 +28,13 @@ function rpx_admin_settings($form, &$form_state) {
     '#type' => 'fieldset',
     '#title' => t('SETUP'),
     '#group' => 'settings',
-    '#description' => $get_engage . t('To make changes to your existing Janrain Engage account and integration with this site visit <a href="@account_link" target="_blank">@account_link</a>.',  array('@account_link' => 'https://rpxnow.com/account')),
+    '#description' => $get_engage . t('To make changes to your existing Janrain Engage account and integration with this site visit <a href="@account_link" target="_blank">@account_link</a>.',  array('@account_link' => "https://{$rpx_server}/account")),
+  );
+  $form[$group]['rpx_server'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Engage server'),
+    '#default_value' => $rpx_server,
+    '#description' => t('The Engage server to use (use rpxnow.com if you are not sure).'),
   );
   $form[$group]['rpx_apikey'] = array(
     '#type' => 'textfield',
@@ -37,7 +46,7 @@ function rpx_admin_settings($form, &$form_state) {
     '#type' => 'item',
     '#title' => t('Engage Realm'),
     '#markup' => variable_get('rpx_realm', ''),
-    '#description' => t('The Engage realm for this site (set automatically based on your API Key).'),
+    '#description' => t('The Engage realm for this site (set automatically based on your Engage server/API Key).'),
   );
   $form[$group]['rpx_admin_url_hidden'] = array(
     '#type' => 'item',
@@ -70,7 +79,7 @@ function rpx_admin_settings($form, &$form_state) {
   if (count($providers)) {
     $group = 'providers';
     $setup_url = variable_get('rpx_admin_url', '');
-    $setup_url = $setup_url ? $setup_url . '/setup_providers' : 'https://rpxnow.com/account';
+    $setup_url = $setup_url ? $setup_url . '/setup_providers' : "https://{$rpx_server}/account";
     $form[$group] = array(
       '#type' => 'fieldset',
       '#title' => t('IDENTITY PROVIDERS'),
@@ -166,7 +175,7 @@ function rpx_admin_settings($form, &$form_state) {
     '#type' => 'fieldset',
     '#title' => t('SOCIAL SHARING'),
     '#group' => 'settings',
-    '#description' => t('To configure social sharing providers visit <a href="@social_link" target="_blank">Janrain\'s rpxnow site</a>.', array('@social_link' => $rpx_admin_url ? $rpx_admin_url . '/social_publishing_2' : 'https://rpxnow.com')),
+    '#description' => t('To configure social sharing providers visit the <a href="@social_link" target="_blank">Janrain Engage site</a>.', array('@social_link' => $rpx_admin_url ? $rpx_admin_url . '/setup_share_widget' : "https://${rpx_server}")),
   );
   $form[$group]['rpx_social_enabled'] = array(
     '#type' => 'checkbox',
@@ -183,12 +192,6 @@ function rpx_admin_settings($form, &$form_state) {
   $form[$group]['node_sharing_settings'] = array(
     '#type' => 'fieldset',
     '#title' => t('Social sharing settings for content'),
-  );
-  $form[$group]['node_sharing_settings']['rpx_default_label_nodes'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Default label for shared content'),
-    '#default_value' => variable_get('rpx_default_label_nodes', RPX_DEFAULT_LABEL_NODES_STRING),
-    '#description' => t('Specify the default short string (including tokens) that will appear at the top of the social sharing widget. This setting can be overridden on the content type edit page.')
   );
   $form[$group]['node_sharing_settings']['rpx_default_message_nodes'] = array(
     '#type' => 'textfield',
@@ -223,12 +226,6 @@ function rpx_admin_settings($form, &$form_state) {
   $form[$group]['comments_sharing_settings'] = array(
     '#type' => 'fieldset',
     '#title' => t('Social sharing settings for comments'),
-  );
-  $form[$group]['comments_sharing_settings']['rpx_default_label_comments'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Default label for shared comments'),
-    '#default_value' => variable_get('rpx_default_label_comments', RPX_DEFAULT_LABEL_COMMENTS_STRING),
-    '#description' => t('Specify the default short string (including tokens) that will appear at the top of the social sharing widget. This setting can be overridden on the content type edit page.')
   );
   $form[$group]['comments_sharing_settings']['rpx_default_message_comments'] = array(
     '#type' => 'textfield',
@@ -336,8 +333,9 @@ function rpx_admin_settings($form, &$form_state) {
  */
 function rpx_admin_settings_validate($form, &$form_state) {
   $api_key = $form_state['values']['rpx_apikey'];
+  $rpx_server = $form_state['values']['rpx_server'];
 
-  $lookup = RPX::lookup($api_key, 'apiKey');
+  $lookup = RPX::lookup($api_key, $rpx_server);
 
   if (!$lookup) {
     form_set_error('', t('Error contacting Engage.  Please verify your internet connection and try again.'));
@@ -677,7 +675,7 @@ function rpx_profile_field_overview_form($form, &$form_state) {
 
   $path_help = '<dl>';
   if (module_exists('token')) {
-    $path_help .= '<dt>' . t('You can choose the path here. Please note that not all providers return all of the data below, and some of the data is only available to <a href="@get_engage" target="_blank">Plus</a> and <a href="@get_engage" target="_blank">Pro</a> Janrain customers. You must enable extended profile data in the <a href="@settings" target="_blank">settings</a> if you want that data to be requested from Engage at user sign-in. For complete information about the user data returned by Engage see <a href="@auth_info_help" target="_blank">this</a>.', array('@get_engage' => url('http://www.janrain.com/products/engage/get-janrain-engage'), '@settings' => url('admin/config/people/rpx'), '@auth_info_help' => 'https://rpxnow.com/docs#api_auth_info')) . '</dt>';
+    $path_help .= '<dt>' . t('You can choose the path here. Please note that not all providers return all of the data below, and some of the data is only available to <a href="@get_engage" target="_blank">Plus</a> and <a href="@get_engage" target="_blank">Pro</a> Janrain customers. You must enable extended profile data in the <a href="@settings" target="_blank">settings</a> if you want that data to be requested from Engage at user sign-in. For complete information about the user data returned by Engage see <a href="@auth_info_help" target="_blank">this</a>.', array('@get_engage' => url('http://www.janrain.com/products/engage/get-janrain-engage'), '@settings' => url('admin/config/people/rpx'), '@auth_info_help' => 'http://developers.janrain.com/documentation/engage/reference/user-profile-data/')) . '</dt>';
     $path_help .= '<dd>' . theme('rpx_path_tree') . '</dd>';
   }
   $path_help .= '</dl>';
@@ -805,7 +803,7 @@ An example path is <code>['profile']['verifiedEmail']</code> or <code>['merged_p
 
   $path_help = '<dl>';
   if (module_exists('token')) {
-    $path_help .= '<dt>' . t('You can choose the path here. Please note that not all providers return all of the data below, and some of the data is only available to <a href="@get_engage" target="_blank">Plus</a> and <a href="@get_engage" target="_blank">Pro</a> Janrain customers. You must enable extended profile data in the <a href="@settings" target="_blank">settings</a> if you want that data to be requested from Engage at user sign-in. For complete information about the user data returned by Engage see <a href="@auth_info_help" target="_blank">this</a>.', array('@get_engage' => url('http://www.janrain.com/products/engage/get-janrain-engage'), '@settings' => url('/admin/config/people/rpx'), '@auth_info_help' => 'https://rpxnow.com/docs#api_auth_info')) . '</dt>';
+    $path_help .= '<dt>' . t('You can choose the path here. Please note that not all providers return all of the data below, and some of the data is only available to <a href="@get_engage" target="_blank">Plus</a> and <a href="@get_engage" target="_blank">Pro</a> Janrain customers. You must enable extended profile data in the <a href="@settings" target="_blank">settings</a> if you want that data to be requested from Engage at user sign-in. For complete information about the user data returned by Engage see <a href="@auth_info_help" target="_blank">this</a>.', array('@get_engage' => url('http://www.janrain.com/products/engage/get-janrain-engage'), '@settings' => url('/admin/config/people/rpx'), '@auth_info_help' => 'http://developers.janrain.com/documentation/engage/reference/user-profile-data/')) . '</dt>';
     $path_help .= '<dd>' . theme('rpx_path_tree') . '</dd>';
   }
   else {

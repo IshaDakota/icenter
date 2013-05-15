@@ -198,36 +198,6 @@ function rpx_ui_form_node_type_form_alter(&$form, &$form_state) {
     '#delta' => 50,
     '#description' => t('Weight value for the "share" button displayed in content region.'),
   );
-  $form['rpx_ui']['share_button']['rpx_label_nodes'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Label for shared content'),
-    '#default_value' => variable_get('rpx_label_nodes_'. $type, variable_get('rpx_default_label_nodes', RPX_DEFAULT_LABEL_NODES_STRING)),
-    '#description' => t('Specify the short string (including tokens) that will appear at the top of the social sharing widget for this content type.')
-  );
-  $form['rpx_ui']['share_button']['rpx_message_nodes'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Default message for shared content'),
-    '#default_value' => variable_get('rpx_message_nodes_'. $type, variable_get('rpx_default_message_nodes', RPX_DEFAULT_MESSAGE_NODES_STRING)),
-    '#description' => t('Specify the default message text (including tokens) to be used when sharing content of this type.')
-  );
-  $form['rpx_ui']['share_button']['rpx_linktext_nodes'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Link text for shared content'),
-    '#default_value' => variable_get('rpx_linktext_nodes_'. $type, variable_get('rpx_default_linktext_nodes', RPX_DEFAULT_LINKTEXT_NODES_STRING)),
-    '#description' => t('Specify the default action description (including tokens) to be used when sharing content of this type.')
-  );
-  $form['rpx_ui']['share_button']['rpx_title_nodes'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Title for shared content'),
-    '#default_value' => variable_get('rpx_title_nodes_'. $type, variable_get('rpx_default_title_nodes', RPX_DEFAULT_TITLE_NODES_STRING)),
-    '#description' => t('Specify the default title (including tokens) to be used when sharing content of this type.')
-  );
-  $form['rpx_ui']['share_button']['rpx_summary_nodes'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Description for shared content'),
-    '#default_value' => variable_get('rpx_summary_nodes_'. $type, variable_get('rpx_default_summary_nodes', RPX_DEFAULT_SUMMARY_NODES_STRING)),
-    '#description' => t('Specify the description (including tokens) to be used when sharing content of this type.')
-  );
 
   $form['rpx_ui']['comments_title'] = array(
     '#type' => 'markup',
@@ -239,62 +209,17 @@ function rpx_ui_form_node_type_form_alter(&$form, &$form_state) {
     '#type' => 'fieldset',
     '#title' => t('Comments settings'),
   );
-
-  $form['rpx_ui']['comments']['rpx_comment_popup_social_at_once'] = array(
+    $form['rpx_ui']['comments']['rpx_comment_popup_social_at_once'] = array(
     '#type' => 'checkbox',
     '#title' => t('Automatically launch social sharing widget after comment submission'),
     '#default_value' => variable_get('rpx_comment_popup_social_at_once_'. $type, 0),
   );
+    
   $form['rpx_ui']['comments']['rpx_attach_share_link_to_comments'] = array(
     '#type' => 'checkbox',
     '#title' => t('Attach "share" link to comments'),
     '#default_value' => variable_get('rpx_attach_share_link_to_comments_'. $type, 0),
   );
-
-  $form['rpx_ui']['comments']['rpx_label_comments'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Label for shared comments'),
-    '#default_value' => variable_get('rpx_label_comments_'. $type, variable_get('rpx_default_label_comments', RPX_DEFAULT_LABEL_COMMENTS_STRING)),
-    '#description' => t('Specify the short string (including tokens) that will appear at the top of the social sharing widget for this content type\'s comments.')
-  );
-  $form['rpx_ui']['comments']['rpx_message_comments'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Default message for shared comments'),
-    '#default_value' => variable_get('rpx_message_comments_'. $type, variable_get('rpx_default_message_comments', RPX_DEFAULT_MESSAGE_COMMENTS_STRING)),
-    '#description' => t('Specify the default message text (including tokens) to be used when sharing comments for this content type.')
-  );
-  $form['rpx_ui']['comments']['rpx_linktext_comments'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Link text for shared comments'),
-    '#default_value' => variable_get('rpx_linktext_comments_'. $type, variable_get('rpx_default_linktext_comments', RPX_DEFAULT_LINKTEXT_COMMENTS_STRING)),
-    '#description' => t('Specify the default action description (including tokens) to be used when sharing comments for this content type.')
-  );
-  $form['rpx_ui']['comments']['rpx_title_comments'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Title for shared comments'),
-    '#default_value' => variable_get('rpx_title_comments_'. $type, variable_get('rpx_default_title_comments', RPX_DEFAULT_TITLE_COMMENTS_STRING)),
-    '#description' => t('Specify the default title (including tokens) to be used when sharing comments for this content type.')
-  );
-  $form['rpx_ui']['comments']['rpx_summary_comments'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Description for shared comments'),
-    '#default_value' => variable_get('rpx_summary_comments_'. $type, variable_get('rpx_default_summary_comments', RPX_DEFAULT_SUMMARY_COMMENTS_STRING)),
-    '#description' => t('Specify the description (including tokens) to be used when sharing comments for this content type.')
-  );
-
-  // Add the token tree UI.
-  if (module_exists('token')) {
-    $form['rpx_ui']['token_help'] = array(
-      '#theme' => 'token_tree',
-      '#token_types' => array('user', 'node', 'comment', 'site'),
-      '#global_types' => FALSE,
-    );
-  }
-  else {
-    $form['rpx_ui']['token_help'] = array(
-      '#markup' => t('<a href="@token_module_link" target="_blank">Token</a> module is not enabled. Enable it if you want to use the token browser here.', array('@token_module_link' => 'http://drupal.org/project/token')),
-    );
-  }
 }
 
 /**

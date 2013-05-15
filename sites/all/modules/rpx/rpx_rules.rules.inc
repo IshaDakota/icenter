@@ -15,25 +15,16 @@ function rpx_rules_rules_action_info() {
     'rpx_action_launch_social' => array(
       'label' => t('Launch social sharing widget'),
       'parameter' => array(
-        'label' => array(
-          'type' => 'text',
-          'label' => t('Label'),
-          'description' => t('This is a short string that appears at the top of the social sharing widget that is presented to the user.'),
-        ),
         'comment' => array(
           'type' => 'text',
           'label' => t('Comment'),
           'optional' => TRUE,
           'description' => t('Any textual content the user made about this action. If this is provided, it overrides the link text for Yahoo!, Myspace, LinkedIn and Twitter. It is displayed in an independent location on Facebook.'),
         ),
-        'linktext' => array(
-          'type' => 'text',
-          'label' => t('Link text'),
-          'description' => t('A description of the action the user is sharing, as it should be displayed on the sites the user chooses to share it with.'),
-        ),
         'link' => array(
           'type' => 'text',
           'label' => t('Link'),
+          'optional' => TRUE,
           'description' => t('Where people who see the user\'s update on social sites can visit for further information. Make sure this is a valid link, or the social widget will fail to launch.'),
         ),
         'title' => array(
@@ -155,13 +146,15 @@ function _rpx_rules_rpx_properties() {
  * load.
  */
 function rpx_action_launch_social($label, $comment, $linktext, $link, $title, $summary) {
-  // Required arguments.
-  $social_args = array(
-    'label' => $label,
-    'linktext' => $linktext,
-    'link' => $link,
-  );
-  // The comment and summary arguments are optional.
+  $social_args = array();
+  
+    // The arguments are optional.
+  if(isset($link))
+  {
+    $social_args += array(
+      'link' => $link,
+    );
+  }
   if (isset($comment)) {
     $social_args += array(
       'comment' => $comment,

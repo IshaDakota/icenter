@@ -9,7 +9,7 @@
  * The Engage Sign-in transaction end point. Engage redirects the user to this
  * URL upon successful authentication by a 3rd party.
  *
- * See @link https://rpxnow.com/docs#flow Janrain Engage Flow @endlink for a
+ * See @link http://developers.janrain.com/documentation/engage/getting-started/engage-flow/ Janrain Engage Flow @endlink for a
  * detailed decription of this process.
  */
 function rpx_token_handler() {
