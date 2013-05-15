@@ -80,6 +80,11 @@ function genesis_icenter_process_block(&$vars) {
 * @param $hook
 *   The name of the template being rendered ("node" in this case.)
 */
+
+function genesis_icenter_preprocess_page(&$variables) {
+  drupal_add_js(drupal_get_path('theme', 'genesis_icenter') .'/js/40nuggets.js', 'file');
+}
+
 function genesis_icenter_preprocess_node(&$variables, $hook) {
   $function = __FUNCTION__ . '_' . $variables['node']->type;
   if (function_exists($function)) {
@@ -118,6 +123,5 @@ function genesis_icenter_article_authors($uids) {
     }
     return t('Anonymous');
 }
-
 
 ?>
