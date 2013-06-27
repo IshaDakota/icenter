@@ -1,9 +1,9 @@
 <?php
 /*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.2                                                |
+ | CiviCRM version 4.3                                                |
  +--------------------------------------------------------------------+
- | Copyright CiviCRM LLC (c) 2004-2012                                |
+ | Copyright CiviCRM LLC (c) 2004-2013                                |
  +--------------------------------------------------------------------+
  | This file is a part of CiviCRM.                                    |
  |                                                                    |
@@ -28,7 +28,7 @@
 /**
  *
  * @package CRM
- * @copyright CiviCRM LLC (c) 2004-2012
+ * @copyright CiviCRM LLC (c) 2004-2013
  * $Id$
  *
  */
@@ -69,7 +69,7 @@ class CRM_Contribute_Selector_Search extends CRM_Core_Selector_Base implements C
     'sort_name',
     'amount_level',
     'total_amount',
-    'contribution_type',
+                                 'financial_type',
     'contribution_source',
     'receive_date',
     'thankyou_date',
@@ -159,7 +159,8 @@ class CRM_Contribute_Selector_Search extends CRM_Core_Selector_Base implements C
    *
    * @return CRM_Contact_Selector
    * @access public
-   */ function __construct(&$queryParams,
+   */
+  function __construct(&$queryParams,
     $action             = CRM_Core_Action::NONE,
     $contributionClause = NULL,
     $single             = FALSE,
@@ -204,8 +205,7 @@ class CRM_Contribute_Selector_Search extends CRM_Core_Selector_Base implements C
    * @access public
    *
    */
-  static
-  function &links($componentId = NULL, $componentAction = NULL, $key = NULL, $compContext = NULL) {
+  static function &links($componentId = NULL, $componentAction = NULL, $key = NULL, $compContext = NULL) {
     $extraParams = NULL;
     if ($componentId) {
       $extraParams = "&compId={$componentId}&compAction={$componentAction}";
@@ -362,7 +362,7 @@ class CRM_Contribute_Selector_Search extends CRM_Core_Selector_Base implements C
       }
 
       if ($row['is_test']) {
-        $row['contribution_type'] = $row['contribution_type'] . ' (' . ts('test') . ')';
+                $row['financial_type'] = $row['financial_type'] . ' (' . ts('test') . ')';
       }
 
       $row['checkbox'] = CRM_Core_Form::CB_PREFIX . $result->contribution_id;
@@ -376,15 +376,15 @@ class CRM_Contribute_Selector_Search extends CRM_Core_Selector_Base implements C
       );
 
       $row['action'] = CRM_Core_Action::formLink(self::links($componentId,
-          $componentAction,
-          $qfKey,
-          $componentContext
-        ),
-        $mask, $actions
+                         $componentAction,
+                         $qfKey,
+                         $componentContext
+                       ),
+                       $mask, $actions
       );
 
       $row['contact_type'] = CRM_Contact_BAO_Contact_Utils::getImage($result->contact_sub_type ?
-        $result->contact_sub_type : $result->contact_type, FALSE, $result->contact_id
+                             $result->contact_sub_type : $result->contact_type, FALSE, $result->contact_id
       );
 
       if (CRM_Utils_Array::value('amount_level', $row)) {
@@ -428,7 +428,7 @@ class CRM_Contribute_Selector_Search extends CRM_Core_Selector_Base implements C
           'direction' => CRM_Utils_Sort::DONTCARE,
         ),
         array('name' => ts('Type'),
-          'sort' => 'contribution_type_id',
+          'sort'      => 'financial_type_id',
           'direction' => CRM_Utils_Sort::DONTCARE,
         ),
         array(
@@ -497,5 +497,4 @@ class CRM_Contribute_Selector_Search extends CRM_Core_Selector_Base implements C
     return $this->_query->summaryContribution($this->_context);
   }
 }
-//end of class
 

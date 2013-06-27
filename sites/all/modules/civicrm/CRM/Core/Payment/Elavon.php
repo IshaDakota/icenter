@@ -1,7 +1,7 @@
 <?php
 /*
  +----------------------------------------------------------------------------+
- | Elavon (Nova) Virtual Merchant Core Payment Module for CiviCRM version 4.2 |
+ | Elavon (Nova) Virtual Merchant Core Payment Module for CiviCRM version 4.3 |
  +----------------------------------------------------------------------------+
  | Licensed to CiviCRM under the Academic Free License version 3.0            |
  |                                                                            |
@@ -59,8 +59,7 @@ class CRM_Core_Payment_Elavon extends CRM_Core_Payment {
    * @static
    *
    */
-  static
-  function &singleton($mode, &$paymentProcessor) {
+  static function &singleton($mode, &$paymentProcessor) {
     $processorName = $paymentProcessor['name'];
     if (self::$_singleton[$processorName] === NULL) {
       self::$_singleton[$processorName] = new CRM_Core_Payment_Elavon($mode, $paymentProcessor);
@@ -83,7 +82,7 @@ class CRM_Core_Payment_Elavon extends CRM_Core_Payment {
     // credit card name
     $requestFields['ssl_first_name'] = $params['billing_first_name'];
     // credit card name
-    //$requestFields['ssl_middle_name']	     = $params['billing_middle_name'];
+    //$requestFields['ssl_middle_name']       = $params['billing_middle_name'];
     // credit card name
     $requestFields['ssl_last_name'] = $params['billing_last_name'];
     // contact name
@@ -105,7 +104,7 @@ class CRM_Core_Payment_Elavon extends CRM_Core_Payment {
     // 32 character string
     $requestFields['ssl_invoice_number'] = $params['invoiceID'];
     $requestFields['ssl_transaction_type'] = "CCSALE";
-    $requestFields['ssl_description'] = $params['description'];
+    $requestFields['ssl_description'] = empty($params['description']) ? "backoffice payment" : $params['description'];
     $requestFields['ssl_customer_number'] = substr($params['credit_card_number'], -4);
 
     /************************************************************************************
@@ -114,7 +113,7 @@ class CRM_Core_Payment_Elavon extends CRM_Core_Payment {
      *  $params['qfKey'];
      *  $params['amount_other'];
      *  $params['ip_address'];
-     *  $params['contributionType_name'	];
+     *  $params['contributionType_name'  ];
      *  $params['contributionPageID'];
      *  $params['contributionType_accounting_code'];
      *  $params['amount_level'];
@@ -247,7 +246,7 @@ class CRM_Core_Payment_Elavon extends CRM_Core_Payment {
     curl_close($ch);
 
     /**********************************************************
-     * Payment succesfully sent to gateway - process the response now
+     * Payment successfully sent to gateway - process the response now
      **********************************************************/
 
     $processorResponse = self::decodeXMLResponse($responseData);

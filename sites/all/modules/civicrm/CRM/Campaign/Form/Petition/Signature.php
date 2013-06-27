@@ -1,9 +1,9 @@
 <?php
 /*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.2                                                |
+ | CiviCRM version 4.3                                                |
  +--------------------------------------------------------------------+
- | Copyright CiviCRM LLC (c) 2004-2012                                |
+ | Copyright CiviCRM LLC (c) 2004-2013                                |
  +--------------------------------------------------------------------+
  | This file is a part of CiviCRM.                                    |
  |                                                                    |
@@ -28,7 +28,7 @@
 /**
  *
  * @package CRM
- * @copyright CiviCRM LLC (c) 2004-2012
+ * @copyright CiviCRM LLC (c) 2004-2013
  * $Id$
  *
  */
@@ -128,17 +128,19 @@ class CRM_Campaign_Form_Petition_Signature extends CRM_Core_Form {
    *
    * @var int
    * EMAIL_THANK = 1,
-   * 		connected user via login/pwd - thank you
-   * 	 	or dedupe contact matched who doesn't have a tag CIVICRM_TAG_UNCONFIRMED - thank you
-   * 		or login using fb connect - thank you + click to add msg to fb wall
+   *     connected user via login/pwd - thank you
+   *      or dedupe contact matched who doesn't have a tag CIVICRM_TAG_UNCONFIRMED - thank you
+   *     or login using fb connect - thank you + click to add msg to fb wall
    * EMAIL_CONFIRM = 2;
-   *		send a confirmation request email
+   *    send a confirmation request email
    */
   protected $_sendEmailMode;
 
   protected $_image_URL;
 
-  protected $_defaults = NULL; function __construct() {
+  protected $_defaults = NULL;
+
+  function __construct() {
     parent::__construct();
     // this property used by civicrm_fb module and if true, forces thank you email to be sent
     // for users signing in via Facebook connect; also sets Fb email to check against
@@ -392,13 +394,13 @@ class CRM_Campaign_Form_Petition_Signature extends CRM_Core_Form {
       $dedupeParams = CRM_Dedupe_Finder::formatParams($params, $params['contact_type']);
       $dedupeParams['check_permission'] = '';
 
-      //dupesByParams($params, $ctype, $level = 'Strict', $except = array())
+      //dupesByParams($params, $ctype, $level = 'Unsupervised', $except = array())
       $ids = CRM_Dedupe_Finder::dupesByParams($dedupeParams, $params['contact_type']);
     }
 
-    $petition_params['id'] = $this->_surveyId;
-    $petition = array();
-    CRM_Campaign_BAO_Survey::retrieve($petition_params, $petition);
+        $petition_params['id'] = $this->_surveyId;
+        $petition = array();
+        CRM_Campaign_BAO_Survey::retrieve($petition_params, $petition);
 
     switch (count($ids)) {
       case 0:
@@ -413,10 +415,10 @@ class CRM_Campaign_Form_Petition_Signature extends CRM_Core_Form {
           $params['statusId'] = 2;
         }
         else {
-          $this->_sendEmailMode = self::EMAIL_CONFIRM;
+        $this->_sendEmailMode = self::EMAIL_CONFIRM;
 
-          // Set status for signature activity to scheduled until email is verified
-          $params['statusId'] = 1;
+        // Set status for signature activity to scheduled until email is verified
+        $params['statusId'] = 1;
         }
         break;
 
@@ -523,6 +525,7 @@ class CRM_Campaign_Form_Petition_Signature extends CRM_Core_Form {
 
     // create the signature activity record
     $params['contactId'] = $this->_contactId;
+    $params['activity_campaign_id'] = CRM_Utils_Array::value('campaign_id', $this->petition);
     $result = $this->bao->createSignature($params);
 
     // send thank you or email verification emails
