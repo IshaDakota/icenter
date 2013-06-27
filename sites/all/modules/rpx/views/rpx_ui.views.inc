@@ -9,6 +9,16 @@
  * Implements hook_views_data().
  */
 function rpx_ui_views_data() {
+  $data = array();
+  $data['node']['share_link'] = array(
+    'group' => t('Janrain Engage'),
+    'title' => t('Engage Share Link'),
+    'help' => t('A link to share the content with Janrain Engage.'),
+    'field' => array(
+      'handler' => 'rpx_ui_handler_field_share',
+    ),
+  );  
+  
   $data['rpx_linked_account']['table']['group']  = t('Janrain Engage');
 
   $data['rpx_linked_account']['table']['join'] = array(
@@ -23,46 +33,6 @@ function rpx_ui_views_data() {
       'left_table' => 'authmap',
       'left_field' => 'aid',
       'field' => 'aid',
-    ),
-  );
-
-  $data['rpx_linked_account']['provider_name'] = array(
-    'title' => t('Provider machine name'),
-    'help' => t('3rd party identity provider\'s name for linked account.'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-    ),
-    'filter' => array(
-      'handler' => 'rpx_ui_handler_filter_provider_name',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-  );
-
-  $data['rpx_linked_account']['provider_title'] = array(
-    'title' => t('Provider title'),
-    'help' => t('3rd party identity provider\'s title for linked account.'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-    ),
-    'filter' => array(
-      'handler' => 'rpx_ui_handler_filter_provider_title',
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-  );
-
-  $data['rpx_linked_account']['provider_icon'] = array(
-    'title' => t('Provider icon'),
-    'help' => t('3rd party identity provider\'s icon.'),
-    'real field' => 'provider_name',
-    'field' => array(
-      'handler' => 'rpx_ui_handler_field_provider_icon',
     ),
   );
 

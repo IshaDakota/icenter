@@ -366,13 +366,13 @@ function rpx_admin_settings_submit($form, &$form_state) {
   variable_del('rpx_mapping_api');
 
   $lookup = variable_get('rpx_lookup_results');
-  variable_del('rpx_lookup_results');
+  //variable_del('rpx_lookup_results');
 
   variable_set('rpx_apikey', $lookup['apiKey']);
   variable_set('rpx_realm', $lookup['realm']);
   variable_set('rpx_realm_scheme', $lookup['realmScheme']);
   variable_set('rpx_app_id', $lookup['appId']);
-  variable_set('rpx_social_pub', $lookup['socialPub']);
+  variable_set('rpx_social_pub', $lookup['shareProviders']);
   variable_set('rpx_admin_url', $lookup['adminUrl']);
 
   $use_mapping_api = strpos($lookup['capabilities'], 'mapping_api');

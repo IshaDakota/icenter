@@ -14,6 +14,7 @@ files[] = views/rpx_ui_handler_field_provider_icon.inc
 files[] = views/rpx_ui_handler_field_delete_link.inc
 files[] = views/rpx_ui_handler_filter_provider_name.inc
 files[] = views/rpx_ui_handler_filter_provider_title.inc
+files[] = views/rpx_ui_handler_field_share.inc
 configure = admin/config/people/rpx
 
 
@@ -24,9 +25,9 @@ project = "rpx"
 datestamp = "1333553178"
 
 
-; Information added by drupal.org packaging script on 2013-05-03
-version = "7.x-2.3"
+; Information added by drupal.org packaging script on 2013-06-24
+version = "7.x-2.4"
 core = "7.x"
 project = "rpx"
-datestamp = "1367610911"
+datestamp = "1372099251"
 
