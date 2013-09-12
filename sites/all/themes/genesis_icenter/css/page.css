@@ -7,7 +7,7 @@
 body {
   padding: 0 10px;
   margin: 0;
-  background-color: #998844;
+  background-color: #e7e7e7;
 }
 	
 /**********************************************************
@@ -31,10 +31,9 @@ body {
   margin-top: 25px;
   width: 1000px;
   padding: 40px;
-  border: 1px solid #996600;
-  -moz-box-shadow: 0 0 4px 1px #996600;
-  -webkit-box-shadow: 0 0 4px 1px #996600;
-  box-shadow: 0 0 5px 2px #996600; 
+  -moz-box-shadow: 0 0 4px 1px #737373;
+  -webkit-box-shadow: 0 0 4px 1px #737373;
+  box-shadow: 0 0 20px 10px #737373; 
   background-color: #FFF;
 }
 
@@ -91,7 +90,9 @@ h1.logo-site-name  {}
 }
 
 /* Logo. */
-#logo {}
+#logo img {
+
+} 
 
 #site-name {
   font-weight: bold; /* Bold or else the line heights vary. */

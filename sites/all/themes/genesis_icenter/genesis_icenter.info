@@ -42,6 +42,7 @@
   regions[highlighted]        = Highlighted
   regions[leaderboard]        = Leaderboard
   regions[header]             = Header
+  regions[navigation]         = Navigation Bar
   regions[secondary_content]  = Secondary
   regions[tertiary_content]   = Tertiary
   regions[footer]             = Footer
