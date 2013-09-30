@@ -17,6 +17,9 @@
 
 /* Component (SMACSS module) rules */
 @import "components/misc";
+@import "components/navigation";
+@import "components/page";
+
 // Optionally, add your own components here.
 @import "print";
 

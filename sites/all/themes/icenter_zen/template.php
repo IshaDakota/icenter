@@ -130,3 +130,19 @@ function icenter_zen_preprocess_block(&$variables, $hook) {
   //}
 }
 // */
+
+function icenter_zen_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'search_block_form') {
+ 
+    unset($form['search_block_form']['#title']);
+   
+    $form['search_block_form']['#title_display'] = 'invisible';
+    $form_default = t('Search the iCenter');
+    $form['search_block_form']['#default_value'] = $form_default;
+    $form['search_block_form']['#size'] = '20';
+    $form['actions']['submit'] = array('#type' => 'image_button', '#src' => base_path() . path_to_theme() . '/images/search-glass-retina.png');
+
+    
+$form['search_block_form']['#attributes'] = array('onblur' => "if (this.value == '') {this.value = '{$form_default}';}", 'onfocus' => "if (this.value == '{$form_default}') {this.value = '';}" );
+  }
+}

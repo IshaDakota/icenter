@@ -1,0 +1,137 @@
+/**
+ * @file
+ * SMACSS Modules
+ *
+ * Adds modular sets of styles for page elements.
+ *
+ */
+
+/**
+ * Set the page element with background and border
+ */
+#page {
+  background: #fff;
+  border: 5px solid #fff;
+  box-shadow: 0 0 25px -5px #737373;
+  margin-top: 50px;
+  padding: 2em;
+}
+
+/**
+ * Set the sidebar elements.
+ */
+aside.sidebars {
+  font-family: $notosans;
+  section {
+  	background: #bcc0c6;
+  }
+}
+
+/**
+ * Set the header elements.
+ */
+#header {
+	font-family: $notosans;
+}
+
+/**
+ * Titles.
+ */
+.page__title,          /* The title of the page. */
+.node__title,          /* Title of a piece of content when it is given in a list of content. */
+.block__title,         /* Block title. */
+.comments__title,      /* Comment section heading. */
+.comments__form-title, /* Comment form heading. */
+.comment__title {      /* Comment title. */
+  font-family: $didact;
+  color: $blue;
+  line-height: 1;
+}
+
+/**
+ * Header Search block
+ */
+#block-search-form {
+  float: left;
+  margin-top: 1px;
+  #search-block-form {
+    .form-item {
+      input {
+        margin-right: 5px;
+        padding: 0 0.5em;
+        font-size: .8em;
+        color: $blue;
+        float: left;
+        height: 32px;
+        border: 1px solid $blue;
+      }
+    }
+    .form-actions {
+      input {
+        width: 32px;
+        max-height: auto;
+        float: left;
+      }
+    }
+  }
+}
+
+/**
+ * Social Media Blocks
+ */
+#block-icenter-custom-blocks-social-media {
+  display: block;
+  float: right;
+  margin: 0 10px 0 0;
+  padding: 0;
+  ul.menu {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li.twitter, li.facebook, li.youtube, li.googleplus {
+      display: inline;
+      a {
+        @include transition(background-color 0.5s);
+        text-indent: -9999px;
+        padding: 0;
+        height: 34px;
+        width: 34px;
+        border-radius: 20px;
+        display: inline-block;
+      }
+      a:hover {
+        background-color: $purple;
+      }
+    }
+    li.twitter {
+      display: inline;
+      a {
+        background: url("../images/twitter-bird-retina.png") no-repeat scroll center center $blue;
+        background-size: 32px 32px;
+      }
+    }
+    li.facebook {
+      display: inline;
+      a {
+        background: url("../images/facebook-retina.png") no-repeat scroll center center $blue;
+        background-size: 32px 32px;
+      }
+    }
+    li.youtube {
+      display: inline;
+      a {
+        background: url("../images/youtube-retina.png") no-repeat scroll center center $blue;
+        background-size: 30px 30px;
+      }
+    }
+    li.googleplus {
+      display: inline;
+      a {
+        background: url("../images/google-plus-retina.png") no-repeat scroll center center $blue;
+        background-size: 32px 32px;
+      }
+    }    
+  }
+}
+
