@@ -16,6 +16,7 @@ Drupal.behaviors.rpxUIProfileFields = {
         var path = fid in rpx_fields ? rpx_fields[fid].path : this.initialValue;
         $(this).siblings('.description').html(path);
       });
+
       // Trigger the above event on initial pageload to update the label.
       $(this).trigger('change', false);
     });
@@ -39,9 +40,11 @@ Drupal.behaviors.rpxUIProfileFields = {
         var selectedBundle = this.options[this.selectedIndex].value;
         var fields = sets[selectedSet].bundles[selectedBundle].fields;
         var options = {};
+
         $.each(fields, function (field) {
             options[field] = fields[field];
         });
+
         options = $.isEmptyObject(options) ? [] : options;
         fieldDropdown.rpxUIPopulateOptions(options);
       });
@@ -60,9 +63,11 @@ Drupal.behaviors.rpxUIProfileFields = {
       // Populate the set select input, so that the user has something to work
       // with. If the field is already mapped, preselect the set.
       var options = {'' : this.initialValue};
+
       $.each(sets, function(set) {
         options[set] = sets[set].title;
       });
+
       var selected = map[mid].set;
       $(this).rpxUIPopulateOptions(options, selected);
 
@@ -75,6 +80,7 @@ Drupal.behaviors.rpxUIProfileFields = {
       // React to the user's selection.
       $(this).bind('change keyup', function () {
         var selectedSet = this.options[this.selectedIndex].value;
+
         if (!selectedSet) {
           // Disable the bundle and field select inputs, and show the
           // bundle select input in case it was hidden before.
@@ -90,9 +96,11 @@ Drupal.behaviors.rpxUIProfileFields = {
           // select dropdown for them.
           var fields = sets[selectedSet].bundles[''].fields;
           var options = {};
+
           $.each(fields, function(field) {
               options[field] = fields[field];
           });
+
           options = $.isEmptyObject(options) ? [] : options;
           // If the (Engage) field is mapped, preselect the (Drupal) field
           // it is mapped to.
@@ -105,9 +113,11 @@ Drupal.behaviors.rpxUIProfileFields = {
           // input for them.
           var bundles = sets[selectedSet].bundles;
           var options = {};
+
           $.each(bundles, function (bundle) {
               options[bundle] = bundles[bundle].title;
           });
+
           options = $.isEmptyObject(options) ? [] : options;
           // If the (Engage) field is mapped, preselect the bundle for the
           // Drupal field it is mapped to.
@@ -120,9 +130,11 @@ Drupal.behaviors.rpxUIProfileFields = {
           var selectedBundle = bundleDropdown[0].options[bundleDropdown[0].selectedIndex].value;
           var fields = sets[selectedSet].bundles[selectedBundle].fields;
           var options = {};
+
           $.each(fields, function (field) {
               options[field] = fields[field];
           });
+
           options = $.isEmptyObject(options) ? [] : options;
           // If the (Engage) field is mapped, preselect the (Drupal) field
           // it is mapped to.
@@ -145,6 +157,7 @@ Drupal.behaviors.rpxUIProfileFields = {
 jQuery.fn.rpxUIPopulateOptions = function (options, selected) {
   return this.each(function () {
     var disabled = false;
+
     if (options.length == 0) {
       options = [this.initialValue];
       disabled = true;
@@ -173,16 +186,20 @@ jQuery.fn.rpxUIPopulateOptions = function (options, selected) {
 function getMID(element) {
   var classList = $(element).attr('class').split(/\s+/);
   var mid = "";
+
   $.each(classList, function(index, item) {
     if (item.substr(0,4) == 'mid-') {
         mid = item.substr(4);
         return false;
     }
   });
-  if (mid)
+
+  if (mid) {
     return mid;
-  else
+  }
+  else {
     throw 'rpx_ui.js getMID(): element\'s class list does not contain a mid.';
+  }
 }
 
 Drupal.behaviors.rpxPathTree = {
@@ -205,6 +222,7 @@ Drupal.behaviors.rpxPathInsert = {
         $('html,body').animate({scrollTop: $('.rpx-field-title-input').offset().top - scrollCorrection}, 500);
         return false;
       });
+
       $(this).html(newThis);
     });
   }

@@ -17,8 +17,8 @@ function rpx_ui_views_data() {
     'field' => array(
       'handler' => 'rpx_ui_handler_field_share',
     ),
-  );  
-  
+  );
+
   $data['rpx_linked_account']['table']['group']  = t('Janrain Engage');
 
   $data['rpx_linked_account']['table']['join'] = array(
@@ -103,5 +103,3 @@ function _rpx_views_user_access($permission = 'manage own identities', $aid = NU
 
   return FALSE;
 }
-
-

@@ -47,6 +47,7 @@ function rpx_user_identities($account) {
     if (function_exists('overlay_get_mode') && overlay_get_mode() == 'child' && isset($_SERVER['HTTP_REFERER'])) {
       // Construct referer URI to be passed to token_url.
       $referer = $_SERVER['HTTP_REFERER'];
+
       if (variable_get('clean_url', FALSE)) {
         // Clean URLs are enabled.
         global $base_url;
@@ -55,11 +56,14 @@ function rpx_user_identities($account) {
       else {
         $referer = substr(parse_url($referer, PHP_URL_QUERY), 2);
       }
+
       global $user;
       $dest = urlencode('user/' . $user->uid . '/rpx');
+
       if (!variable_get('clean_url', FALSE)) {
         $dest = urlencode('?q=') . $dest;
       }
+
       $_SESSION['rpx_overlay_uri'] = $referer . '#overlay=' . $dest;
     }
   }
@@ -101,6 +105,7 @@ function rpx_user_delete_form($form, $form_state, $account, $aid = NULL) {
     drupal_not_found();
     drupal_exit();
   }
+
   $provider_title = db_query("SELECT provider_title FROM {authmap} am INNER JOIN {rpx_linked_account} la ON am.aid = la.aid WHERE uid = :uid AND am.aid = :aid AND module = 'rpx_core'", array(
     ':uid' => $account->uid,
     ':aid' => $aid,

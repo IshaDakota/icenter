@@ -76,6 +76,7 @@ class rpx_ui_handler_field_delete_link extends views_handler_field {
         break;
       }
     }
+
     $count = 0; // This lets us prepare the key as we want it printed.
     foreach ($this->view->display_handler->get_handlers('argument') as $arg => $handler) {
       $options[t('Arguments')]['%' . ++$count] = t('@argument title', array('@argument' => $handler->ui_name()));
@@ -86,9 +87,11 @@ class rpx_ui_handler_field_delete_link extends views_handler_field {
 
     // Default text.
     $output = t('<p>You must add some additional fields to this display before using this field. These fields may be marked as <em>Exclude from display</em> if you prefer. Note that due to rendering order, you cannot use fields that come after this field; if you need a field not listed here, rearrange your fields.</p>');
+
     // We have some options, so make a list.
     if (!empty($options)) {
       $output = t('<p>The following substitution patterns are available for this display. Use the pattern shown on the left to display the value indicated on the right. Note that due to rendering order, you cannot use fields that come after this field; if you need a field not listed here, rearrange your fields.</p>');
+
       foreach (array_keys($options) as $type) {
         if (!empty($options[$type])) {
           $items = array();
@@ -120,6 +123,7 @@ class rpx_ui_handler_field_delete_link extends views_handler_field {
     else {
       return '';
     }
+
     if (isset($values->{$this->aliases['aid']})) {
       $aid = $values->{$this->aliases['aid']};
     }
@@ -137,6 +141,7 @@ class rpx_ui_handler_field_delete_link extends views_handler_field {
       $tokens = $this->get_render_tokens($this);
       $text = strip_tags(strtr($this->options['text'], $tokens));
     }
+
     $options = array();
     if ($this->options['return']) {
       if (!empty($this->options['custom_destination'])) {

@@ -147,28 +147,22 @@ function _rpx_rules_rpx_properties() {
  */
 function rpx_action_launch_social($label, $comment, $linktext, $link, $title, $summary) {
   $social_args = array();
-  
+
     // The arguments are optional.
-  if(isset($link))
-  {
-    $social_args += array(
-      'link' => $link,
-    );
+  if(isset($link)) {
+    $social_args += array('link' => $link,);
   }
+
   if (isset($comment)) {
-    $social_args += array(
-      'comment' => $comment,
-    );
+    $social_args += array('comment' => $comment,);
   }
+
   if (isset($title)) {
-    $social_args += array(
-      'title' => $title,
-    );
+    $social_args += array('title' => $title,);
   }
+
   if (isset($summary)) {
-    $social_args += array(
-      'summary' => $summary,
-    );
+    $social_args += array('summary' => $summary,);
   }
 
   $_SESSION['rpx_action_launch_social_data'] = $social_args;

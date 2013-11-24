@@ -55,6 +55,7 @@ class RPX {
     if (isset($result->data) && $result->data == 'No RP found') {
       return $result->data;
     }
+
     if (isset($result->error)) {
       RPX::report_http_error($result, $url);
       return FALSE;
@@ -206,6 +207,7 @@ class RPX {
     if (!in_array($realm_scheme, array('http', 'https'))) {
       $realm_scheme = 'http';
     }
+
     $url = $realm_scheme . '://' . $realm . RPX::providers_api;
     $result = drupal_http_request($url);
 

@@ -67,6 +67,7 @@ function rpx_rules_rpx_linked_account($op, $account) {
     case 'added':
       $event = 'rpx_account_add';
       break;
+
     case 'deleted':
       $event = 'rpx_account_delete';
       break;

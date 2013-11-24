@@ -16,9 +16,7 @@ function rpx_admin_settings($form, &$form_state) {
   // The Engage server to use.
   $rpx_server = variable_get('rpx_server', 'rpxnow.com');
 
-  $form['settings'] = array(
-    '#type' => 'vertical_tabs',
-  );
+  $form['settings'] = array('#type' => 'vertical_tabs',);
   $group = 'setup';
   $get_engage = '';
   if (!variable_get('rpx_apikey', FALSE)) {
@@ -821,7 +819,6 @@ An example path is <code>['profile']['verifiedEmail']</code> or <code>['merged_p
   );
 
   $form['#tree'] = TRUE;
-
   $form['#validate'][] = '_rpx_profile_field_forms_validate';
   $form['#submit'][] = '_rpx_profile_field_forms_submit';
 
@@ -871,6 +868,7 @@ function _rpx_profile_field_forms_validate($form, &$form_state) {
   if (!$field['title']) {
     form_set_error('_edit_field][title', t('You need to provide a title.'));
   }
+
   // Missing data path.
   if (!$field['path']) {
     form_set_error('_edit_field][path', t('You need to provide a data path.'));
@@ -891,19 +889,23 @@ function _rpx_profile_field_forms_validate($form, &$form_state) {
   if (isset($field['fid'])) {
     $query->condition('fid', $field['fid'], '<>');
   }
+
   $query_path = clone $query;
 
   $title = $query
     ->condition('title', $field['title'])
     ->execute()
     ->fetchField();
+
   if ($title) {
     form_set_error('_edit_field][title', t('The specified title is already in use.'));
   }
+
   $path = $query_path
     ->condition('path', $field['path'])
     ->execute()
     ->fetchField();
+
   if ($path) {
     form_set_error('_edit_field][path', t('The specified path is already in use.'));
   }
@@ -931,6 +933,7 @@ function _rpx_profile_field_forms_submit($form, &$form_state) {
       ->execute();
     drupal_set_message(t('The field has been updated.'));
   }
+
   cache_clear_all();
   menu_rebuild();
 
@@ -1117,7 +1120,6 @@ function rpx_profile_mapping_default($form, &$form_state) {
   $form['#tree'] = TRUE;
 
   return $form;
-
 }
 
 /**
@@ -1157,6 +1159,7 @@ function theme_rpx_mapping_settings_form($variables) {
       $rows[] = array('data' => $row);
     }
   }
+
   $header = array(t('Engage Data Field'), '');
   $header[] = array('data' => t('Drupal Profile Field'), 'colspan' => 3);
   $header[] = array('data' => t('Operations'));
@@ -1193,6 +1196,7 @@ function theme_rpx_path_tree($variables) {
     'attributes' => array('class' => array('rpx-path-tree')),
     'empty' => t('No paths available.'),
   );
+
   $table_options['caption'] = t('Navigate to the path you want and click on it to insert it into the path field.');
   $table_options['attributes']['class'][] = 'rpx-path-click-insert';
 
@@ -1253,6 +1257,7 @@ function theme_rpx_provider_weight_table($variables) {
       'class' => array('draggable'),
     );
   }
+
   $header = array(t('Provider'), t('Select'), t('Weight'));
   drupal_add_tabledrag('rpx-mapping-providers', 'order', 'sibling', 'rpx-mapping-provider-weight');
   return theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('id' => 'rpx-mapping-providers'), 'caption' => 'Weight table: for the data mapping, select 3rd party account providers and arrange them from highest priority (top) to lowest priority (bottom).  Selected providers with higher priority have data that takes precedence over those with lower priority.'));

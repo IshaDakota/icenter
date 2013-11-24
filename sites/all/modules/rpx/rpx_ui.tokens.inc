@@ -18,6 +18,7 @@ function rpx_ui_token_info() {
     'name' => t('Provider\'s machine name'),
     'description' => t('The Janrain Engage identity provider\'s internal (machine) name.'),
   );
+
   $rpx['provider-title'] = array(
     'name' => t("Provider's title"),
     'description' => t('The Janrain Engage identity provider\'s title.'),
@@ -41,6 +42,7 @@ function rpx_ui_tokens($type, $tokens, array $data = array(), array $options = a
   }
 
   $provider = $_SESSION['rpx_last_provider_info'];
+
   foreach ($tokens as $name => $original) {
     switch ($name) {
     case 'provider-machinename':

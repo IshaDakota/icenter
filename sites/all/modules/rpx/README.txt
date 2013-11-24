@@ -1,13 +1,5 @@
 Module:  Janrain Engage (formerly RPX)
 
-Authors: Peat Bakke <peat@janrain.com>
-         George Katsitadze <george@janrain.com>
-         Nathan Rambeck <http://nathan.rambeck.org>
-         Rendahl Weishar <ren@janrain.com>
-
-         Many thanks to Ben Kaplan (BenK) for his great ideas and
-         feedback. He is the driving force behind the new features in
-         2.x
 
 Description
 ===========
@@ -93,23 +85,35 @@ The Janrain Engage service currently supports the following social
 networks and service providers:
 
 Facebook
+Google+
 Google
-LinkedIn
-Myspace
 Twitter
-Windows Live
+PayPal
 Yahoo!
+LinkedIn
+Microsoft Account
+Salesforce
+Foursquare
+Orkut
+Amazon
 AOL
 Blogger
+Disqus
 Flickr
 Hyves
+Instagram
 Livejournal
-OpenID
+Mixi
 MyOpenID
 Netlog
-PayPal
+Renren
+Sina Weibo
+SoundCloud
+Tumblr
 Verisign
+VK
 Wordpress
+XING
 
 Because new providers are added on a regular basis, you can view the
 most current list of providers at: https://rpxnow.com/docs/providers
@@ -206,22 +210,6 @@ RECOMMENDED MODULES
   include field-level information about a user's linked accounts (via
   Janrain Engage). Views fields including linked account type, linked
   account ID, and linked account icon are supported.
-
-
-DEMO SITE
-===============
-
-You can test the latest functionality and features at:
-http://drupal7.janraindemo.com
-
-
-DOCUMENTATION
-===============
-
-For detailed technical documentation, please visit:
-
-* http://rpxnow.com/docs/
-* http://api.drupal.org/
 
 
 FAQ

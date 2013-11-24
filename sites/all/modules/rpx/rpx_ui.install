@@ -203,12 +203,15 @@ function rpx_ui_update_7004() {
       if (variable_get('rpx_attach_share_link_to_teasers', FALSE)) {
         variable_set('rpx_attach_share_link_to_teasers_'. $type, 1);
       }
+
       if (variable_get('rpx_attach_share_link_to_nodelink', FALSE)) {
         variable_set('rpx_attach_share_link_to_nodelink_'. $type, 1);
       }
+
       if (variable_get('rpx_attach_share_link_to_nodecont', FALSE)) {
         variable_set('rpx_attach_share_link_to_nodecont_'. $type, 1);
       }
+
       if ($setting = variable_get('rpx_attach_share_link_to_nodecont_weight', FALSE)) {
         variable_set('rpx_attach_share_link_to_nodecont_weight_'. $type, $setting);
       }
@@ -252,6 +255,7 @@ function rpx_ui_update_7005() {
       'field' => $field_info['field'],
     );
   }
+
   variable_set('rpx_profile_fields_map', $new_map);
 }
 
@@ -268,6 +272,7 @@ function rpx_ui_update_7006() {
       $map[$k]['update'] = RPX_UPDATE_NONE;
     }
   }
+
   variable_set('rpx_profile_fields_map', $map);
 }
 
@@ -386,6 +391,7 @@ function rpx_ui_update_7010() {
     ->fields('variable', array('name'))
     ->condition('name', "rpx_default_message_nodes_%", 'LIKE')
     ->execute();
+
   // Rename them
   while ($name = $list->fetchField()) {
     $type = substr($name, strlen('rpx_default_message_nodes_'));
@@ -398,6 +404,7 @@ function rpx_ui_update_7010() {
     ->fields('variable', array('name'))
     ->condition('name', "rpx_default_message_comments_%", 'LIKE')
     ->execute();
+
   // Rename them
   while ($name = $list->fetchField()) {
     $type = substr($name, strlen('rpx_default_message_comments_'));
@@ -422,6 +429,7 @@ function rpx_ui_update_7011() {
   db_add_field('rpx_profile_field', 'parsed_path', array('type' => 'text', 'not null' => TRUE, 'initial' => ''));
   $result = db_query('SELECT fid, title, path FROM {rpx_profile_field}');
   $unparsable = array();
+
   while ($field = $result->fetchObject()) {
     if ($parsed = _rpx_parse_path($field->path)) {
       db_update('rpx_profile_field')
@@ -433,6 +441,7 @@ function rpx_ui_update_7011() {
       $unparsable[$field->fid] = $field->title;
     }
   }
+
   if (!empty($unparsable)) {
     drupal_set_message(t("Some fields can't be converted to new format. Please, edit and save or delete them: !list", array(
       '!list' => '<ul><li>' . implode('</li><li>', $unparsable) . '</li></ul>',
@@ -533,9 +542,11 @@ function _rpx_get_identity_provider($id) {
     'name' => 'other',
     'title' => 'Other',
   );
+
   if (isset($providers[$provider])) {
     $result['name'] = $provider;
     $result['title'] = $providers[$provider];
   }
+
   return $result;
 }

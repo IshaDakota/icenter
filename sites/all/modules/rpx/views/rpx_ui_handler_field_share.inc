@@ -2,7 +2,7 @@
 /**
  * @file
  * Contains the Engage Share Link field handler.
- * 
+ *
  * @author Chris Trahey <christrahey@gmail.com>
  */
 
@@ -18,7 +18,6 @@ class rpx_ui_handler_field_share extends views_handler_field_custom {
     parent::construct();
     $this->additional_fields['nid'] = 'nid';
   }
-  
 
   /**
    * Renders our field
@@ -29,7 +28,7 @@ class rpx_ui_handler_field_share extends views_handler_field_custom {
     $node = node_load($nid);
     return _rpx_share_button($node);
   }
-  
+
   /**
    * Basic checks.
    */
@@ -37,6 +36,4 @@ class rpx_ui_handler_field_share extends views_handler_field_custom {
     $this->ensure_my_table();
     $this->add_additional_fields();
   }
-  
-
 }

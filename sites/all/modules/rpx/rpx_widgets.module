@@ -54,12 +54,12 @@ function _rpx_user_login_form_alter(&$form, &$form_state) {
     unset($form['openid_identifier']);
     unset($form['openid.return_to']);
   }
-  
+
   $added = array_key_exists ( 'rpx_links' , $form);
 
   if($added == false) {
     rpx_js();
-  
+
     $form['rpx_links'] = array(
       '#markup' => '<div class="foo" id ="janrainEngageEmbed"></div><br/>',
       '#weight' => -1, //variable_get('rpx_login_links_weight', 150),
@@ -78,7 +78,6 @@ function _rpx_user_login_form_alter(&$form, &$form_state) {
  * @see rpx_widgets_comment_insert()
  */
 function rpx_widgets_comment_view_alter(&$build) {
-
   global $user;
   $comment = $build['#comment'];
   $node = node_load($comment->nid);
@@ -91,10 +90,11 @@ function rpx_widgets_comment_view_alter(&$build) {
   // comment that has just been added.
   $popup_social = variable_get('rpx_comment_popup_social_at_once_'. $node->type, FALSE) &&
     isset($_SESSION['rpx_comment_social_cid']) && $comment->cid == $_SESSION['rpx_comment_social_cid'];
-  
+
   if (!$attach_share && !$popup_social) {
     return;
   }
+
   $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . request_uri() . '#comment-' . $comment->cid;
 
   // Prepare arguments for Social Sharing
@@ -107,7 +107,7 @@ function rpx_widgets_comment_view_alter(&$build) {
   }
 
   $summary = addslashes(text_summary(strip_tags($args['summary']), NULL, 150) . '...');
-  
+
   // Sharing cookie info (used in Rules integration).
   if (module_exists('rpx_rules') && _rpx_event_enabled('rpx_social_cookie_set_comment')) {
     // Sharing cookie info (used in Rules integration).
@@ -121,7 +121,7 @@ function rpx_widgets_comment_view_alter(&$build) {
       'summary' => $summary,
       'title' => $args['title'],
     );
-  
+
     // For some reason this plugin is not added for Chrome (and maybe others).
     drupal_add_library('system', 'jquery.cookie');
 
@@ -133,8 +133,7 @@ function rpx_widgets_comment_view_alter(&$build) {
     );
     drupal_add_js($settings, 'setting');
   }
-  
-  
+
   // Attach a "share" link to this comment.
   $attributes = array(
     'class' => array('rpx-link-social'),
@@ -146,10 +145,10 @@ function rpx_widgets_comment_view_alter(&$build) {
     'href' => $url,
     'attributes' => $attributes,
   );
-  
+
   // output the js
   rpx_js_social();
-  
+
   // Pass arguments for the social widget that will be invoked for this
   // comment immediately upon page reload.
   if ($popup_social) {
@@ -167,6 +166,7 @@ function rpx_widgets_page_alter(&$page) {
   // Only do this globally
   if (variable_get('rpx_javascript_global', FALSE)) {
     rpx_js();
+
     if (variable_get('rpx_social_enabled', FALSE)) {
       rpx_js_social();
     }
@@ -189,13 +189,26 @@ function rpx_js($show_provider_list = FALSE) {
   if ($added == TRUE) {
     return FALSE;
   }
-  
+
   // Add the auth JS code.
   $realm = variable_get('rpx_realm', '');
   $rpx_server = variable_get('rpx_server', 'rpxnow.com');
   $app_alias = str_replace(".{$rpx_server}", '', $realm);
   $token = _rpx_token_url();
-  if($user->uid){$token .= '&add_to_account=true';}
+
+  $path_parts = explode('/', current_path());
+  $form_type = 'embed';
+  // Empty string will use the default action text
+  $action_text = '';
+  if (sizeof($path_parts) >= 3 && $path_parts[0] == 'user' && $path_parts[2] == 'rpx') {
+     $form_type = 'modal';
+     $action_text = t('Link Account');
+  }
+
+  if($user->uid){
+    $token .= '&add_to_account=true';
+  }
+
   $output = "<!-- Begin Janrain Engage Sign-In. Visit http://www.rpxnow.com/ -->
 (function() {
     if (typeof window.janrain !== 'object') window.janrain = {};
@@ -207,18 +220,20 @@ function rpx_js($show_provider_list = FALSE) {
     var e = document.createElement('script');
     e.type = 'text/javascript';
     e.id = 'janrainAuthWidget';
-    if (document.location.protocol === 'https:') { e.src = 'https://{$rpx_server}/js/lib/{$app_alias}/engage.js'; }
-    else { e.src = 'http://widget-cdn.{$rpx_server}/js/lib/{$app_alias}/engage.js'; }
+    if (document.location.protocol === 'https:') { e.src = 'https://rpxnow.com/load/{$app_alias}'; }
+    else { e.src = 'http://widget-cdn.rpxnow.com/load/{$app_alias}'; }
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(e, s);
-    
-    janrain.settings.type = 'embed';
+
+    janrain.settings.type = '$form_type';
+    janrain.settings.actionText = '$action_text';
+
     janrain.settings.format = 'one row';
     janrain.settings.providersPerPage = 4;
 })();
 <!-- End Janrain Engage Sign-In -->";
   drupal_add_js($output, array('type' => 'inline', 'scope' => 'header'));
-  
+
   $added = TRUE;
 }
 
@@ -233,9 +248,11 @@ function rpx_js_social() {
   if ($added == TRUE) {
     return FALSE;
   }
+
   $realm = variable_get('rpx_realm', '');
   $rpx_server = variable_get('rpx_server', 'rpxnow.com');
   $app_alias = str_replace(".{$rpx_server}", '', $realm);
+
   // Add Social Sharing code.
   $output = '<!-- Begin Janrain Engage Social Sharing. Visit http://www.rpxnow.com/ -->';
   $output.= "
@@ -254,30 +271,30 @@ else { window.attachEvent('onload', isReady); }
 var e = document.createElement('script');
 e.type = 'text/javascript';
 e.id = 'janrainWidgets';
-if (document.location.protocol === 'https:') { e.src = 'https://{$rpx_server}/js/lib/{$app_alias}/widget.js'; }
-else { e.src = 'http://widget-cdn.{$rpx_server}/js/lib/{$app_alias}/widget.js'; }
+if (document.location.protocol === 'https:') { e.src = 'https://rpxnow.com/load/{$app_alias}'; }
+else { e.src = 'http://widget-cdn.rpxnow.com/load/{$app_alias}'; }
 var s = document.getElementsByTagName('script')[0];
 s.parentNode.insertBefore(e, s);
 })();
 function setShare(url, title, desc, msg, provider)
 {
-	janrain.engage.share.setUrl(url);
-	janrain.engage.share.setTitle(title);
-	janrain.engage.share.setDescription(desc);
-	janrain.engage.share.setMessage(msg);
-	janrain.engage.share.showProvider(provider);
-	janrain.engage.share.show();
+  janrain.engage.share.setUrl(url);
+  janrain.engage.share.setTitle(title);
+  janrain.engage.share.setDescription(desc);
+  janrain.engage.share.setMessage(msg);
+  janrain.engage.share.showProvider(provider);
+  janrain.engage.share.show();
 }";
-  
+
   if (module_exists('rpx_rules') &&
       (_rpx_event_enabled('rpx_social_cookie_set_node') ||
        _rpx_event_enabled('rpx_social_cookie_set_comment'))) {
     drupal_add_js(drupal_get_path('module', 'rpx_widgets') . '/rpx_widgets.js');
   }
-  
+
   $output.= '<!-- End Janrain Engage Social Sharing -->';
   drupal_add_js($output, array('type' => 'inline', 'scope' => 'header'));
-  
+
   $added = TRUE;
 }
 
@@ -290,9 +307,11 @@ function _rpx_locale() {
 
   // Default to English
   $locale = 'en';
+
   if (in_array($language->language, RPX::locales())) {
     $locale = $language->language;
   }
+
   return $locale;
 }
 
@@ -311,26 +330,32 @@ function _rpx_ssl() {
  */
 function theme_rpx_icon($variables) {
   $provider = $variables['provider'];
-  
-  if (isset($variables['node'])) {$nid = $variables['node']->nid;}
-  else {$nid = rand(1,1000);}
+
+  if (isset($variables['node'])) {
+    $nid = $variables['node']->nid;
+  }
+  else {
+    $nid = rand(1,1000);
+  }
+
   $size = $variables['size'] == 'small' ? '16' : '32';
   $style = array(
     'janrain-provider-icon-' . $size,
     'janrain-provider-icon-' . $provider,
     'rpx-link-social',
   );
+
   if ($variables['style']) {
     $style[] = $variables['style'];
   }
+
   if (isset($variables['args'])){
-      $args = $variables['args'];
-    
-      return '<span' . drupal_attributes(array('class' => $style, 'id' => 'rpx-link-social-node-' . $nid, 'rel' => $provider, 'onclick' => "setShare('{$args['url']}','{$args['title']}','{$args['message']}','{$args['summary']}',this.getAttribute('rel')); return false;",)) . '></span>';
+    $args = $variables['args'];
+
+    return '<span' . drupal_attributes(array('class' => $style, 'id' => 'rpx-link-social-node-' . $nid, 'rel' => $provider, 'onclick' => "setShare('{$args['url']}','{$args['title']}','{$args['message']}','{$args['summary']}',this.getAttribute('rel')); return false;",)) . '></span>';
   }
   else {
-
-  return '<div' . drupal_attributes(array('class' => $style, 'id' => 'rpx-link-social-node-' . $nid)) . '></div>';
+    return '<div' . drupal_attributes(array('class' => $style, 'id' => 'rpx-link-social-node-' . $nid)) . '></div>';
   }
 }
 
@@ -340,12 +365,14 @@ function theme_rpx_icon($variables) {
 function theme_rpx_social_icons($variables) {
   $args = $variables['args'];
   $node = $variables['node'];
-  
+
   $icons = '';
   $providers = explode(',', variable_get('rpx_social_pub'));
+
   foreach ($providers as $provider) {
     $icons .= theme('rpx_icon', array('args'=> $args, 'provider' => $provider, 'size' => 'small', 'node'=> $node));
   }
+
   return $icons;
 }
 
@@ -355,7 +382,7 @@ function theme_rpx_social_icons($variables) {
 function theme_rpx_share_button($variables) {
   $node = $variables['node'];
   $args = $variables['args'];
-  
+
   $button_style = array(
     'janrain-share-container',
   );
@@ -390,15 +417,16 @@ function rpx_widgets_node_view($node, $view_mode) {
   }
 
   // Should we attach to teasers?
-  if($view_mode == 'teaser' && !variable_get('rpx_attach_share_link_to_teasers_'. $node->type, FALSE))
+  if($view_mode == 'teaser' && !variable_get('rpx_attach_share_link_to_teasers_'. $node->type, FALSE)) {
     return;
+  }
 
   // Attach to node links section.
   if (variable_get('rpx_attach_share_link_to_nodelink_'. $node->type, FALSE)) {
-	$node->content['links']['#links']['rpx_share_button'] = array(
-      'title' => _rpx_share_button($node),
-      'html' => TRUE,
-    );
+    $node->content['links']['#links']['rpx_share_button'] = array(
+        'title' => _rpx_share_button($node),
+        'html' => TRUE,
+      );
   }
 
   // Attach to node contents section.
@@ -417,6 +445,7 @@ function _rpx_share_button($node) {
   global $user;
   // Prepare arguments for RPXNOW.Social.Activity().
   $args = array();
+
   foreach (array('label', 'message', 'title', 'summary') as $arg) {
     $default = variable_get('rpx_default_'. $arg . '_nodes', constant('RPX_DEFAULT_' . strtoupper($arg) . '_NODES_STRING'));
     $args[$arg] = variable_get('rpx_'. $arg . '_nodes_'. $node->type, $default);
@@ -424,10 +453,11 @@ function _rpx_share_button($node) {
     // apostrophes and such.
     $args[$arg] = filter_xss(token_replace($args[$arg], array('node' => $node, 'user' => $user), array('clear' => TRUE, 'sanitize' => FALSE)));
   }
+
   $args['summary'] = addslashes(text_summary(strip_tags($args['summary']), NULL, 128) . '...');
   $args['url'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . request_uri();
   //$args['text'] = 'Reccomend';
-  
+
   // Pass node sharing info to social JS.
   //
   $settings = array();
@@ -439,6 +469,7 @@ function _rpx_share_button($node) {
     'summary' => $args['summary'],
     'title' => $args['title'],
   );
+
   // Sharing cookie info (used in Rules integration).
   if (module_exists('rpx_rules') && _rpx_event_enabled('rpx_social_cookie_set_node')) {
     // For some reason this plugin is not added for Chrome (and maybe others).
@@ -451,6 +482,7 @@ function _rpx_share_button($node) {
       'id' => $node->nid,
     );
   }
+
   drupal_add_js($settings, 'setting');
 
   rpx_js_social();
