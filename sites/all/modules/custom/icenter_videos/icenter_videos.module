@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the iCenter Videos feature.
+ */
+
+include_once 'icenter_videos.features.inc';
