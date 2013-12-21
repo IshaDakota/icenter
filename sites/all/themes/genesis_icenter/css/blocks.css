@@ -56,7 +56,7 @@
 
 /* Sidebar Navigation Block */
 
-#block-menu_block-2 {
+#block-menu_ {
     position: relative; /*These 2 settings fix PIE.htc */
     z-index: 0;  /*These 2 settings fix PIE.htc */
     padding: 10px 10px 30px;
@@ -67,11 +67,11 @@
     behavior: url(../connections/PIE.htc);
 }
 
-#block-menu_block-2 .block-title {
+#block-menu_ .block-title {
   color: #FFF;
 }
 
-#block-menu_block-2 a {
+#block-menu_ a {
   font-size: 1.167em;
   color: #FFF;
 }
@@ -365,7 +365,7 @@
 /*BUCKET STYLES - MASSIVELY REDONE BY AHS - each blurb its own border color and title color which is the same color */
 /* blurb borders */
 
-#block-views-voices-voices_block_homepage, #block-block-2, #block-views-d73bd47b7544c4ea290896013501277e {
+#block-views-voices-voices_block_homepage, #block-views-video_views-video_block, #block-views-d73bd47b7544c4ea290896013501277e {
   position:relative;
 /*BUCKET STYLES - MASSIVELY REDONE BY AHS - each blurb its own border color and title color which is the same color */
 /*   background: transparent url('../images/block-gradient.png') no-repeat center bottom; */
@@ -382,7 +382,7 @@
 
 #block-views-d73bd47b7544c4ea290896013501277e .content, 
 #block-views-voices-voices_block_homepage .content, 
-#block-block-2 .block-inner{
+#block-views-video_views-video_block .block-inner{
   padding: 5px;
 }
 
@@ -452,13 +452,13 @@ margin: 5px 10px 10px 0;
 
 
 /* Fetured Video Block */
-#block-block-2 {
+#block-, #block-views-video_views-video_block {
   float:left;
   clear:none;
   margin: 0 3px 30px 3px;
  }
 
-#block-block-2 h2 {
+#block- h2, #block-views-video_views-video_block h2 {
   position:relative;
   background-color: #20B9EB;
   -webkit-border-radius: 10px;
@@ -488,11 +488,10 @@ margin: 5px 10px 10px 0;
 
 #block-views-d73bd47b7544c4ea290896013501277e .content h2,
 #block-views-voices-voices_block_homepage .content h2,
-#block-block-2 .block-inner h2
-  {
+#block- .block-inner h2,
+#block-views-video_views-video_block .block-inner h2 {
   padding: 8px 10px 7px;
   margin-bottom: 5px;
-  color: #fff;
   font-size: 18px;
   font-weight: 500;
   line-height: 1.2em;
@@ -501,15 +500,22 @@ margin: 5px 10px 10px 0;
   height: 2.4em;
   }
   
-#block-views-voices-voices_block_homepage h2 a:hover, #block-views-voices-voices_block_homepage h2 a:visited, #block-views-voices-voices_block_homepage h2 a,
-#block-block-2 h2 a:hover, #block-block-2 h2 a:visited, #block-block-2 h2 a,
-#block-views-d73bd47b7544c4ea290896013501277e h2 a:hover, #block-views-d73bd47b7544c4ea290896013501277e h2 a:visited, #block-views-d73bd47b7544c4ea290896013501277e h2 a {
+#block-views-voices-voices_block_homepage h2 a:hover, 
+#block-views-voices-voices_block_homepage h2 a:visited, 
+#block-views-voices-voices_block_homepage h2 a,
+#block-views-video_views-video_block h2 a:hover, 
+#block-views-video_views-video_block h2 a:visited, 
+#block-views-video_views-video_block h2 a, 
+#block-views-d73bd47b7544c4ea290896013501277e h2 a:hover, 
+#block-views-d73bd47b7544c4ea290896013501277e h2 a:visited, 
+#block-views-d73bd47b7544c4ea290896013501277e h2 a {
   text-decoration: none;
-  color: #FFF;
+  color: #FFF !important;
 }
 
 #block-views-voices-voices_block_homepage .views-content a:visited,
-#block-block-2 .content a:visited,
+#block- .content a:visited,
+#block-views-video_views-video_block .content a:visited,
 #block-views-d73bd47b7544c4ea290896013501277e .content .view-footer a:visited {
   text-decoration:none;
   color:#737373;
@@ -517,7 +523,7 @@ margin: 5px 10px 10px 0;
 
 #block-views-voices-voices_block_homepage .views-field-view-node .field-content,
 #block-views-voices-voices_block_homepage .views-field-entity-id .field-content,
-#block-block-2 .content p,
+#block-views-video_views-video_block .content p,
 #block-views-d73bd47b7544c4ea290896013501277e .content .view-footer p {
   font-size: 1em;
   line-height: 1.5em;
@@ -676,11 +682,11 @@ margin: 5px 10px 10px 0;
   color: #FFF;
 }
 
-#block-block-27 {
+#block-7 {
 	float: left;
 }
 
-#block-block-26 {
+#block-6 {
 	float: left;
 	clear: none;
 	margin: 27px 0 0 20px;
