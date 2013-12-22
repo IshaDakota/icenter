@@ -1,0 +1,114 @@
+/**
+ * @file
+ * SMACSS Modules
+ *
+ * Adds modular sets of styles for navigation only.
+ *
+ */
+
+/**
+ * Navigation bar.
+ */
+#navigation {
+  /* Sometimes you want to prevent overlapping with main div. */
+  /* overflow: hidden; */
+  font-family: $notosans;
+  ul#superfish-1 {
+    float: left;
+    //margin-bottom: 1em;
+    padding: 0;
+    li {
+      background: none repeat scroll 0 0 #A1A0A5;
+      border: 1px solid #FFF;
+      margin: 0;
+      padding: 0;
+      ul {
+        //left: 0;
+        //top: 0;
+        li {
+          background: none repeat scroll 0 0 #A1A0A5;
+          border: 0 none;
+        }
+      }
+      a {
+        border: none;
+        color: #FFF !important;
+        padding: 0.75em 1em;
+        text-decoration: none;
+      }
+      a:focus, a:hover, a:active {
+        background: none repeat scroll 0 0 #666666;
+        outline: 0;
+      }
+    }
+    li.first {
+      background: none no-repeat 0 0 #A1A0A5;
+      //-moz-border-radius: 10px 0 0 10px;
+      //border-radius: 10px 0 0 10px;
+      a:focus, a:hover, a:active {
+        background: none no-repeat 0 0 #666666;
+        //-moz-border-radius: 10px 0 0 10px;
+        //border-radius: 10px 0 0 10px;
+        .sf-depth-2 {
+          //border-radius: 0;
+        }
+      }
+    }
+    li.last {
+      background: none no-repeat 0 0 #A1A0A5;
+      //-moz-border-radius: 0 10px 10px 0;
+      //border-radius: 0 10px 10px 0;
+      a:focus, a:hover, a:active  {
+        background: none no-repeat 0 0 #666666;
+        //-moz-border-radius: 0 10px 10px 0;
+        //border-radius: 0 10px 10px 0;
+        .sf-depth-2 {
+          background: none no-repeat 0 0 #666666;
+          //moz-border-radius: 0 10px 10px 0;
+          //border-radius: 0 0 10px 0;
+        }
+      }
+    }
+  }
+ 
+  .block {
+    margin-bottom: 0;
+  }
+
+  .block-menu .block__title,
+  .block-menu-block .block__title {
+    @extend %element-invisible;
+  }
+
+  /* Main menu and secondary menu links and menu block links. */
+  .links,
+  .menu {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+
+    li {
+      /* A simple method to get navigation links to appear in one line. */
+      float: left;
+      padding: 0 10px 0 0;
+      list-style-type: none;
+      list-style-image: none;
+    }
+  }
+}
+
+/**
+ * Breadcrumb navigation.
+ */
+.breadcrumb {
+  ol {
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    display: inline;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+}

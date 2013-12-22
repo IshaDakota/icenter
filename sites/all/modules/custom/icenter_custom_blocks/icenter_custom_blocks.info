@@ -1,0 +1,6 @@
+name = iCenter Custom Blocks
+description = Custom blocks for use on the iCenter website (http://www.theicenter.org).
+
+core = 7.x
+
+stylesheets[screen][] = icenter_custom_blocks.css

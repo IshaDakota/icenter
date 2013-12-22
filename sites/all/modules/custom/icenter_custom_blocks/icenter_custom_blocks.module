@@ -1,0 +1,27 @@
+<?php
+
+function icenter_custom_blocks_block_info() {
+  $blocks['social_media'] = array(
+    'info' => t('Social Media Icons'),
+  );
+  return $blocks;
+}
+
+function icenter_custom_blocks_block_view($delta = '') {
+  switch ($delta) {
+    case 'social_media':
+      $block['content'] = theme('social_media');
+    break;
+
+  };
+  return $block;
+}
+
+function icenter_custom_blocks_theme() {
+  return array(
+    'social_media' => array(
+      'template' => 'social_media',
+    ),
+  );
+}
+
