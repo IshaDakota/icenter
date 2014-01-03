@@ -1,7 +1,7 @@
 <?php
 /*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.3                                                |
+ | CiviCRM version 4.4                                                |
  +--------------------------------------------------------------------+
  | Copyright CiviCRM LLC (c) 2004-2013                                |
  +--------------------------------------------------------------------+
@@ -70,10 +70,10 @@ class CRM_Mailing_Event_BAO_Reply extends CRM_Mailing_Event_DAO_Reply {
 
     $mailing = new CRM_Mailing_BAO_Mailing();
     $mailings = CRM_Mailing_BAO_Mailing::getTableName();
-    $jobs = CRM_Mailing_BAO_Job::getTableName();
+    $jobs = CRM_Mailing_BAO_MailingJob::getTableName();
     $mailing->query(
-      "SELECT * FROM  $mailings 
-            INNER JOIN      $jobs 
+      "SELECT * FROM  $mailings
+            INNER JOIN      $jobs
                 ON          $jobs.mailing_id = $mailings.id
             WHERE           $jobs.id = {$q->job_id}"
     );
@@ -135,7 +135,7 @@ class CRM_Mailing_Event_BAO_Reply extends CRM_Mailing_Event_DAO_Reply {
 
       // CRM-5567: we need to set Reply-To: so that any response
       // to the forward goes to the sender of the reply
-      $parsed->setHeader('Reply-To', $replyto instanceof ezcMailAddress ? $parsed->from->__toString() : $replyto);
+      $parsed->setHeader('Reply-To', $replyto instanceof ezcMailAddress ? $replyto : $parsed->from->__toString());
 
       // $h must be an array, so we can't use generateHeaders()'s result,
       // but we have to regenerate the headers because we changed To
@@ -173,7 +173,7 @@ class CRM_Mailing_Event_BAO_Reply extends CRM_Mailing_Event_DAO_Reply {
         'Subject' => "Re: {$mailing->subject}",
         'To' => $mailing->replyto_email,
         'From' => $from,
-        'Reply-To' => empty($replyto) ? $dao->email : $replyto,
+        'Reply-To' => empty($replyto) ? $eq->email : $replyto,
         'Return-Path' => "do-not-reply@{$emailDomain}",
       );
 
@@ -187,10 +187,8 @@ class CRM_Mailing_Event_BAO_Reply extends CRM_Mailing_Event_DAO_Reply {
     $config = CRM_Core_Config::singleton();
     $mailer = $config->getMailer();
 
-    PEAR::setErrorHandling(PEAR_ERROR_CALLBACK,
-      array('CRM_Core_Error', 'nullHandler')
-    );
     if (is_object($mailer)) {
+      CRM_Core_Error::ignoreException();
       $mailer->send($mailing->replyto_email, $h, $b);
       CRM_Core_Error::setCallback();
     }
@@ -279,10 +277,8 @@ class CRM_Mailing_Event_BAO_Reply extends CRM_Mailing_Event_DAO_Reply {
     CRM_Mailing_BAO_Mailing::addMessageIdHeader($h, 'a', $eq->job_id, queue_id, $eq->hash);
 
     $mailer = $config->getMailer();
-    PEAR::setErrorHandling(PEAR_ERROR_CALLBACK,
-      array('CRM_Core_Error', 'nullHandler')
-    );
     if (is_object($mailer)) {
+      CRM_Core_Error::ignoreException();
       $mailer->send($to, $h, $b);
       CRM_Core_Error::setCallback();
     }
@@ -307,7 +303,7 @@ class CRM_Mailing_Event_BAO_Reply extends CRM_Mailing_Event_DAO_Reply {
     $reply = self::getTableName();
     $queue = CRM_Mailing_Event_BAO_Queue::getTableName();
     $mailing = CRM_Mailing_BAO_Mailing::getTableName();
-    $job = CRM_Mailing_BAO_Job::getTableName();
+    $job = CRM_Mailing_BAO_MailingJob::getTableName();
 
     $query = "
             SELECT      COUNT($reply.id) as reply
@@ -362,7 +358,7 @@ class CRM_Mailing_Event_BAO_Reply extends CRM_Mailing_Event_DAO_Reply {
     $reply = self::getTableName();
     $queue = CRM_Mailing_Event_BAO_Queue::getTableName();
     $mailing = CRM_Mailing_BAO_Mailing::getTableName();
-    $job = CRM_Mailing_BAO_Job::getTableName();
+    $job = CRM_Mailing_BAO_MailingJob::getTableName();
     $contact = CRM_Contact_BAO_Contact::getTableName();
     $email = CRM_Core_BAO_Email::getTableName();
 
@@ -396,6 +392,7 @@ class CRM_Mailing_Event_BAO_Reply extends CRM_Mailing_Event_DAO_Reply {
     $orderBy = "sort_name ASC, {$reply}.time_stamp DESC";
     if ($sort) {
       if (is_string($sort)) {
+        $sort = CRM_Utils_Type::escape($sort, 'String');
         $orderBy = $sort;
       }
       else {

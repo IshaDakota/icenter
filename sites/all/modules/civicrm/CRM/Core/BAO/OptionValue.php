@@ -1,7 +1,7 @@
 <?php
 /*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.3                                                |
+ | CiviCRM version 4.4                                                |
  +--------------------------------------------------------------------+
  | Copyright CiviCRM LLC (c) 2004-2013                                |
  +--------------------------------------------------------------------+
@@ -195,8 +195,19 @@ class CRM_Core_BAO_OptionValue extends CRM_Core_DAO_OptionValue {
       $p = array(1 => array($params['option_group_id'], 'Integer'));
       CRM_Core_DAO::executeQuery($query, $p);
     }
+
+    // CRM-13814 : evalute option group id
+    if (!array_key_exists('option_group_id', $params) && !empty($ids['optionValue'])) {
+      $groupId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionValue',
+        $ids['optionValue'], 'option_group_id', 'id'
+      );
+    }
+    else {
+      $groupId = $params['option_group_id'];
+    }
+
     $groupName = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_OptionGroup',
-      $params['option_group_id'], 'name', 'id'
+      $groupId, 'name', 'id'
     );
     if (in_array($groupName, CRM_Core_OptionGroup::$_domainIDGroups)) {
       $optionValue->domain_id = CRM_Utils_Array::value('domain_id', $params, CRM_Core_Config::domainID());
@@ -204,6 +215,7 @@ class CRM_Core_BAO_OptionValue extends CRM_Core_DAO_OptionValue {
 
     $optionValue->id = CRM_Utils_Array::value('optionValue', $ids);
     $optionValue->save();
+    CRM_Core_PseudoConstant::flush();
     return $optionValue;
   }
 
@@ -221,6 +233,7 @@ class CRM_Core_BAO_OptionValue extends CRM_Core_DAO_OptionValue {
     $optionValue = new CRM_Core_DAO_OptionValue();
     $optionValue->id = $optionValueId;
     if (self::updateRecords($optionValueId, CRM_Core_Action::DELETE)) {
+      CRM_Core_PseudoConstant::flush();
       return $optionValue->delete();
     }
     return FALSE;
@@ -288,6 +301,7 @@ class CRM_Core_BAO_OptionValue extends CRM_Core_DAO_OptionValue {
     $value = $optionValue->value;
 
     // get the proper group name & affected field name
+    // todo: this may no longer be needed for individuals - check inputs
     $individuals = array(
       'gender' => 'gender_id',
       'individual_prefix' => 'prefix_id',

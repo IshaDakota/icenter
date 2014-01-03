@@ -1,7 +1,7 @@
 <?php
 /*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.3                                                |
+ | CiviCRM version 4.4                                                |
  +--------------------------------------------------------------------+
  | Copyright CiviCRM LLC (c) 2004-2013                                |
  +--------------------------------------------------------------------+
@@ -21,7 +21,7 @@
  | with this program; if not, contact CiviCRM LLC                     |
  | at info[AT]civicrm[DOT]org. If you have questions about the        |
  | GNU Affero General Public License or the licensing of CiviCRM,     |
- | see the CiviCRM license FAQ at http://civicrm.org/licensing   
+ | see the CiviCRM license FAQ at http://civicrm.org/licensing
  +--------------------------------------------------------------------+
 */
 
@@ -144,9 +144,9 @@ class CRM_Pledge_Form_Search extends CRM_Core_Form {
     $this->_done = FALSE;
     $this->defaults = array();
 
-    /* 
-     * we allow the controller to set force/reset externally, useful when we are being 
-     * driven by the wizard framework 
+    /*
+     * we allow the controller to set force/reset externally, useful when we are being
+     * driven by the wizard framework
      */
     $this->_reset   = CRM_Utils_Request::retrieve('reset', 'Boolean', CRM_Core_DAO::$_nullObject);
     $this->_force   = CRM_Utils_Request::retrieve('force', 'Boolean', $this, FALSE);
@@ -225,9 +225,9 @@ class CRM_Pledge_Form_Search extends CRM_Core_Form {
 
     CRM_Pledge_BAO_Query::buildSearchForm($this);
 
-    /* 
-     * add form checkboxes for each row. This is needed out here to conform to QF protocol 
-     * of all elements being declared in builQuickForm 
+    /*
+     * add form checkboxes for each row. This is needed out here to conform to QF protocol
+     * of all elements being declared in builQuickForm
      */
     $rows = $this->get('rows');
     if (is_array($rows)) {
@@ -313,6 +313,12 @@ class CRM_Pledge_Form_Search extends CRM_Core_Form {
       $this->_formValues["pledge_test"] = 0;
     }
 
+    foreach (array('pledge_amount_low', 'pledge_amount_high') as $f) {
+      if (isset($this->_formValues[$f])) {
+        $this->_formValues[$f] = CRM_Utils_Rule::cleanMoney($this->_formValues[$f]);
+      }
+    }
+
     if (isset($this->_ssID) && empty($_POST)) {
       // if we are editing / running a saved search and the form has not been posted
       $this->_formValues = CRM_Contact_BAO_SavedSearch::getFormValues($this->_ssID);
@@ -330,7 +336,7 @@ class CRM_Pledge_Form_Search extends CRM_Core_Form {
       // check actionName and if next, then do not repeat a search, since we are going to the next page
 
       // hack, make sure we reset the task values
-      $stateMachine = &$this->controller->getStateMachine();
+      $stateMachine = $this->controller->getStateMachine();
       $formName = $stateMachine->getTaskFormName();
       $this->controller->resetPage($formName);
       return;

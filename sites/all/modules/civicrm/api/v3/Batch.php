@@ -1,9 +1,8 @@
 <?php
-// $Id$
 
 /*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.3                                                |
+ | CiviCRM version 4.4                                                |
  +--------------------------------------------------------------------+
  | Copyright CiviCRM LLC (c) 2004-2013                                |
  +--------------------------------------------------------------------+
@@ -47,6 +46,20 @@
  */
 function civicrm_api3_batch_create($params) {
   return _civicrm_api3_basic_create(_civicrm_api3_get_BAO(__FUNCTION__), $params);
+}
+
+/**
+ * Adjust Metadata for Create action
+ *
+ * The metadata is used for setting defaults, documentation & validation
+ * @param array $params array or parameters determined by getfields
+ */
+function _civicrm_api3_batch_create_spec(&$params) {
+  $params['entity_table']['api.default'] = "civicrm_batch";
+  $params['modified_date']['api.default'] = "now";
+  $params['status_id']['api.required'] = 1;
+  $params['title']['api.required'] = 1;
+  $params['status_id']['api.required'] = 1;
 }
 
 /**

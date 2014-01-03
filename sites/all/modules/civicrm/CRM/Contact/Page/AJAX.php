@@ -1,7 +1,7 @@
 <?php
 /*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.3                                                |
+ | CiviCRM version 4.4                                                |
  +--------------------------------------------------------------------+
  | Copyright CiviCRM LLC (c) 2004-2013                                |
  +--------------------------------------------------------------------+
@@ -51,6 +51,8 @@ class CRM_Contact_Page_AJAX {
       'fieldName' => 'field_name',
       'tableName' => 'table_name',
       'context' => 'context',
+      'rel' => 'rel',
+      'contact_sub_type' => 'contact_sub_type'
     );
     foreach ($whitelist as $key => $param) {
       if (!empty($_GET[$key])) {
@@ -691,6 +693,9 @@ WHERE sort_name LIKE '%$name%'";
         $offset = CRM_Utils_Array::value('offset', $_GET, 0);
         $rowCount = CRM_Utils_Array::value('rowcount', $_GET, 20);
 
+        $offset = CRM_Utils_Type::escape($offset, 'Int');
+        $rowCount = CRM_Utils_Type::escape($rowCount, 'Int');
+
         // add acl clause here
         list($aclFrom, $aclWhere) = CRM_Contact_BAO_Contact_Permission::cacheClause('cc');
         if ($aclWhere) {
@@ -780,6 +785,9 @@ LIMIT {$offset}, {$rowCount}
     if ($queryString) {
       $offset = CRM_Utils_Array::value('offset', $_GET, 0);
       $rowCount = CRM_Utils_Array::value('rowcount', $_GET, 20);
+
+      $offset = CRM_Utils_Type::escape($offset, 'Int');
+      $rowCount = CRM_Utils_Type::escape($rowCount, 'Int');
 
       // add acl clause here
       list($aclFrom, $aclWhere) = CRM_Contact_BAO_Contact_Permission::cacheClause('cc');
@@ -986,6 +994,7 @@ LIMIT {$offset}, {$rowCount}
       $config = CRM_Core_Config::singleton();
 
       while ($result->fetch()) {
+        $query->convertToPseudoNames($result);
         $contactID = $result->contact_id;
         $typeImage = CRM_Contact_BAO_Contact_Utils::getImage($result->contact_sub_type ?
           $result->contact_sub_type : $result->contact_type,

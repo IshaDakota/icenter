@@ -1,7 +1,7 @@
 <?php
 /*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.3                                                |
+ | CiviCRM version 4.4                                                |
  +--------------------------------------------------------------------+
  | Copyright CiviCRM LLC (c) 2004-2013                                |
  +--------------------------------------------------------------------+
@@ -38,7 +38,24 @@
  */
 class CRM_Dashlet_Page_Blog extends CRM_Core_Page {
 
-  const CHECK_TIMEOUT = 5, CACHE_DAYS = 1;
+  const CHECK_TIMEOUT = 5;
+  const CACHE_DAYS = 1;
+  const BLOG_URL = 'https://civicrm.org/blog/feed';
+
+  /**
+   * Get the final, usable URL string (after interpolating any variables)
+   *
+   * @return FALSE|string
+   */
+  public function getBlogUrl() {
+    // Note: We use "*default*" as the default (rather than self::BLOG_URL) so that future
+    // developers can change BLOG_URL without needing to update {civicrm_setting}.
+    $url = CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::SYSTEM_PREFERENCES_NAME, 'blogUrl', NULL, '*default*');
+    if ($url === '*default*') {
+      $url = self::BLOG_URL;
+    }
+    return CRM_Utils_System::evalUrl($url);
+  }
 
   /**
    * List blog articles as dashlet
@@ -70,7 +87,7 @@ class CRM_Dashlet_Page_Blog extends CRM_Core_Page {
       $expire = time() - (60 * 60 * 24 * self::CACHE_DAYS);
       // Refresh data after CACHE_DAYS
       if (strtotime($cache->created_date) < $expire) {
-        $new_data = $this->_getFeed();
+        $new_data = $this->_getFeed($this->getBlogUrl());
         // If fetching the new rss feed was successful, return it
         // Otherwise use the old cached data - it's better than nothing
         if ($new_data) {
@@ -79,20 +96,24 @@ class CRM_Dashlet_Page_Blog extends CRM_Core_Page {
       }
       return unserialize($cache->data);
     }
-    return $this->_getFeed();
+    return $this->_getFeed($this->getBlogUrl());
   }
 
   /**
    * Parse rss feed and cache results
    *
-   * @return array
+   * @return array|NULL array of blog items; or NULL if not available
    *
-   * @access private
+   * @access public
    */
-  private function _getFeed() {
-    ini_set('default_socket_timeout', self::CHECK_TIMEOUT);
-    $feed = @simplexml_load_file('http://civicrm.org/blog/feed');
-    ini_restore('default_socket_timeout');
+  public function _getFeed($url) {
+    $httpClient = new CRM_Utils_HttpClient(self::CHECK_TIMEOUT);
+    list ($status, $rawFeed) = $httpClient->get($url);
+    if ($status !== CRM_Utils_HttpClient::STATUS_OK) {
+      return NULL;
+    }
+    $feed = @simplexml_load_string($rawFeed);
+
     $blog = array();
     if ($feed && !empty($feed->channel->item)) {
       foreach ($feed->channel->item as $item) {

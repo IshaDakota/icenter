@@ -1,7 +1,7 @@
 <?php
 /*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.3                                                |
+ | CiviCRM version 4.4                                                |
  +--------------------------------------------------------------------+
  | Copyright CiviCRM LLC (c) 2004-2013                                |
  +--------------------------------------------------------------------+
@@ -59,6 +59,9 @@ class CRM_Contact_BAO_GroupOrganization extends CRM_Contact_DAO_GroupOrganizatio
     }
     $groupOrganization = new CRM_Contact_DAO_GroupOrganization();
     $groupOrganization->copyValues($formatedValues);
+    // we have ensured we have group_id & organization_id so we can do a find knowing that
+    // this can only find a matching record
+    $groupOrganization->find(TRUE);
     $groupOrganization->save();
     return $groupOrganization;
   }

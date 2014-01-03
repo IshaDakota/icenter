@@ -1,6 +1,6 @@
 {*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.3                                                |
+ | CiviCRM version 4.4                                                |
  +--------------------------------------------------------------------+
  | Copyright CiviCRM LLC (c) 2004-2013                                |
  +--------------------------------------------------------------------+
@@ -24,7 +24,7 @@
  +--------------------------------------------------------------------+
 *}
 <div id="help">
-    {ts}This screen presents the list of scheduled jobs (cron tasks) log entries.{/ts} {$docLink}
+    {ts}This screen presents the list of most recent 1,000 scheduled jobs log entries.{/ts} {$docLink}
 </div>
 
 {if $jobId}

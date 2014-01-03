@@ -29,7 +29,12 @@ abstract class CRM_Utils_System_Base {
 
     // TODO: Split up; this was copied verbatim from CiviCRM 4.0's multi-UF theming function
     // but the parts should be copied into cleaner subclass implementations
-    if (function_exists('theme') && !$print) {
+    $config = CRM_Core_Config::singleton();
+    if (
+      $config->userSystem->is_drupal &&
+      function_exists('theme') &&
+      !$print
+    ) {
       if ($maintenance) {
         drupal_set_breadcrumb('');
         drupal_maintenance_theme();
@@ -44,7 +49,8 @@ abstract class CRM_Utils_System_Base {
     $out = $content;
 
     $config = &CRM_Core_Config::singleton();
-    if (!$print &&
+    if (
+      !$print &&
       $config->userFramework == 'WordPress'
     ) {
       if (is_admin()) {
@@ -87,10 +93,13 @@ abstract class CRM_Utils_System_Base {
     return $url;
   }
 
-  /*
-   * Currently this is just helping out the test class as defaults is calling it - maybe move fix to defaults
+  /**
+   * Determine the location of the CMS root.
+   *
+   * @return string|NULL local file system path to CMS root, or NULL if it cannot be determined
    */
   function cmsRootPath() {
+    return NULL;
   }
 
   /**
@@ -102,6 +111,17 @@ abstract class CRM_Utils_System_Base {
    * @static
    */
   public abstract function getLoginURL($destination = '');
+
+  /**
+   * Determine the native ID of the CMS user
+   *
+   * @param $username
+   * @return int|NULL
+   */
+  function getUfId($username) {
+    $className = get_class($this);
+    throw new CRM_Core_Exception("Not implemented: {$className}->getUfId");
+  }
 
   /**
    * Set a init session with user object
@@ -123,6 +143,79 @@ abstract class CRM_Utils_System_Base {
    */
   function flush() {
     // nullop by default
+  }
+
+  /**
+   * Return default Site Settings
+   * @return array array
+   * - $url, (Joomla - non admin url)
+   * - $siteName,
+   * - $siteRoot
+   */
+  function getDefaultSiteSettings($dir) {
+    $config = CRM_Core_Config::singleton();
+    $url = $config->userFrameworkBaseURL;
+    return array($url, NULL, NULL);
+  }
+
+  /**
+   * Perform any post login activities required by the CMS -
+   * e.g. for drupal: records a watchdog message about the new session, saves the login timestamp,
+   * calls hook_user op 'login' and generates a new session.
+   *
+   * @param array params
+   *
+   * FIXME: Document values accepted/required by $params
+   */
+  function userLoginFinalize($params = array()){
+  }
+
+  /**
+   * Set timezone in mysql so that timestamp fields show the correct time
+   */
+  function setMySQLTimeZone(){
+    $timeZoneOffset = $this->getTimeZoneOffset();
+    if($timeZoneOffset){
+      $sql = "SET time_zone = '$timeZoneOffset'";
+      CRM_Core_DAO::executequery($sql);
+    }
+  }
+
+
+  /**
+   * Get timezone from CMS
+   * @return boolean|string
+   */
+  /**
+   * Get timezone from Drupal
+   * @return boolean|string
+   */
+  function getTimeZoneOffset(){
+    $timezone = $this->getTimeZoneString();
+    if($timezone){
+      $tzObj = new DateTimeZone($timezone);
+      $dateTime = new DateTime("now", $tzObj);
+      $tz = $tzObj->getOffset($dateTime);
+
+      if(empty($tz)){
+        return false;
+      }
+
+      $timeZoneOffset = sprintf("%02d:%02d", $tz / 3600, ($tz/60)%60 );
+
+      if($timeZoneOffset > 0){
+        $timeZoneOffset = '+' . $timeZoneOffset;
+      }
+      return $timeZoneOffset;
+    }
+  }
+
+  /**
+   * Over-ridable function to get timezone as a string eg.
+   * @return string Timezone e.g. 'America/Los_Angeles'
+   */
+  function getTimeZoneString() {
+    return NULL;
   }
 }
 

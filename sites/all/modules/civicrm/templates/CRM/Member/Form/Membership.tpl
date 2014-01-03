@@ -1,6 +1,6 @@
 {*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.3                                                |
+ | CiviCRM version 4.4                                                |
  +--------------------------------------------------------------------+
  | Copyright CiviCRM LLC (c) 2004-2013                                |
  +--------------------------------------------------------------------+
@@ -242,8 +242,8 @@
                   <td>{include file="CRM/common/jcalendar.tpl" elementName=receive_date}</td>
                 </tr>
                 <tr class="crm-membership-form-block-payment_instrument_id">
-                  <td class="label">{$form.payment_instrument_id.label}</td>
-                  <td>{$form.payment_instrument_id.html}</td>
+                  <td class="label">{$form.payment_instrument_id.label}<span class="marker"> *</span></td>
+                  <td>{$form.payment_instrument_id.html} {help id="payment_instrument_id" file="CRM/Contribute/Page/Tab.hlp"}</td>
                 </tr>
                 <tr id="checkNumber" class="crm-membership-form-block-check_number">
                   <td class="label">{$form.check_number.label}</td>
@@ -485,8 +485,8 @@
             }
           }
         );
-	}
-	else {
+  }
+  else {
         cj("#email-receipt").hide( );
         cj("#notice").hide( );
       }
@@ -617,7 +617,7 @@
 
     function buildAmount( priceSetId ) {
   if ( !priceSetId ) {
-	  priceSetId = cj("#price_set_id").val( );
+    priceSetId = cj("#price_set_id").val( );
   }
         var fname = '#priceset';
         if ( !priceSetId ) {
@@ -674,6 +674,22 @@
       if ((memType > 0) && (allMemberships[memType]['has_related'])) {
         if (setDefault) cj('#max_related').val(allMemberships[memType]['max_related']);
         cj('#maxRelated').show();
+        if(CRM.ids.contact > 0) {
+          CRM.api('relationship', 'getcount', {'contact_id' : CRM.ids.contact, 'membership_type_id' : memType}, {
+            success: function(result) {
+              var relatable = ' ' + result.result + ts(' contacts are ');
+              if(result.result === 0) {
+                relatable = ts(' No contacts are ');
+              }
+              if(result.result === 1) {
+                relatable = ts(' One contact is ');
+              }
+
+              var others = relatable + ts('currently eligible to inherit this relationship.');
+              cj('#max_related').siblings('.description').append(others);
+            }
+          });
+        }
       } else {
         cj('#max_related').val('');
         cj('#maxRelated').hide();

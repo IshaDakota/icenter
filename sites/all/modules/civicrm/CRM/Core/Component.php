@@ -1,7 +1,7 @@
 <?php
 /*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.3                                                |
+ | CiviCRM version 4.4                                                |
  +--------------------------------------------------------------------+
  | Copyright CiviCRM LLC (c) 2004-2013                                |
  +--------------------------------------------------------------------+
@@ -97,6 +97,10 @@ class CRM_Core_Component {
 
   static public function &getEnabledComponents($force = FALSE) {
     return self::_info($force);
+  }
+  
+  static public function flushEnabledComponents() {
+  	self::getEnabledComponents(TRUE);
   }
 
   public static function &getNames($translated = FALSE) {

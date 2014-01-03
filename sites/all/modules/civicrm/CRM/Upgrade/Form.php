@@ -1,7 +1,7 @@
 <?php
 /*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.3                                                |
+ | CiviCRM version 4.4                                                |
  +--------------------------------------------------------------------+
  | Copyright CiviCRM LLC (c) 2004-2013                                |
  +--------------------------------------------------------------------+
@@ -121,7 +121,8 @@ class CRM_Upgrade_Form extends CRM_Core_Form {
     $versionName = self::$_numberMap[$versionParts[0]] . self::$_numberMap[$versionParts[1]];
 
     if (!array_key_exists($versionName, $incrementalPhpObject)) {
-      eval("\$incrementalPhpObject['$versionName'] = new CRM_Upgrade_Incremental_php_{$versionName};");
+      $className = "CRM_Upgrade_Incremental_php_{$versionName}";
+      $incrementalPhpObject[$versionName] = new $className();
     }
     return $incrementalPhpObject[$versionName];
   }
@@ -489,7 +490,7 @@ SET    version = '$version'
           // callback
           array('CRM_Upgrade_Form', 'doIncrementalUpgradeFinish'),
           // arguments
-          array($rev),
+          array($rev, $currentVer, $latestVer, $postUpgradeMessageFile),
           "Finish Upgrade DB to $rev"
         );
         $queue->createItem($task);
@@ -597,17 +598,13 @@ SET    version = '$version'
    * @param $latestVer string, the target (final) revision
    * @param $postUpgradeMessageFile string, path of a modifiable file which lists the post-upgrade messages
    */
-  static function doIncrementalUpgradeFinish(CRM_Queue_TaskContext $ctx, $rev) {
+  static function doIncrementalUpgradeFinish(CRM_Queue_TaskContext $ctx, $rev, $currentVer, $latestVer, $postUpgradeMessageFile) {
     $upgrade = new CRM_Upgrade_Form();
     $upgrade->setVersion($rev);
     CRM_Utils_System::flushCache();
 
     $config = CRM_Core_Config::singleton();
     $config->userSystem->flush();
-
-    if (version_compare($currentVer, '4.1.alpha1') >= 0) {
-      CRM_Core_BAO_Setting::updateSettingsFromMetaData();
-    }
     return TRUE;
   }
 
@@ -622,6 +619,10 @@ SET    version = '$version'
     // this also helps us always store the latest version of civi in the DB
     $params = array();
     CRM_Core_BAO_ConfigSetting::add($params);
+
+    // CRM-12804 comment-51411 : add any missing settings
+    // at the end of upgrade
+    CRM_Core_BAO_Setting::updateSettingsFromMetaData();
 
     // cleanup caches CRM-8739
     $config = CRM_Core_Config::singleton();

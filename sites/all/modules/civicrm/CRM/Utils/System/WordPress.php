@@ -1,7 +1,7 @@
 <?php
 /*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.3                                                |
+ | CiviCRM version 4.4                                                |
  +--------------------------------------------------------------------+
  | Copyright CiviCRM LLC (c) 2004-2013                                |
  +--------------------------------------------------------------------+
@@ -315,18 +315,18 @@ class CRM_Utils_System_WordPress extends CRM_Utils_System_Base {
     if (isset($path)) {
       if (isset($query)) {
         if ($permlinkStructure != '' && ($pageID || $script != '')) {
-          return $script . '?page=CiviCRM&q=' . $path . $pageID . $separator . $query . $fragment;
+          return $script . '?page=CiviCRM'. $separator . 'q=' . $path . $pageID . $separator . $query . $fragment;
         }
         else {
-          return $base . '?page=CiviCRM&q=' . $path . $pageID . $separator . $query . $fragment;
+          return $base . '?page=CiviCRM' . $separator . 'q=' . $path . $pageID . $separator . $query . $fragment;
         }
       }
       else {
         if ($permlinkStructure != '' && ($pageID || $script != '')) {
-          return $script . '?page=CiviCRM&q=' . $path . $pageID . $fragment;
+          return $script . '?page=CiviCRM' . $separator . 'q=' . $path . $pageID . $fragment;
         }
         else {
-          return $base .'?page=CiviCRM&q=' . $path . $pageID . $fragment;
+          return $base . '?page=CiviCRM' . $separator . 'q=' . $path . $pageID . $fragment;
         }
       }
     }
@@ -361,7 +361,7 @@ class CRM_Utils_System_WordPress extends CRM_Utils_System_Base {
     $config = CRM_Core_Config::singleton();
 
     if ($loadCMSBootstrap) {
-      self::loadBootstrap($name, $password);
+      $config->userSystem->loadBootStrap($name, $password);
     }
 
     $user = wp_authenticate($name, $password);
@@ -433,6 +433,11 @@ class CRM_Utils_System_WordPress extends CRM_Utils_System_Base {
     }
 
     require_once ($cmsRootPath . DIRECTORY_SEPARATOR . 'wp-load.php');
+    $wpUserTimezone = get_option('timezone_string');
+    if ($wpUserTimezone) {
+      date_default_timezone_set($wpUserTimezone);
+      CRM_Core_Config::singleton()->userSystem->setMySQLTimeZone();
+    }
     return true;
   }
 
@@ -621,6 +626,14 @@ class CRM_Utils_System_WordPress extends CRM_Utils_System_Base {
     else {
       return 'Unknown';
     }
+  }
+
+  /**
+   * get timezone as a string
+   * @return string Timezone e.g. 'America/Los_Angeles'
+   */
+  function getTimeZoneString() {
+    return get_option('timezone_string');
   }
 }
 

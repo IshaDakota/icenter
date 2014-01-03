@@ -1,7 +1,7 @@
 <?php
 /*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.3                                                |
+ | CiviCRM version 4.4                                                |
  +--------------------------------------------------------------------+
  | Copyright CiviCRM LLC (c) 2004-2013                                |
  +--------------------------------------------------------------------+
@@ -288,7 +288,7 @@ class CRM_Event_Form_Participant extends CRM_Contact_Form_Task {
       }
       // also check for billing information
       // get the billing location type
-      $locationTypes = CRM_Core_PseudoConstant::locationType();
+      $locationTypes = CRM_Core_PseudoConstant::get('CRM_Core_DAO_Address', 'location_type_id', array(), 'validate');
       // CRM-8108 remove ts around Billing location type
       //$this->_bltID = array_search( ts('Billing'),  $locationTypes );
       $this->_bltID = array_search('Billing', $locationTypes);
@@ -321,7 +321,7 @@ class CRM_Event_Form_Participant extends CRM_Contact_Form_Task {
     $this->assign('cdType', FALSE);
     if ($this->_cdType) {
       $this->assign('cdType', TRUE);
-      return CRM_Custom_Form_CustomData::preProcess($this);
+      return CRM_Custom_Form_CustomData::preProcess($this, NULL, NULL, NULL, NULL, NULL, TRUE);
     }
 
     //check the mode when this form is called either single or as
@@ -574,9 +574,10 @@ SELECT civicrm_custom_group.name as name,
       if (CRM_Utils_Array::value('event_id', $defaults[$this->_id])) {
         $contributionTypeId = CRM_Core_DAO::getFieldValue('CRM_Event_DAO_Event',
           $defaults[$this->_id]['event_id'],
-                                                                    'financial_type_id' );
+          'financial_type_id' 
+        );
         if ($contributionTypeId) {
-                    $defaults[$this->_id]['financial_type_id'] = $contributionTypeId;
+          $defaults[$this->_id]['financial_type_id'] = $contributionTypeId;
         }
       }
 
@@ -751,13 +752,14 @@ SELECT civicrm_custom_group.name as name,
     if ( $this->_eID ) {
       $eventEndDate = CRM_Core_DAO::getFieldValue('CRM_Event_DAO_Event', $this->_eID,'end_date');
     }
-    $this->assign('past', FALSE);
+    $this->assign('past', 0);
     if ($this->_action & CRM_Core_Action::UPDATE) {
-      $events = CRM_Event_BAO_Event::getEvents(TRUE, FALSE, FALSE);
+      $events = CRM_Event_BAO_Event::getEvents(1, FALSE, FALSE);
     }
     elseif ($this->getElementValue('past_event') || (isset($eventEndDate) && (CRM_Utils_Date::currentDBDate() > CRM_Utils_Date::processDate($eventEndDate)))) {
-      $events = CRM_Event_BAO_Event::getEvents(TRUE);
-      $this->assign('past', TRUE);
+      $pastval = $this->getElementValue('past_event');
+      $events = CRM_Event_BAO_Event::getEvents($pastval);
+      $this->assign('past', $pastval);
     }
     else {
       $events = CRM_Event_BAO_Event::getEvents();
@@ -923,7 +925,11 @@ loadCampaign( {$this->_eID}, {$eventCampaigns} );
     );
 
     $path = CRM_Utils_System::currentPath();
-    if (strpos($path, 'civicrm/contact/search') !== 0) {
+    $excludeForPaths = array(
+      'civicrm/contact/search',
+      'civicrm/group/search'
+    );
+    if (!in_array($path, $excludeForPaths)) {
       $buttons[] = array(
         'type' => 'upload',
         'name' => ts('Save and New'),
@@ -931,6 +937,7 @@ loadCampaign( {$this->_eID}, {$eventCampaigns} );
         'js' => $confirmJS,
       );
     }
+
     $buttons[] = array(
       'type' => 'cancel',
       'name' => ts('Cancel'),
@@ -984,8 +991,13 @@ loadCampaign( {$this->_eID}, {$eventCampaigns} );
       CRM_Core_Payment_Form::validateCreditCard($values, $errorMsg);
     }
 
-    if (CRM_Utils_Array::value('record_contribution', $values) && !CRM_Utils_Array::value('financial_type_id', $values)) {
-      $errorMsg['financial_type_id'] = ts('Please enter the associated Financial Type');
+    if (CRM_Utils_Array::value('record_contribution', $values)) {
+      if (!CRM_Utils_Array::value('financial_type_id', $values)) {
+        $errorMsg['financial_type_id'] = ts('Please enter the associated Financial Type');
+      }
+      if (!CRM_Utils_Array::value('payment_instrument_id', $values)) {
+        $errorMsg['payment_instrument_id'] = ts('Paid By is a required field.');
+      }
     }
 
     // validate contribution status for 'Failed'.
@@ -1007,7 +1019,7 @@ loadCampaign( {$this->_eID}, {$eventCampaigns} );
       ($self->_id && !$self->_paymentId && isset($self->_values['line_items']) && is_array($self->_values['line_items']))
     ) {
       if ($priceSetId = CRM_Utils_Array::value('priceSetId', $values)) {
-        CRM_Price_BAO_Field::priceSetValidation($priceSetId, $values, $errorMsg, TRUE);
+        CRM_Price_BAO_PriceField::priceSetValidation($priceSetId, $values, $errorMsg, TRUE);
       }
     }
     return CRM_Utils_Array::crmIsEmptyArray($errorMsg) ? TRUE : $errorMsg;
@@ -1046,7 +1058,7 @@ loadCampaign( {$this->_eID}, {$eventCampaigns} );
     if (CRM_Utils_Array::value('contact_select_id', $params)) {
       $this->_contactId = $params['contact_select_id'][1];
     }
-    if ($this->_priceSetId && $isQuickConfig = CRM_Core_DAO::getFieldValue('CRM_Price_DAO_Set', $this->_priceSetId, 'is_quick_config')) {
+    if ($this->_priceSetId && $isQuickConfig = CRM_Core_DAO::getFieldValue('CRM_Price_DAO_PriceSet', $this->_priceSetId, 'is_quick_config')) {
       $this->_quickConfig = $isQuickConfig;
     }
 
@@ -1094,7 +1106,7 @@ loadCampaign( {$this->_eID}, {$eventCampaigns} );
 
         //lets carry currency, CRM-4453
         $params['fee_currency'] = $config->defaultCurrency;
-        CRM_Price_BAO_Set::processAmount($this->_values['fee'],
+        CRM_Price_BAO_PriceSet::processAmount($this->_values['fee'],
           $params, $lineItem[0]
         );
         //CRM-11529 for quick config backoffice transactions
@@ -1186,10 +1198,10 @@ loadCampaign( {$this->_eID}, {$eventCampaigns} );
 
       // set source if not set
       if (empty($params['source'])) {
-      	$this->_params['participant_source'] = ts('Offline Registration for Event: %2 by: %1', array(1 => $userName, 2 => $eventTitle));
+        $this->_params['participant_source'] = ts('Offline Registration for Event: %2 by: %1', array(1 => $userName, 2 => $eventTitle));
       }
       else {
-      	$this->_params['participant_source'] = $params['source'];
+        $this->_params['participant_source'] = $params['source'];
       }
       $this->_params['description'] = $this->_params['participant_source'];
 
@@ -1266,7 +1278,7 @@ loadCampaign( {$this->_eID}, {$eventCampaigns} );
       if (($this->_lineItem || !isset($params['proceSetId'])) && !$this->_paymentId && $this->_id) {
       CRM_Price_BAO_LineItem::deleteLineItems($this->_id, 'civicrm_participant');
     }
-    
+
     if ($this->_mode) {
       // add all the additioanl payment params we need
       $this->_params["state_province-{$this->_bltID}"] = $this->_params["billing_state_province-{$this->_bltID}"] = CRM_Core_PseudoConstant::stateProvinceAbbreviation($this->_params["billing_state_province_id-{$this->_bltID}"]);
@@ -1450,6 +1462,9 @@ loadCampaign( {$this->_eID}, {$eventCampaigns} );
           $contributionParams['is_pay_later'] = 1;
         }
         if ($this->_single) {
+          if (empty($ids)) {
+            $ids = array();
+          }
           $contributions[] = CRM_Contribute_BAO_Contribution::create($contributionParams, $ids);
         }
         else {
@@ -1461,7 +1476,7 @@ loadCampaign( {$this->_eID}, {$eventCampaigns} );
         }
 
         //insert payment record for this participation
-        if (!$ids['contribution']) {
+        if (empty($ids['contribution'])) {
           foreach ($this->_contactIds as $num => $contactID) {
             $ppDAO = new CRM_Event_DAO_ParticipantPayment();
             $ppDAO->participant_id = $participants[$num]->id;
@@ -1692,6 +1707,7 @@ loadCampaign( {$this->_eID}, {$eventCampaigns} );
           'valueName' => 'event_offline_receipt',
           'contactId' => $contactID,
           'isTest' => (bool) CRM_Utils_Array::value('is_test', $this->_defaultValues),
+          'PDFFilename' => ts('confirmation').'.pdf',
         );
 
         // try to send emails only if email id is present
@@ -1704,7 +1720,7 @@ loadCampaign( {$this->_eID}, {$eventCampaigns} );
           $sendTemplateParams['bcc'] = CRM_Utils_Array::value('bcc', $this->_fromEmails);
         }
 
-        list($mailSent, $subject, $message, $html) = CRM_Core_BAO_MessageTemplates::sendTemplate($sendTemplateParams);
+        list($mailSent, $subject, $message, $html) = CRM_Core_BAO_MessageTemplate::sendTemplate($sendTemplateParams);
         if ($mailSent) {
           $sent[] = $contactID;
           foreach ($participants as $ids => $values) {
