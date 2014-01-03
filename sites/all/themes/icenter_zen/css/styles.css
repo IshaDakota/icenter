@@ -1742,7 +1742,7 @@ tr.selected td {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/adam\/Sites\/icenter\/sites\/all\/themes\/icenter_zen\/sass\/components\/_misc\.scss}line{font-family:\00003776}}
 .progress .filled {
   background-color: #0072b9;
-  background-image: url('../images/progress.gif?1376896851');
+  background-image: url('../images/progress.gif?1387677340');
   border-shadow: 5px 5px 5px 5px #7373737;
 }
 
@@ -1763,6 +1763,14 @@ some cases may stretch layouts. So, we're just hiding it.
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/adam\/Sites\/icenter\/sites\/all\/themes\/icenter_zen\/sass\/components\/_misc\.scss}line{font-family:\00003799}}
 .fb_iframe_widget, .fb_iframe_widget span, .fb_iframe_widget span iframe[style] {
   width: 100% !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/adam\/Sites\/icenter\/sites\/all\/themes\/icenter_zen\/sass\/components\/_misc\.scss}line{font-family:\00003803}}
+img.right {
+  /*use this class to align images to the right*/
+  margin: 0 0px 0px 15px;
+  padding: 4px;
+  float: right;
 }
 
 /**

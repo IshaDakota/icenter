@@ -800,4 +800,8 @@ some cases may stretch layouts. So, we're just hiding it.
     width: 100% !important;
 }
 
-
+img.right { /*use this class to align images to the right*/
+	margin: 0 0px 0px 15px;
+	padding: 4px;
+	float: right;
+}
