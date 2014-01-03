@@ -365,7 +365,7 @@
 /*BUCKET STYLES - MASSIVELY REDONE BY AHS - each blurb its own border color and title color which is the same color */
 /* blurb borders */
 
-#block-views-voices-voices_block_homepage, #block-views-video_views-video_block, #block-views-d73bd47b7544c4ea290896013501277e {
+#block-views-voices-voices_block_homepage, #block-views-video_views-video_block, #block-block-2, #block-views-d73bd47b7544c4ea290896013501277e {
   position:relative;
 /*BUCKET STYLES - MASSIVELY REDONE BY AHS - each blurb its own border color and title color which is the same color */
 /*   background: transparent url('../images/block-gradient.png') no-repeat center bottom; */
@@ -382,7 +382,8 @@
 
 #block-views-d73bd47b7544c4ea290896013501277e .content, 
 #block-views-voices-voices_block_homepage .content, 
-#block-views-video_views-video_block .block-inner{
+#block-views-video_views-video_block .block-inner,
+#block-block-2 .block-inner {
   padding: 5px;
 }
 
@@ -452,14 +453,15 @@ margin: 5px 10px 10px 0;
 
 
 /* Fetured Video Block */
-#block-, #block-views-video_views-video_block {
+#block-block-2, #block-views-video_views-video_block {
   float:left;
   clear:none;
   margin: 0 3px 30px 3px;
  }
 
-#block- h2, #block-views-video_views-video_block h2 {
+#block-block-2 h2, #block-views-video_views-video_block h2 {
   position:relative;
+  color: #fff;
   background-color: #20B9EB;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -488,7 +490,7 @@ margin: 5px 10px 10px 0;
 
 #block-views-d73bd47b7544c4ea290896013501277e .content h2,
 #block-views-voices-voices_block_homepage .content h2,
-#block- .block-inner h2,
+#block-block-2 .block-inner h2,
 #block-views-video_views-video_block .block-inner h2 {
   padding: 8px 10px 7px;
   margin-bottom: 5px;
@@ -506,6 +508,9 @@ margin: 5px 10px 10px 0;
 #block-views-video_views-video_block h2 a:hover, 
 #block-views-video_views-video_block h2 a:visited, 
 #block-views-video_views-video_block h2 a, 
+#block-block-2 h2 a:hover, 
+#block-block-2 h2 a:visited, 
+#block-block-2 h2 a, 
 #block-views-d73bd47b7544c4ea290896013501277e h2 a:hover, 
 #block-views-d73bd47b7544c4ea290896013501277e h2 a:visited, 
 #block-views-d73bd47b7544c4ea290896013501277e h2 a {
@@ -514,7 +519,7 @@ margin: 5px 10px 10px 0;
 }
 
 #block-views-voices-voices_block_homepage .views-content a:visited,
-#block- .content a:visited,
+#block-block-2 .content a:visited,
 #block-views-video_views-video_block .content a:visited,
 #block-views-d73bd47b7544c4ea290896013501277e .content .view-footer a:visited {
   text-decoration:none;
