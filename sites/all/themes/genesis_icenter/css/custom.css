@@ -671,3 +671,13 @@ div#og-members-pane, div#user-groups-pane {
 #og-subscription-pane .field-name-group-group {
   font-size: 1.2em;
 }
+
+.ma-cohort .views-row {
+  float: left;
+  margin: 10px;
+  max-width: 100px;
+}
+
+.ma-cohort h3 {
+  clear: both;
+}

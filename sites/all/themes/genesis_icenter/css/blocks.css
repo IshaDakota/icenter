@@ -56,7 +56,7 @@
 
 /* Sidebar Navigation Block */
 
-#block-menu_ {
+#block-menu_block-2 {
     position: relative; /*These 2 settings fix PIE.htc */
     z-index: 0;  /*These 2 settings fix PIE.htc */
     padding: 10px 10px 30px;
@@ -67,11 +67,11 @@
     behavior: url(../connections/PIE.htc);
 }
 
-#block-menu_ .block-title {
+#block-menu_block-2 .block-title {
   color: #FFF;
 }
 
-#block-menu_ a {
+#block-menu_block-2 a {
   font-size: 1.167em;
   color: #FFF;
 }
