@@ -672,12 +672,30 @@ div#og-members-pane, div#user-groups-pane {
   font-size: 1.2em;
 }
 
+/**********************************************************
+ *                 MA Cohort Pages
+ **********************************************************/
+
 .ma-cohort .views-row {
   float: left;
   margin: 10px;
   max-width: 100px;
+  height: 150px;
 }
 
 .ma-cohort h3 {
   clear: both;
 }
+
+.ma-cohort .views-field-last-name,
+.ma-cohort .views-field-first-name {
+  text-align: center;
+}
+
+.ma-cohort .views-field-first-name a:focus, 
+.ma-cohort .views-field-first-name a:hover,
+.ma-cohort .views-field-last-name a:focus, 
+.ma-cohort .views-field-last-name a:hover {
+  text-decoration: none;
+}
+
