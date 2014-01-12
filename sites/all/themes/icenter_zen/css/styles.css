@@ -2031,6 +2031,11 @@ aside.sidebars section {
   background-size: 32px 32px;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/adam\/Sites\/icenter\/sites\/all\/themes\/icenter_zen\/sass\/components\/_page\.scss}line{font-family:\00003138}}
+article .field-name-body {
+  margin-left: 5em;
+}
+
 /**
  * @file
  * Print styling
