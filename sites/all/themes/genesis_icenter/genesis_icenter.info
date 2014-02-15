@@ -30,9 +30,6 @@
   stylesheets-conditional[IE 7][all][] = css/ie7.css
   stylesheets-conditional[IE 8][all][] = css/ie8.css
 
-  ;scripts[] = js/40nuggets.js
-  
-
 ; The regions defined in the page.tpl.php file. The name in brackets is the 
 ; name of the variable. The text after the = sign is the short description 
 ; you see on the block configuration page.
