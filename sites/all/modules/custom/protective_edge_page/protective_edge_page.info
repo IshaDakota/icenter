@@ -1,7 +1,8 @@
 name = Protective Edge Page
 core = 7.x
 package = Features
-version = 7.x-1.0
+php = 5.2.4
+version = 7.x-1.1
 project = protective_edge_page
 dependencies[] = ctools
 dependencies[] = ctools_custom_content

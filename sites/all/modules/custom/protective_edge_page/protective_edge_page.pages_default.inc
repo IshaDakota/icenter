@@ -59,7 +59,8 @@ function protective_edge_page_default_page_manager_pages() {
         'width' => 100,
         'width_type' => '%',
         'children' => array(
-          0 => 'main-row',
+          0 => 1,
+          1 => 'main-row',
         ),
         'parent' => 'canvas',
       ),
@@ -88,6 +89,32 @@ function protective_edge_page_default_page_manager_pages() {
         'parent' => 'main-row',
         'class' => '',
       ),
+      1 => array(
+        'type' => 'row',
+        'contains' => 'region',
+        'children' => array(
+          0 => 'intro_left',
+          1 => 'intro_right',
+        ),
+        'parent' => 'main',
+        'class' => '',
+      ),
+      'intro_left' => array(
+        'type' => 'region',
+        'title' => 'Intro Left',
+        'width' => '40.87996811820788',
+        'width_type' => '%',
+        'parent' => '1',
+        'class' => '',
+      ),
+      'intro_right' => array(
+        'type' => 'region',
+        'title' => 'Intro Right',
+        'width' => '59.12003188179212',
+        'width_type' => '%',
+        'parent' => '1',
+        'class' => '',
+      ),
     ),
   );
   $display->panel_settings = array(
@@ -95,6 +122,8 @@ function protective_edge_page_default_page_manager_pages() {
       'default' => NULL,
       'center' => NULL,
       'sidebar' => NULL,
+      'intro_left' => NULL,
+      'intro_right' => NULL,
     ),
   );
   $display->cache = array();
@@ -103,8 +132,72 @@ function protective_edge_page_default_page_manager_pages() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
-    $pane->pid = 'new-509026e3-0a49-42f1-9aa7-dd54f9154b2a';
+    $pane->pid = 'new-1aa24009-d8c7-46de-99a4-603038400f19';
     $pane->panel = 'center';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'protective_edge_resources-protective_edge_resources_pane';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array();
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = '1aa24009-d8c7-46de-99a4-603038400f19';
+    $display->content['new-1aa24009-d8c7-46de-99a4-603038400f19'] = $pane;
+    $display->panels['center'][0] = 'new-1aa24009-d8c7-46de-99a4-603038400f19';
+    $pane = new stdClass();
+    $pane->pid = 'new-4f951c44-bf4e-46e9-adcd-e96a0e5cf5c3';
+    $pane->panel = 'center';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'protective_edge_resources-protective_edge_voices_pane';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array();
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 1;
+    $pane->locks = array();
+    $pane->uuid = '4f951c44-bf4e-46e9-adcd-e96a0e5cf5c3';
+    $display->content['new-4f951c44-bf4e-46e9-adcd-e96a0e5cf5c3'] = $pane;
+    $display->panels['center'][1] = 'new-4f951c44-bf4e-46e9-adcd-e96a0e5cf5c3';
+    $pane = new stdClass();
+    $pane->pid = 'new-2a2ed9af-3990-45e2-8660-6bbd0f3750e7';
+    $pane->panel = 'intro_left';
+    $pane->type = 'custom';
+    $pane->subtype = 'custom';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'admin_title' => 'Text Intro',
+      'title' => '',
+      'body' => '<p>As we experience difficult days of tradgedy and sorrow, the iCenter is attempting to create educational frames around stories from Israel. Through these resources, we hope to equip educators with tools in the ongoing project of teaching Israel.</p>
+',
+      'format' => 'full_html',
+      'substitute' => TRUE,
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = '2a2ed9af-3990-45e2-8660-6bbd0f3750e7';
+    $display->content['new-2a2ed9af-3990-45e2-8660-6bbd0f3750e7'] = $pane;
+    $display->panels['intro_left'][0] = 'new-2a2ed9af-3990-45e2-8660-6bbd0f3750e7';
+    $pane = new stdClass();
+    $pane->pid = 'new-509026e3-0a49-42f1-9aa7-dd54f9154b2a';
+    $pane->panel = 'intro_right';
     $pane->type = 'custom';
     $pane->subtype = 'custom';
     $pane->shown = TRUE;
@@ -127,71 +220,7 @@ function protective_edge_page_default_page_manager_pages() {
     $pane->locks = array();
     $pane->uuid = '509026e3-0a49-42f1-9aa7-dd54f9154b2a';
     $display->content['new-509026e3-0a49-42f1-9aa7-dd54f9154b2a'] = $pane;
-    $display->panels['center'][0] = 'new-509026e3-0a49-42f1-9aa7-dd54f9154b2a';
-    $pane = new stdClass();
-    $pane->pid = 'new-1aa24009-d8c7-46de-99a4-603038400f19';
-    $pane->panel = 'center';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'protective_edge_resources-protective_edge_resources_pane';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array();
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 1;
-    $pane->locks = array();
-    $pane->uuid = '1aa24009-d8c7-46de-99a4-603038400f19';
-    $display->content['new-1aa24009-d8c7-46de-99a4-603038400f19'] = $pane;
-    $display->panels['center'][1] = 'new-1aa24009-d8c7-46de-99a4-603038400f19';
-    $pane = new stdClass();
-    $pane->pid = 'new-4f951c44-bf4e-46e9-adcd-e96a0e5cf5c3';
-    $pane->panel = 'center';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'protective_edge_resources-protective_edge_voices_pane';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array();
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 2;
-    $pane->locks = array();
-    $pane->uuid = '4f951c44-bf4e-46e9-adcd-e96a0e5cf5c3';
-    $display->content['new-4f951c44-bf4e-46e9-adcd-e96a0e5cf5c3'] = $pane;
-    $display->panels['center'][2] = 'new-4f951c44-bf4e-46e9-adcd-e96a0e5cf5c3';
-    $pane = new stdClass();
-    $pane->pid = 'new-2a2ed9af-3990-45e2-8660-6bbd0f3750e7';
-    $pane->panel = 'sidebar';
-    $pane->type = 'custom';
-    $pane->subtype = 'custom';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'admin_title' => 'Text Intro',
-      'title' => '',
-      'body' => '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
-',
-      'format' => 'full_html',
-      'substitute' => TRUE,
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 0;
-    $pane->locks = array();
-    $pane->uuid = '2a2ed9af-3990-45e2-8660-6bbd0f3750e7';
-    $display->content['new-2a2ed9af-3990-45e2-8660-6bbd0f3750e7'] = $pane;
-    $display->panels['sidebar'][0] = 'new-2a2ed9af-3990-45e2-8660-6bbd0f3750e7';
+    $display->panels['intro_right'][0] = 'new-509026e3-0a49-42f1-9aa7-dd54f9154b2a';
     $pane = new stdClass();
     $pane->pid = 'new-a3029fce-b317-4c27-bfc4-126a6ed87d3f';
     $pane->panel = 'sidebar';
@@ -213,11 +242,11 @@ function protective_edge_page_default_page_manager_pages() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 1;
+    $pane->position = 0;
     $pane->locks = array();
     $pane->uuid = 'a3029fce-b317-4c27-bfc4-126a6ed87d3f';
     $display->content['new-a3029fce-b317-4c27-bfc4-126a6ed87d3f'] = $pane;
-    $display->panels['sidebar'][1] = 'new-a3029fce-b317-4c27-bfc4-126a6ed87d3f';
+    $display->panels['sidebar'][0] = 'new-a3029fce-b317-4c27-bfc4-126a6ed87d3f';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
