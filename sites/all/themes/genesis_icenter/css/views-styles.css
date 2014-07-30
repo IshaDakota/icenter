@@ -193,6 +193,38 @@ h2.views-field-title a:visited {
 }
 
 /**********************************************************
+ *                 Protective Edge View
+ ***********************************************************/
+
+
+
+.view-id-protective_edge_resources .field-content .user-picture,
+.view-id-protective_edge_resources .views-field-entity-id img {
+    float: left;
+    display: block;
+    margin: 0.3em 1.25em 0.5em 0;
+}
+
+/* Spacing between Rows */
+.view-id-protective_edge_resources .views-row {
+    margin: 0 0 1.7em;
+    clear: both;
+    min-height: 120px;
+}
+
+.view-id-protective_edge_resources .views-field-body {
+  font-size: 1.2em;
+}
+
+.view-id-protective_edge_resources .views-field-title a,
+.view-id-protective_edge_resources .views-field-title a:hover,
+.view-id-protective_edge_resources .views-field-title a:visited {
+    color: #383838;
+}
+
+
+
+/**********************************************************
  *                 Alef-Bets Views
  ***********************************************************/
 

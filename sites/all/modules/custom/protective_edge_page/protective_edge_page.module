@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Protective Edge Page feature.
+ */
+
+include_once 'protective_edge_page.features.inc';
