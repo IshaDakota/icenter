@@ -222,6 +222,11 @@ h2.views-field-title a:visited {
     color: #383838;
 }
 
+#resources-protective-edge .pane-2 p {
+  font-size: 2em;
+  font-style: italic;
+  font-weight: 200;
+}
 
 
 /**********************************************************
