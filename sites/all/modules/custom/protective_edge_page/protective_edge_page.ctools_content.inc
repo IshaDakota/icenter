@@ -20,7 +20,7 @@ function protective_edge_page_default_ctools_custom_content() {
   $content->settings = array(
     'admin_title' => '',
     'title' => '',
-    'body' => '<p><img alt="" src="/sites/default/files/facebook3.jpg" style="width: 600px; height: 400px;" /></p>
+    'body' => '<p><img alt="" src="/sites/default/files/gan-gani.jpg" style="width: 400px; height: 267px;" /></p>
 ',
     'format' => 'full_html',
     'substitute' => 1,

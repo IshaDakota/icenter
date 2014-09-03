@@ -102,7 +102,7 @@ function protective_edge_page_default_page_manager_pages() {
       'intro_left' => array(
         'type' => 'region',
         'title' => 'Intro Left',
-        'width' => '40.87996811820788',
+        'width' => '39.83894314962064',
         'width_type' => '%',
         'parent' => '1',
         'class' => '',
@@ -110,7 +110,7 @@ function protective_edge_page_default_page_manager_pages() {
       'intro_right' => array(
         'type' => 'region',
         'title' => 'Intro Right',
-        'width' => '59.12003188179212',
+        'width' => '60.16105685037936',
         'width_type' => '%',
         'parent' => '1',
         'class' => '',
@@ -132,25 +132,6 @@ function protective_edge_page_default_page_manager_pages() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
-    $pane->pid = 'new-1aa24009-d8c7-46de-99a4-603038400f19';
-    $pane->panel = 'center';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'protective_edge_resources-protective_edge_resources_pane';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array();
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 0;
-    $pane->locks = array();
-    $pane->uuid = '1aa24009-d8c7-46de-99a4-603038400f19';
-    $display->content['new-1aa24009-d8c7-46de-99a4-603038400f19'] = $pane;
-    $display->panels['center'][0] = 'new-1aa24009-d8c7-46de-99a4-603038400f19';
-    $pane = new stdClass();
     $pane->pid = 'new-4f951c44-bf4e-46e9-adcd-e96a0e5cf5c3';
     $pane->panel = 'center';
     $pane->type = 'views_panes';
@@ -164,11 +145,30 @@ function protective_edge_page_default_page_manager_pages() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 1;
+    $pane->position = 0;
     $pane->locks = array();
     $pane->uuid = '4f951c44-bf4e-46e9-adcd-e96a0e5cf5c3';
     $display->content['new-4f951c44-bf4e-46e9-adcd-e96a0e5cf5c3'] = $pane;
-    $display->panels['center'][1] = 'new-4f951c44-bf4e-46e9-adcd-e96a0e5cf5c3';
+    $display->panels['center'][0] = 'new-4f951c44-bf4e-46e9-adcd-e96a0e5cf5c3';
+    $pane = new stdClass();
+    $pane->pid = 'new-1aa24009-d8c7-46de-99a4-603038400f19';
+    $pane->panel = 'center';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'protective_edge_resources-protective_edge_resources_pane';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array();
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 1;
+    $pane->locks = array();
+    $pane->uuid = '1aa24009-d8c7-46de-99a4-603038400f19';
+    $display->content['new-1aa24009-d8c7-46de-99a4-603038400f19'] = $pane;
+    $display->panels['center'][1] = 'new-1aa24009-d8c7-46de-99a4-603038400f19';
     $pane = new stdClass();
     $pane->pid = 'new-2a2ed9af-3990-45e2-8660-6bbd0f3750e7';
     $pane->panel = 'intro_left';
@@ -179,10 +179,13 @@ function protective_edge_page_default_page_manager_pages() {
     $pane->configuration = array(
       'admin_title' => 'Text Intro',
       'title' => '',
-      'body' => '<p>As we experience difficult days of tradgedy and sorrow, the iCenter is attempting to create educational frames around stories from Israel. Through these resources, we hope to equip educators with tools in the ongoing project of teaching Israel.</p>
+      'body' => '<p>As the conflict in Israel continues, we are looking for ways to bring Israel to our learners by gathering relevant resources, collecting authentic stories, and providing useful frames for educators and learners.</p>
+
+<p>Please find some of our stories below.</p>
 ',
       'format' => 'full_html',
       'substitute' => TRUE,
+      'name' => 'protectiveedgeintro',
     );
     $pane->cache = array();
     $pane->style = array(
