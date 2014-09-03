@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Curricular Content feature.
+ */
+
+include_once 'curricular_content.features.inc';
