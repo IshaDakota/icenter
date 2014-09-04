@@ -283,6 +283,22 @@ h2.views-field-title a:visited {
   text-decoration:none;
 }
 
+#curricular-piece .user-picture img {
+  float: left;
+  margin: 0 1em 1em 0;
+}
+
+#curricular-piece .pane-node-author .pane-content, 
+#curricular-piece .pane-node-created .pane-content {
+  font-size: 1.25em; 
+}
+
+#curricular-piece .pane-node-author h2.pane-title, 
+#curricular-piece .pane-node-created h2.pane-title {
+  font-size: 1.25em;
+  color: #000;
+}
+
 /**********************************************************
  *                 Alef-Bets Views
  ***********************************************************/

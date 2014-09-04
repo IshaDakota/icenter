@@ -27,7 +27,15 @@ function curricular_content_default_page_manager_handlers() {
     'css_id' => 'curricular-piece',
     'css' => '',
     'contexts' => array(),
-    'relationships' => array(),
+    'relationships' => array(
+      1 => array(
+        'identifier' => 'User from Content (on node.node_author)',
+        'keyword' => 'user_2',
+        'name' => 'entity_from_schema:uid-node-user',
+        'context' => 'argument_entity_id:node_1',
+        'id' => 1,
+      ),
+    ),
     'access' => array(
       'plugins' => array(
         0 => array(
@@ -104,6 +112,77 @@ function curricular_content_default_page_manager_handlers() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
+    $pane->pid = 'new-afbadcce-7822-4a77-901f-ab227bb320c4';
+    $pane->panel = 'center';
+    $pane->type = 'user_picture';
+    $pane->subtype = 'user_picture';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => 'relationship_entity_from_schema:uid-node-user_1',
+      'override_title' => 1,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = 'afbadcce-7822-4a77-901f-ab227bb320c4';
+    $display->content['new-afbadcce-7822-4a77-901f-ab227bb320c4'] = $pane;
+    $display->panels['center'][0] = 'new-afbadcce-7822-4a77-901f-ab227bb320c4';
+    $pane = new stdClass();
+    $pane->pid = 'new-e4375346-e8a3-4cc9-9ac1-86708287f534';
+    $pane->panel = 'center';
+    $pane->type = 'node_author';
+    $pane->subtype = 'node_author';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'link' => 1,
+      'context' => 'argument_entity_id:node_1',
+      'override_title' => 1,
+      'override_title_text' => 'by: ',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 1;
+    $pane->locks = array();
+    $pane->uuid = 'e4375346-e8a3-4cc9-9ac1-86708287f534';
+    $display->content['new-e4375346-e8a3-4cc9-9ac1-86708287f534'] = $pane;
+    $display->panels['center'][1] = 'new-e4375346-e8a3-4cc9-9ac1-86708287f534';
+    $pane = new stdClass();
+    $pane->pid = 'new-d5fa9cf6-fd62-4d46-a8b6-62dc74cb5846';
+    $pane->panel = 'center';
+    $pane->type = 'node_created';
+    $pane->subtype = 'node_created';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'format' => 'short',
+      'context' => 'argument_entity_id:node_1',
+      'override_title' => 1,
+      'override_title_text' => 'Posted on:',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 2;
+    $pane->locks = array();
+    $pane->uuid = 'd5fa9cf6-fd62-4d46-a8b6-62dc74cb5846';
+    $display->content['new-d5fa9cf6-fd62-4d46-a8b6-62dc74cb5846'] = $pane;
+    $display->panels['center'][2] = 'new-d5fa9cf6-fd62-4d46-a8b6-62dc74cb5846';
+    $pane = new stdClass();
     $pane->pid = 'new-9e3f01d2-414a-4b2d-baae-a71733d84055';
     $pane->panel = 'center';
     $pane->type = 'node_body';
@@ -121,11 +200,11 @@ function curricular_content_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 0;
+    $pane->position = 3;
     $pane->locks = array();
     $pane->uuid = '9e3f01d2-414a-4b2d-baae-a71733d84055';
     $display->content['new-9e3f01d2-414a-4b2d-baae-a71733d84055'] = $pane;
-    $display->panels['center'][0] = 'new-9e3f01d2-414a-4b2d-baae-a71733d84055';
+    $display->panels['center'][3] = 'new-9e3f01d2-414a-4b2d-baae-a71733d84055';
     $pane = new stdClass();
     $pane->pid = 'new-ba35c099-04cb-4607-a3a1-1b748370bf8c';
     $pane->panel = 'center';
@@ -150,11 +229,11 @@ function curricular_content_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 1;
+    $pane->position = 4;
     $pane->locks = array();
     $pane->uuid = 'ba35c099-04cb-4607-a3a1-1b748370bf8c';
     $display->content['new-ba35c099-04cb-4607-a3a1-1b748370bf8c'] = $pane;
-    $display->panels['center'][1] = 'new-ba35c099-04cb-4607-a3a1-1b748370bf8c';
+    $display->panels['center'][4] = 'new-ba35c099-04cb-4607-a3a1-1b748370bf8c';
     $pane = new stdClass();
     $pane->pid = 'new-b82a0cb4-2f45-4e16-8bdf-d06861092653';
     $pane->panel = 'center';
@@ -179,11 +258,11 @@ function curricular_content_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 2;
+    $pane->position = 5;
     $pane->locks = array();
     $pane->uuid = 'b82a0cb4-2f45-4e16-8bdf-d06861092653';
     $display->content['new-b82a0cb4-2f45-4e16-8bdf-d06861092653'] = $pane;
-    $display->panels['center'][2] = 'new-b82a0cb4-2f45-4e16-8bdf-d06861092653';
+    $display->panels['center'][5] = 'new-b82a0cb4-2f45-4e16-8bdf-d06861092653';
     $pane = new stdClass();
     $pane->pid = 'new-873057ab-c51d-4c78-ae17-63cad5a4d41e';
     $pane->panel = 'center';
@@ -208,11 +287,11 @@ function curricular_content_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 3;
+    $pane->position = 6;
     $pane->locks = array();
     $pane->uuid = '873057ab-c51d-4c78-ae17-63cad5a4d41e';
     $display->content['new-873057ab-c51d-4c78-ae17-63cad5a4d41e'] = $pane;
-    $display->panels['center'][3] = 'new-873057ab-c51d-4c78-ae17-63cad5a4d41e';
+    $display->panels['center'][6] = 'new-873057ab-c51d-4c78-ae17-63cad5a4d41e';
     $pane = new stdClass();
     $pane->pid = 'new-355964cf-df5a-4264-8038-d08967ecb212';
     $pane->panel = 'center';
@@ -237,11 +316,40 @@ function curricular_content_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 4;
+    $pane->position = 7;
     $pane->locks = array();
     $pane->uuid = '355964cf-df5a-4264-8038-d08967ecb212';
     $display->content['new-355964cf-df5a-4264-8038-d08967ecb212'] = $pane;
-    $display->panels['center'][4] = 'new-355964cf-df5a-4264-8038-d08967ecb212';
+    $display->panels['center'][7] = 'new-355964cf-df5a-4264-8038-d08967ecb212';
+    $pane = new stdClass();
+    $pane->pid = 'new-0b66aa08-b5e5-409d-8394-867c0d7b680c';
+    $pane->panel = 'center';
+    $pane->type = 'entity_field';
+    $pane->subtype = 'user:field_bio';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'label' => 'hidden',
+      'formatter' => 'text_default',
+      'delta_limit' => 0,
+      'delta_offset' => '0',
+      'delta_reversed' => FALSE,
+      'formatter_settings' => array(),
+      'context' => 'relationship_entity_from_schema:uid-node-user_1',
+      'override_title' => 0,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 8;
+    $pane->locks = array();
+    $pane->uuid = '0b66aa08-b5e5-409d-8394-867c0d7b680c';
+    $display->content['new-0b66aa08-b5e5-409d-8394-867c0d7b680c'] = $pane;
+    $display->panels['center'][8] = 'new-0b66aa08-b5e5-409d-8394-867c0d7b680c';
     $pane = new stdClass();
     $pane->pid = 'new-0fbf8bee-95bc-44df-8ee3-20862a0dce36';
     $pane->panel = 'sidebar';
@@ -488,7 +596,7 @@ function curricular_content_default_page_manager_pages() {
     'pipeline' => 'standard',
     'body_classes_to_remove' => '',
     'body_classes_to_add' => '',
-    'css_id' => 'resources-protective-edge',
+    'css_id' => 'resources-protective-edge-ds',
     'css' => '',
     'contexts' => array(),
     'relationships' => array(),
@@ -608,7 +716,7 @@ function curricular_content_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = 'Israel Today: Resources for Day Schools';
+  $display->title = 'Israel in Conflict: Resources for Day Schools';
   $display->uuid = 'd139d56d-ace3-47ce-8a98-b59634b16e9c';
   $display->content = array();
   $display->panels = array();
@@ -651,22 +759,19 @@ function curricular_content_default_page_manager_pages() {
     $display->content['new-3d44f324-d8be-4212-aea3-4b2b36c514c8'] = $pane;
     $display->panels['center'][1] = 'new-3d44f324-d8be-4212-aea3-4b2b36c514c8';
     $pane = new stdClass();
-    $pane->pid = 'new-2a2ed9af-3990-45e2-8660-6bbd0f3750e7';
+    $pane->pid = 'new-354019db-d568-4fe6-97a1-344e60483e9a';
     $pane->panel = 'intro_left';
     $pane->type = 'custom';
     $pane->subtype = 'custom';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'admin_title' => 'Text Intro',
+      'admin_title' => '',
       'title' => '',
-      'body' => '<p>As the conflict in Israel continues, we are looking for ways to bring Israel to our learners by gathering relevant resources, collecting authentic stories, and providing useful frames for educators and learners.</p>
-
-<p>Please find some of our stories below.</p>
-',
+      'body' => '',
       'format' => 'full_html',
       'substitute' => TRUE,
-      'name' => 'protectiveedgeintro',
+      'name' => 'ds_protective_edge_intro',
     );
     $pane->cache = array();
     $pane->style = array(
@@ -676,9 +781,9 @@ function curricular_content_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $pane->uuid = '2a2ed9af-3990-45e2-8660-6bbd0f3750e7';
-    $display->content['new-2a2ed9af-3990-45e2-8660-6bbd0f3750e7'] = $pane;
-    $display->panels['intro_left'][0] = 'new-2a2ed9af-3990-45e2-8660-6bbd0f3750e7';
+    $pane->uuid = '354019db-d568-4fe6-97a1-344e60483e9a';
+    $display->content['new-354019db-d568-4fe6-97a1-344e60483e9a'] = $pane;
+    $display->panels['intro_left'][0] = 'new-354019db-d568-4fe6-97a1-344e60483e9a';
     $pane = new stdClass();
     $pane->pid = 'new-509026e3-0a49-42f1-9aa7-dd54f9154b2a';
     $pane->panel = 'intro_right';
