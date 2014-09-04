@@ -197,8 +197,9 @@ h2.views-field-title a:visited {
  ***********************************************************/
 
 
-
-.view-id-protective_edge_resources .field-content .user-picture,
+.view-ds-protective-edge-resources .field-content .user-picture,
+.view-ds-protective-edge-resources .field-content .user-picture,
+.view-ds-protective_edge_resources .views-field-entity-id img,
 .view-id-protective_edge_resources .views-field-entity-id img,
 .view-currucular-taxonomy-term .views-field-entity-id img {
     float: left;
@@ -206,7 +207,16 @@ h2.views-field-title a:visited {
     margin: 0.3em 1.25em 0.5em 0;
 }
 
+.pane-ds-protective-edge-resources-ds-protective-edge-resources,
+.pane-ds-protective-edge-resources-panel-pane-3,
+.pane-ds-protective-edge-resources-panel-pane-5,
+.pane-ds-protective-edge-resources-panel-pane-4 {
+  padding: 10px;
+  background: rgba(220,220,220,0.52)
+}
+
 /* Spacing between Rows */
+.view-ds-protective-edge-resources .views-row,
 .view-id-protective_edge_resources .views-row,
 .view-currucular-taxonomy-term .views-row {
     margin: 0 0 1.7em;
@@ -219,6 +229,13 @@ h2.views-field-title a:visited {
   font-size: 1.2em;
 }
 
+.view-ds-protective-edge-resources .views-field-title a {
+  margin: auto 0;
+}
+
+.view-ds-protective-edge-resources .views-field-title a,
+.view-ds-protective_edge_resources .views-field-title a:hover,
+.view-ds-protective_edge_resources .views-field-title a:visited,
 .view-id-protective_edge_resources .views-field-title a,
 .view-id-protective_edge_resources .views-field-title a:hover,
 .view-id-protective_edge_resources .views-field-title a:visited,
@@ -235,6 +252,36 @@ h2.views-field-title a:visited {
   margin-right: 1em;
 }
 
+#curricular-piece .field-type-taxonomy-term-reference ul {
+  margin-left: 0.5em;
+  margin-bottom: 0.75em; 
+}
+
+#curricular-piece .field-type-taxonomy-term-reference li {
+  list-style-type: none;
+  display: inline;
+  margin-right: 0.5em;
+}
+
+#curricular-piece .field-type-taxonomy-term-reference li a {
+  padding: 6px 6px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  behavior: url(../connections/PIE.htc);  
+}
+
+#curricular-piece .field-type-taxonomy-term-reference li a:link,
+#curricular-piece .field-type-taxonomy-term-reference li a:visited {
+  background-color:#999999;
+  color:#FFFFFF;
+}
+
+#curricular-piece .field-type-taxonomy-term-reference li a:hover,
+#curricular-piece .field-type-taxonomy-term-reference li a:focus {
+  background-color:#666666;
+  color:#FFFFFF;
+  text-decoration:none;
+}
 
 /**********************************************************
  *                 Alef-Bets Views

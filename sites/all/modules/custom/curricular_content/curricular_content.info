@@ -45,3 +45,4 @@ features[variable][] = node_preview_curriculum_pieces
 features[variable][] = node_submitted_curriculum_pieces
 features[views_view][] = curriculum_taxonomy
 features[views_view][] = currucular_taxonomy_term
+features[views_view][] = ds_protective_edge_resources
