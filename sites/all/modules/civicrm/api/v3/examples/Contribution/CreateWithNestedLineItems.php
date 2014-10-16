@@ -80,11 +80,9 @@ function contribution_create_expectedresult(){
           'source' => 'SSF',
           'amount_level' => '',
           'contribution_recur_id' => '',
-          'honor_contact_id' => '',
           'is_test' => '',
           'is_pay_later' => '',
           'contribution_status_id' => '1',
-          'honor_type_id' => '',
           'address_id' => '',
           'check_number' => '',
           'campaign_id' => '',
@@ -100,6 +98,7 @@ function contribution_create_expectedresult(){
                           'id' => '1',
                           'entity_table' => 'civicrm_contribution',
                           'entity_id' => '1',
+                          'contribution_id' => '1',
                           'price_field_id' => '1',
                           'label' => 'line item',
                           'qty' => '2',
@@ -122,6 +121,7 @@ function contribution_create_expectedresult(){
                           'id' => '2',
                           'entity_table' => 'civicrm_contribution',
                           'entity_id' => '1',
+                          'contribution_id' => '1',
                           'price_field_id' => '1',
                           'label' => 'line item',
                           'qty' => '1',
@@ -147,16 +147,16 @@ function contribution_create_expectedresult(){
 * This example has been generated from the API test suite. The test that created it is called
 *
 * testCreateContributionChainedLineItems and can be found in
-* http://svn.civicrm.org/civicrm/trunk/tests/phpunit/CiviTest/api/v3/ContributionTest.php
+* https://github.com/civicrm/civicrm-core/blob/master/tests/phpunit/api/v3/ContributionTest.php
 *
 * You can see the outcome of the API tests at
-* http://tests.dev.civicrm.org/trunk/results-api_v3
+* https://test.civicrm.org/job/CiviCRM-master-git/
 *
 * To Learn about the API read
-* http://book.civicrm.org/developer/current/techniques/api/
+* http://wiki.civicrm.org/confluence/display/CRMDOC/Using+the+API
 *
-* and review the wiki at
-* http://wiki.civicrm.org/confluence/display/CRMDOC/CiviCRM+Public+APIs
+* Browse the api on your own site with the api explorer
+* http://MYSITE.ORG/path/to/civicrm/api/explorer
 *
 * Read more about testing here
 * http://wiki.civicrm.org/confluence/display/CRM/Testing

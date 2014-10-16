@@ -351,8 +351,8 @@ ORDER BY ov.label
     parent::preProcess();
   }
 
-  static function getOperationPair($type = "string", $fieldName = NULL) {
-    if ($fieldName == 'gid' && $type == CRM_Report_FORM::OP_MULTISELECT) {
+  function getOperationPair($type = "string", $fieldName = NULL) {
+    if ($fieldName == 'gid' && $type == CRM_Report_Form::OP_MULTISELECT) {
       return array('in' => ts('Is one of'),
         'mand' => ts('Is equal to'),
       );
@@ -426,9 +426,7 @@ ORDER BY ov.label
         foreach ($table['fields'] as $fieldName => $field) {
 
           //var_dump($this->_params['fields'][$fieldName]);
-          if (CRM_Utils_Array::value('required', $field) ||
-            CRM_Utils_Array::value($fieldName, $this->_params['fields'])
-          ) {
+          if (!empty($field['required']) || !empty($this->_params['fields'][$fieldName])) {
             if ($tableName == 'civicrm_address') {
               $this->_addressField = TRUE;
             }

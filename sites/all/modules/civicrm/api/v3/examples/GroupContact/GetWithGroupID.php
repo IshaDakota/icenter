@@ -50,8 +50,6 @@ function group_contact_get_expectedresult(){
                       'name' => 'Test Group 1',
                       'title' => 'New Test Group Created',
                       'description' => 'New Test Group Created',
-                      'source' => '',
-                      'saved_search_id' => '',
                       'is_active' => '1',
                       'visibility' => 'Public Pages',
                       'where_clause' => ' ( `civicrm_group_contact-1`.group_id IN ( 1 ) AND `civicrm_group_contact-1`.status IN (\"Added\") ) ',
@@ -61,13 +59,8 @@ function group_contact_get_expectedresult(){
                           '0' => '1',
                           '1' => '2',
                         ),
-                      'cache_date' => '',
-                      'refresh_date' => '',
-                      'parents' => '',
-                      'children' => '',
                       'is_hidden' => 0,
                       'is_reserved' => 0,
-                      'created_id' => '',
                     ),
                 ),
             ),
@@ -88,8 +81,6 @@ function group_contact_get_expectedresult(){
                       'name' => 'Test Group 1',
                       'title' => 'New Test Group Created',
                       'description' => 'New Test Group Created',
-                      'source' => '',
-                      'saved_search_id' => '',
                       'is_active' => '1',
                       'visibility' => 'Public Pages',
                       'where_clause' => ' ( `civicrm_group_contact-1`.group_id IN ( 1 ) AND `civicrm_group_contact-1`.status IN (\"Added\") ) ',
@@ -99,13 +90,8 @@ function group_contact_get_expectedresult(){
                           '0' => '1',
                           '1' => '2',
                         ),
-                      'cache_date' => '',
-                      'refresh_date' => '',
-                      'parents' => '',
-                      'children' => '',
                       'is_hidden' => 0,
                       'is_reserved' => 0,
-                      'created_id' => '',
                     ),
                 ),
             ),
@@ -121,16 +107,16 @@ function group_contact_get_expectedresult(){
 * This example has been generated from the API test suite. The test that created it is called
 *
 * testGetGroupID and can be found in
-* http://svn.civicrm.org/civicrm/trunk/tests/phpunit/CiviTest/api/v3/GroupContactTest.php
+* https://github.com/civicrm/civicrm-core/blob/master/tests/phpunit/api/v3/GroupContactTest.php
 *
 * You can see the outcome of the API tests at
-* http://tests.dev.civicrm.org/trunk/results-api_v3
+* https://test.civicrm.org/job/CiviCRM-master-git/
 *
 * To Learn about the API read
-* http://book.civicrm.org/developer/current/techniques/api/
+* http://wiki.civicrm.org/confluence/display/CRMDOC/Using+the+API
 *
-* and review the wiki at
-* http://wiki.civicrm.org/confluence/display/CRMDOC/CiviCRM+Public+APIs
+* Browse the api on your own site with the api explorer
+* http://MYSITE.ORG/path/to/civicrm/api/explorer
 *
 * Read more about testing here
 * http://wiki.civicrm.org/confluence/display/CRM/Testing

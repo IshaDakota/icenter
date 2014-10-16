@@ -64,6 +64,8 @@ function contact_get_expectedresult(){
           'last_name' => 'xyz3',
           'prefix_id' => '',
           'suffix_id' => '',
+          'formal_title' => '',
+          'communication_style_id' => '',
           'job_title' => '',
           'gender_id' => '',
           'birth_date' => '',
@@ -74,8 +76,8 @@ function contact_get_expectedresult(){
           'sic_code' => '',
           'contact_is_deleted' => 0,
           'current_employer' => '',
-          'address_id' => '',
-          'street_address' => '',
+          'address_id' => '2',
+          'street_address' => '1 my road',
           'supplemental_address_1' => '',
           'supplemental_address_2' => '',
           'city' => '',
@@ -98,6 +100,7 @@ function contact_get_expectedresult(){
           'world_region' => '',
           'individual_prefix' => '',
           'individual_suffix' => '',
+          'communication_style' => '',
           'gender' => '',
           'state_province_name' => '',
           'state_province' => '',
@@ -150,7 +153,7 @@ function contact_get_expectedresult(){
                       'contribution_campaign_id' => '',
                       'financial_type_id' => '1',
                       'financial_type' => 'Donation',
-                      'instrument_id' => '81',
+                      'instrument_id' => '84',
                       'payment_instrument' => 'Credit Card',
                       'product_id' => '',
                       'product_name' => '',
@@ -197,16 +200,16 @@ function contact_get_expectedresult(){
 * This example has been generated from the API test suite. The test that created it is called
 *
 * testGetIndividualWithChainedArrays and can be found in
-* http://svn.civicrm.org/civicrm/trunk/tests/phpunit/CiviTest/api/v3/ContactTest.php
+* https://github.com/civicrm/civicrm-core/blob/master/tests/phpunit/api/v3/ContactTest.php
 *
 * You can see the outcome of the API tests at
-* http://tests.dev.civicrm.org/trunk/results-api_v3
+* https://test.civicrm.org/job/CiviCRM-master-git/
 *
 * To Learn about the API read
-* http://book.civicrm.org/developer/current/techniques/api/
+* http://wiki.civicrm.org/confluence/display/CRMDOC/Using+the+API
 *
-* and review the wiki at
-* http://wiki.civicrm.org/confluence/display/CRMDOC/CiviCRM+Public+APIs
+* Browse the api on your own site with the api explorer
+* http://MYSITE.ORG/path/to/civicrm/api/explorer
 *
 * Read more about testing here
 * http://wiki.civicrm.org/confluence/display/CRM/Testing

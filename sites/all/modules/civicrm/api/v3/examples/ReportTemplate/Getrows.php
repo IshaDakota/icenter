@@ -41,16 +41,10 @@ function report_template_getrows_expectedresult(){
       '0' => array(
           'civicrm_contact_sort_name' => 'Default Organization',
           'civicrm_contact_id' => '1',
-          'civicrm_address_street_address' => '',
-          'civicrm_address_city' => '',
-          'civicrm_country_name' => '',
         ),
       '1' => array(
           'civicrm_contact_sort_name' => 'Second Domain',
           'civicrm_contact_id' => '2',
-          'civicrm_address_street_address' => '15 Main St',
-          'civicrm_address_city' => 'Collinsville',
-          'civicrm_country_name' => 'United States',
         ),
     ),
   'metadata' => array(
@@ -58,9 +52,6 @@ function report_template_getrows_expectedresult(){
       'labels' => array(
           'civicrm_contact_sort_name' => 'Contact Name',
           'civicrm_contact_id' => 'Internal Contact ID',
-          'civicrm_address_street_address' => 'Street Address',
-          'civicrm_address_city' => 'City',
-          'civicrm_country_name' => 'Country',
         ),
     ),
 );
@@ -73,16 +64,16 @@ function report_template_getrows_expectedresult(){
 * This example has been generated from the API test suite. The test that created it is called
 *
 * testReportTemplateGetRowsContactSummary and can be found in
-* http://svn.civicrm.org/civicrm/trunk/tests/phpunit/CiviTest/api/v3/ReportTemplateTest.php
+* https://github.com/civicrm/civicrm-core/blob/master/tests/phpunit/api/v3/ReportTemplateTest.php
 *
 * You can see the outcome of the API tests at
-* http://tests.dev.civicrm.org/trunk/results-api_v3
+* https://test.civicrm.org/job/CiviCRM-master-git/
 *
 * To Learn about the API read
-* http://book.civicrm.org/developer/current/techniques/api/
+* http://wiki.civicrm.org/confluence/display/CRMDOC/Using+the+API
 *
-* and review the wiki at
-* http://wiki.civicrm.org/confluence/display/CRMDOC/CiviCRM+Public+APIs
+* Browse the api on your own site with the api explorer
+* http://MYSITE.ORG/path/to/civicrm/api/explorer
 *
 * Read more about testing here
 * http://wiki.civicrm.org/confluence/display/CRM/Testing

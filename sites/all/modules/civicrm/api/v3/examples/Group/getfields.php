@@ -1,7 +1,7 @@
 <?php
 /**
  * Test Generated example of using group getfields API
- * demonstrate use of getfields to interogate api *
+ * demonstrate use of getfields to interrogate api *
  */
 function group_getfields_example(){
 $params = array(
@@ -30,7 +30,7 @@ function group_getfields_expectedresult(){
   $expectedResult = array(
   'is_error' => 0,
   'version' => 3,
-  'count' => 19,
+  'count' => 20,
   'values' => array(
       'id' => array(
           'name' => 'id',
@@ -62,6 +62,9 @@ function group_getfields_expectedresult(){
           'title' => 'Group Description',
           'rows' => 2,
           'cols' => 60,
+          'html' => array(
+              'type' => 'TextArea',
+            ),
         ),
       'source' => array(
           'name' => 'source',
@@ -86,8 +89,15 @@ function group_getfields_expectedresult(){
           'name' => 'visibility',
           'type' => 2,
           'title' => 'Group Visibility Setting',
+          'maxlength' => 24,
+          'size' => 20,
           'default' => 'User and User Admin Only',
-          'enumValues' => 'User and User Admin Only,Public Pages',
+          'html' => array(
+              'type' => 'Select',
+            ),
+          'pseudoconstant' => array(
+              'callback' => 'CRM_Core_SelectValues::groupVisibility',
+            ),
         ),
       'where_clause' => array(
           'name' => 'where_clause',
@@ -147,6 +157,12 @@ function group_getfields_expectedresult(){
           'title' => 'Group Created By',
           'FKClassName' => 'CRM_Contact_DAO_Contact',
         ),
+      'modified_id' => array(
+          'name' => 'modified_id',
+          'type' => 1,
+          'title' => 'Group Modified By',
+          'FKClassName' => 'CRM_Contact_DAO_Contact',
+        ),
     ),
 );
 
@@ -158,16 +174,16 @@ function group_getfields_expectedresult(){
 * This example has been generated from the API test suite. The test that created it is called
 *
 * testgetfields and can be found in
-* http://svn.civicrm.org/civicrm/trunk/tests/phpunit/CiviTest/api/v3/GroupTest.php
+* https://github.com/civicrm/civicrm-core/blob/master/tests/phpunit/api/v3/GroupTest.php
 *
 * You can see the outcome of the API tests at
-* http://tests.dev.civicrm.org/trunk/results-api_v3
+* https://test.civicrm.org/job/CiviCRM-master-git/
 *
 * To Learn about the API read
-* http://book.civicrm.org/developer/current/techniques/api/
+* http://wiki.civicrm.org/confluence/display/CRMDOC/Using+the+API
 *
-* and review the wiki at
-* http://wiki.civicrm.org/confluence/display/CRMDOC/CiviCRM+Public+APIs
+* Browse the api on your own site with the api explorer
+* http://MYSITE.ORG/path/to/civicrm/api/explorer
 *
 * Read more about testing here
 * http://wiki.civicrm.org/confluence/display/CRM/Testing

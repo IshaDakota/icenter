@@ -65,8 +65,7 @@
  * Run hook_views_data for active CiviCRM components
  */
 function civicrm_views_data_alter(&$data) {
-
-  if (!civicrm_initialize()) {
+  if (!civicrm_initialize() || CRM_Utils_System::isInUpgradeMode()) {
     return;
   }
 
@@ -373,8 +372,9 @@ function civicrm_views_get_join_table($entity_type) {
     case "Individual":
     case "Household":
     case "Organization":
-    case "Group":
       return 'civicrm_contact';
+    case "Group":
+      return 'civicrm_group';
     case "Address":
       return 'civicrm_address';
     case "Event":
@@ -441,6 +441,11 @@ function civicrm_views_get_field($data_type, $html_type = NULL) {
         'click sortable' => TRUE,
       );
     case "Float":
+      return array(
+        'handler' => 'views_handler_field_numeric',
+        'click sortable' => TRUE,
+        'float' => TRUE,
+      );
     case "Int":
       return array(
         'handler' => 'views_handler_field_numeric',

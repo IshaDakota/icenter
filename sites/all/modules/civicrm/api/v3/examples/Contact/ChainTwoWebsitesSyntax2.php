@@ -85,6 +85,8 @@ function contact_create_expectedresult(){
           'last_name' => 'xyz3',
           'prefix_id' => '',
           'suffix_id' => '',
+          'formal_title' => '',
+          'communication_style_id' => '',
           'email_greeting_id' => '1',
           'email_greeting_custom' => '',
           'email_greeting_display' => '',
@@ -133,11 +135,9 @@ function contact_create_expectedresult(){
                       'source' => 'SSF',
                       'amount_level' => '',
                       'contribution_recur_id' => '',
-                      'honor_contact_id' => '',
                       'is_test' => '',
                       'is_pay_later' => '',
                       'contribution_status_id' => '1',
-                      'honor_type_id' => '',
                       'address_id' => '',
                       'check_number' => '',
                       'campaign_id' => '',
@@ -187,16 +187,16 @@ function contact_create_expectedresult(){
 * This example has been generated from the API test suite. The test that created it is called
 *
 * testCreateIndividualWithContributionChainedArrays and can be found in
-* http://svn.civicrm.org/civicrm/trunk/tests/phpunit/CiviTest/api/v3/ContactTest.php
+* https://github.com/civicrm/civicrm-core/blob/master/tests/phpunit/api/v3/ContactTest.php
 *
 * You can see the outcome of the API tests at
-* http://tests.dev.civicrm.org/trunk/results-api_v3
+* https://test.civicrm.org/job/CiviCRM-master-git/
 *
 * To Learn about the API read
-* http://book.civicrm.org/developer/current/techniques/api/
+* http://wiki.civicrm.org/confluence/display/CRMDOC/Using+the+API
 *
-* and review the wiki at
-* http://wiki.civicrm.org/confluence/display/CRMDOC/CiviCRM+Public+APIs
+* Browse the api on your own site with the api explorer
+* http://MYSITE.ORG/path/to/civicrm/api/explorer
 *
 * Read more about testing here
 * http://wiki.civicrm.org/confluence/display/CRM/Testing
