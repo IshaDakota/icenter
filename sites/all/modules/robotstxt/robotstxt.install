@@ -14,6 +14,7 @@ function robotstxt_install() {
   // List of candidates for import.
   $files = array(
     DRUPAL_ROOT . '/robots.txt',
+    DRUPAL_ROOT . '/sites/default/default.robots.txt',
     drupal_get_path('module', 'robotstxt') . '/robots.txt',
   );
 
@@ -132,5 +133,17 @@ function robotstxt_update_7103() {
   $robotstxt = str_replace('http://www.sxw.org.uk/computing/robots/check.html', 'http://www.frobee.com/robots-txt-check', $robotstxt);
   variable_set('robotstxt', $robotstxt);
 
-  return t('Updated syntax changing links.');
+  return t('Updated syntax checking link.');
+}
+
+/**
+ * Update robots.txt link.
+ */
+function robotstxt_update_7104() {
+
+  $robotstxt = variable_get('robotstxt');
+  $robotstxt = str_replace('http://www.robotstxt.org/wc/robots.html', 'http://www.robotstxt.org/robotstxt.html', $robotstxt);
+  variable_set('robotstxt', $robotstxt);
+
+  return t('Updated robotstxt.org link.');
 }
