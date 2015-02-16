@@ -202,7 +202,7 @@ h2.views-field-title a:visited {
 .view-ds-protective_edge_resources .views-field-entity-id img,
 .view-id-protective_edge_resources .views-field-entity-id img,
 .view-id-protective_edge_resources .field-content img,
-.view-id-resources_israel_election field-content img,
+.view-id-resources_israel_election .field-content img,
 .view-currucular-taxonomy-term .views-field-entity-id img {
     float: left;
     display: block;
@@ -309,7 +309,7 @@ h2.views-field-title a:visited {
 
 
 
-#resources-israel-election .pane-1 p {
+#resources-israel-election .pane-2 p {
   font-size: 1.6em;
   font-style: italic;
   font-weight: 200;
