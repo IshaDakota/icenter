@@ -1,0 +1,15 @@
+name = Israel Election Page
+core = 7.x
+package = Features
+dependencies[] = ctools
+dependencies[] = ctools_custom_content
+dependencies[] = page_manager
+dependencies[] = views
+features[ctools][] = ctools_custom_content:ctools_content:1
+features[ctools][] = page_manager:pages_default:1
+features[ctools][] = views:views_default:3.0
+features[ctools_custom_content][] = israel_elections_image
+features[ctools_custom_content][] = israel_elections_intro
+features[features_api][] = api:1
+features[page_manager_pages][] = resources_for_the_israeli_election
+features[views_view][] = resources_israel_election

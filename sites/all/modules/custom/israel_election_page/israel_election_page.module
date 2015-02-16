@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Israel Election Page feature.
+ */
+
+include_once 'israel_election_page.features.inc';
