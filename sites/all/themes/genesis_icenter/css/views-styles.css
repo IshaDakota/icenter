@@ -202,6 +202,7 @@ h2.views-field-title a:visited {
 .view-ds-protective_edge_resources .views-field-entity-id img,
 .view-id-protective_edge_resources .views-field-entity-id img,
 .view-id-protective_edge_resources .field-content img,
+.view-id-resources_israel_election field-content img,
 .view-currucular-taxonomy-term .views-field-entity-id img {
     float: left;
     display: block;
@@ -219,6 +220,7 @@ h2.views-field-title a:visited {
 /* Spacing between Rows */
 .view-ds-protective-edge-resources .views-row,
 .view-id-protective_edge_resources .views-row,
+.view-id-resources_israel_election .views-row,
 .view-currucular-taxonomy-term .views-row {
     margin: 0 0 1.7em;
     clear: both;
@@ -226,7 +228,8 @@ h2.views-field-title a:visited {
 }
 
 .view-id-protective_edge_resources .views-field-body,
-.view-currucular-taxonomy-term .views-field-body {
+.view-currucular-taxonomy-term .views-field-body,
+.view-id-resources_israel_election .views-field-body {
   font-size: 1.2em;
 }
 
@@ -240,6 +243,9 @@ h2.views-field-title a:visited {
 .view-id-protective_edge_resources .views-field-title a,
 .view-id-protective_edge_resources .views-field-title a:hover,
 .view-id-protective_edge_resources .views-field-title a:visited,
+.view-id-resources_israel_election .views-field-title a,
+.view-id-resources_israel_election .views-field-title a:hover,
+.view-id-resources_israel_election .views-field-title a:visited,
 .view-currucular-taxonomy-term .views-field-title a,
 .view-currucular-taxonomy-term .views-field-title a:hover,
 .view-currucular-taxonomy-term .views-field-title a:visited {
