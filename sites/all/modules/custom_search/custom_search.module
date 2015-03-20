@@ -368,6 +368,7 @@ function custom_search_form_alter(&$form, &$form_state, $form_id) {
 
         // Form attributes.
         $form['#attributes']['class'] = array('search-form');
+        $form['#attributes']['role'] = 'search';
         if (!in_array('custom_search_submit', $form['#submit'])) {
           $form['#submit'][] = 'custom_search_submit';
         }
@@ -570,11 +571,13 @@ function custom_search_query_alter(QueryAlterableInterface $query) {
 function custom_search_block_view_alter(&$data, $block) {
   if ($block->module == 'facetapi') {
     $excluded_types = array_filter(variable_get('custom_search_' . variable_get('custom_search_delta', '') . 'node_types_excluded', array()));
-    foreach ($data['content']['bundle']["#items"] as $key => $item) {
-      // Find the type in the link.
-      preg_match('/<a(.*)href="(.*)bundle%3A(.*?)(&|")(.*)/', $item['data'], $matches);
-      // Exclude it if not needed.
-      if (in_array($matches[3], $excluded_types)) unset($data['content']['bundle']["#items"][$key]);
+    if (!empty($excluded_types) && isset($data['content']['bundle']) && is_array($data['content']['bundle']["#items"])) {
+      foreach ($data['content']['bundle']["#items"] as $key => $item) {
+        // Find the type in the link.
+        preg_match('/<a(.*)href="(.*)bundle%3A(.*?)(&|")(.*)/', $item['data'], $matches);
+        // Exclude it if not needed.
+        if (!empty($matches) && in_array($matches[3], $excluded_types)) unset($data['content']['bundle']["#items"][$key]);
+      }
     }
   }
 }

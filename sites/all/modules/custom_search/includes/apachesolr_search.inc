@@ -22,7 +22,7 @@ function _custom_search_apachesolr_search($variables, &$keys, $fields) {
 
   if (count($variables['types']) && !in_array('all', $variables['types'])) {
     foreach ($variables['types'] as $t) {
-      $keys['f[' . count($keys) . ']'] = 'bundle:' . $t;
+      $keys['fq[' . count($keys) . ']'] = 'bundle:' . $t;
     }
   }
 
@@ -38,7 +38,7 @@ function _custom_search_apachesolr_search($variables, &$keys, $fields) {
     // Build keys for taxonomy.
     foreach ($variables['terms'] as $t) {
       $vocid = taxonomy_term_load($t)->vid;
-      $keys['f[' . count($keys) . ']'] = 'im_' . $taxonomy_fields[$vocid] . ':' . $t;
+      $keys['fq[' . count($keys) . ']'] = 'im_' . $taxonomy_fields[$vocid] . ':' . $t;
     }
   }
 
