@@ -203,7 +203,8 @@ h2.views-field-title a:visited {
 .view-id-protective_edge_resources .views-field-entity-id img,
 .view-id-protective_edge_resources .field-content img,
 .view-id-resources_israel_election .field-content img,
-.view-currucular-taxonomy-term .views-field-entity-id img {
+.view-currucular-taxonomy-term .views-field-entity-id img,
+.view-id-clone_of_resources_yomim .views-field-entity-id img {
     float: left;
     display: block;
     margin: 0.3em 1.25em 0.5em 0;
@@ -221,7 +222,8 @@ h2.views-field-title a:visited {
 .view-ds-protective-edge-resources .views-row,
 .view-id-protective_edge_resources .views-row,
 .view-id-resources_israel_election .views-row,
-.view-currucular-taxonomy-term .views-row {
+.view-currucular-taxonomy-term .views-row,
+.view-id-clone_of_resources_yomim .views-row {
     margin: 0 0 1.7em;
     clear: both;
     min-height: 120px;
@@ -229,7 +231,8 @@ h2.views-field-title a:visited {
 
 .view-id-protective_edge_resources .views-field-body,
 .view-currucular-taxonomy-term .views-field-body,
-.view-id-resources_israel_election .views-field-body {
+.view-id-resources_israel_election .views-field-body,
+.view-id-clone_of_resources_yomim .views-field-body {
   font-size: 1.2em;
 }
 
@@ -248,7 +251,10 @@ h2.views-field-title a:visited {
 .view-id-resources_israel_election .views-field-title a:visited,
 .view-currucular-taxonomy-term .views-field-title a,
 .view-currucular-taxonomy-term .views-field-title a:hover,
-.view-currucular-taxonomy-term .views-field-title a:visited {
+.view-currucular-taxonomy-term .views-field-title a:visited,
+.view-id-clone_of_resources_yomim .views-field-title a,
+.view-id-clone_of_resources_yomim .views-field-title a:hover,
+.view-id-clone_of_resources_yomim .views-field-title a:visited {
     color: #383838;
 }
 
@@ -309,7 +315,8 @@ h2.views-field-title a:visited {
 
 
 
-#resources-israel-election .pane-2 p {
+#resources-israel-election .pane-2 p,
+#resources-yomim .pane-1 p {
   font-size: 1.6em;
   font-style: italic;
   font-weight: 200;
