@@ -204,7 +204,8 @@ h2.views-field-title a:visited {
 .view-id-protective_edge_resources .field-content img,
 .view-id-resources_israel_election .field-content img,
 .view-currucular-taxonomy-term .views-field-entity-id img,
-.view-id-clone_of_resources_yomim .views-field-entity-id img {
+.view-id-clone_of_resources_yomim .views-field-entity-id img,
+.view-id-clone_of_resources_yomim .views-field-picture img {
     float: left;
     display: block;
     margin: 0.3em 1.25em 0.5em 0;
